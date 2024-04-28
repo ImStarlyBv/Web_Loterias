@@ -1,0 +1,77 @@
+
+*{
+
+
+    margin: 0px;
+    padding: 0px;
+    
+    }
+
+
+.sesion{
+
+float: left;
+margin: 5px;
+border: 1px solid black;
+border-radius: 20px;
+padding: 5px;
+list-style-type: none
+
+}
+
+main{
+
+    margin-top: 100px;
+}
+nav {
+    margin: 20px;
+    padding: 1px;
+}
+.funciones button {
+
+
+width: 500px;
+height: 150px;
+border-radius: 30px;
+
+}
+
+.funciones {
+
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+}
+aside {
+
+
+    margin-top: 100px;
+
+
+}
+
+.Resultados{
+
+    
+    display: flex;
+  
+    gap: 30px;
+   
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los elementos horizontalmente. */
+  align-items: center; /* Centra los elementos verticalmente. */
+
+
+}
+.container {
+    flex: 1 0 23%; /* Cambia este valor al ancho deseado para cada elemento. */
+    max-width: 23%; /* Este valor debe coincidir con el valor anterior. */
+  }
+  .hidden{
+    display: none;
+
+
+  }
