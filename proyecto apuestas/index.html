@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="apuestas.css">
     <title>Document</title>
     <script type="module" defer src="./main.js"></script>
+    <script type="module" defer src="./modal.js"></script>
 </head>
 <body >
     
     <nav>
        
+
 
             <ul >
 
@@ -32,10 +34,24 @@
             <div class="funciones" >
                 
             <button>Soñaste algo?</button>
-            <button>Todas Las Loterias</button>
+            <button id="myBtn" >Todas Las Loterias</button>
                 
             
             </div>
+           
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Todas Las Loterias</p>
+    <div id="modalResults"></div>
+
+  </div>
+
+</div>
             <aside>
                
                 <div class="Resultados">

@@ -3,9 +3,11 @@ export default class ApiCallss {
 
 #url; 
 currentDate = new Date();
+
 constructor(url){
 
 this.#url = url
+
 
 
 } 
@@ -34,13 +36,15 @@ async fetchingTest() {
 
 }
 
- async results(date="", loterias = ['Loteria Nacional 8:50 PM',"Loto Real 12:55 PM",'Quiniela Pale Leidsa 8:55 PM / Dom 3:00 PM',"Quiniela Loteka 7:55 PM"] ){
+ async results(date="", loterias = localStorage.getItem("loterias") ){
     
+   if(!loterias||loterias=="undefined") loterias = ['Loteria Nacional 8:50 PM',"Loto Real 12:55 PM",'Quiniela Pale Leidsa 8:55 PM / Dom 3:00 PM',"Quiniela Loteka 7:55 PM"];
+   else loterias = JSON.parse(loterias);
    let hora = parseInt(new Date().getHours());
    let minutes = parseInt(new Date().getMinutes());
    
    console.log(hora);
-   let tipo = hora<20&&minutes<55?  "tarde":"noche";
+   let tipo = hora<20?  "tarde":"noche";
    console.log(tipo);
     let results = await this.fetchingTest();
    console.log(results);
@@ -56,12 +60,12 @@ async fetchingTest() {
       document.getElementsByClassName("Resultados")[0].innerHTML+= `<div class="container" name ="${x.descripcion}" id="${x.id}">  <div class="alerta hidden"><h1></h1></div>  <div class="horas"><button name="${x.id}" class="tarde">Tarde</button><button name="${x.id}" class="noche">Noche</button></div> <div class="resultsContainer"><h1>${x.descripcion}</h1> <div class="numHolder"><ul><li>${x.num1}</li><li>${x.num2}</li><li>${x.num3}</li></ul></div> </div>  </div>`
       
       let id = document.getElementById(x.id);
-      if(hora<15&&minutes<55){
+      if(tipo=="tarde" && hora<15&&minutes<55){
          id.childNodes[1].classList.remove("hidden");
          id.childNodes[1].innerHTML= `Aun no salen los numeros de loteria, esta viendo los resultados de ayer` 
 
       }
-      else if(hora<20&&minutes<55){
+      else if(tipo=="noche" && hora<20&&minutes<55){
          id.childNodes[1].classList.remove("hidden");
          id.childNodes[1].innerHTML= `Aun no salen los numeros de esta loteria, esta viendo los resultados de ayer` 
 
@@ -143,6 +147,71 @@ else if(tipo==="noche") {
    
       })
       return pear;
+      
+   
+   
+    }  );
+
+
+}
+
+
+
+
+}
+resultsFiltering(results,tipo ){
+
+   // let alerta = document.getElementsByClassName("alerta")[0];
+   // let hidden = Array.from(alerta.classList).includes("hidden");
+   
+console.log(results);
+   
+
+   if (tipo ==="tarde") {
+
+return results.filter(x=> {
+   
+   let dateChanged = false;
+   let created = new Date(x["created_at"])
+         // let hours = parseInt(created.getHours());
+         let date = parseInt(created.getDate());
+         let cDate = parseInt(this.currentDate.getDate());
+         let cHours = parseInt(this.currentDate.getHours());
+         // let cMinutes =  parseInt(this.currentDate.getMinutes());
+        
+         if(cHours<15&&cMinutes<55) {
+            
+            
+            cDate--;}
+   
+      
+            return date==cDate? true:false;
+    
+   
+   
+
+
+ }  );
+}
+
+else if(tipo==="noche") {
+   return results.filter(x=> {
+      let pear;
+      let dateChanged = false;
+    
+         
+         let created = new Date(x["created_at"])
+         // let hours = parseInt(created.getHours());
+         let date = parseInt(created.getDate());
+         let cDate = parseInt(this.currentDate.getDate());
+         let cHours = parseInt(this.currentDate.getHours());
+         let cMinutes =  parseInt(this.currentDate.getMinutes());
+         if(cHours<=19&& cMinutes<55) {
+            dateChanged=true;
+            cDate--;
+         }
+         
+         return date==cDate? true:false;
       
    
    
@@ -242,3 +311,4 @@ Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = ()
 
 }
 //{results[0]
+
