@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@azure/ai-language-text": "^1.1.0"
+  }
+}

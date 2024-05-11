@@ -1,0 +1,249 @@
+
+*{
+
+
+    margin: 0px;
+    padding: 0px;
+    
+    }
+
+
+.sesion{
+
+float: left;
+margin: 5px;
+border: 1px solid black;
+border-radius: 20px;
+padding: 5px;
+list-style-type: none
+
+}
+
+main{
+
+    margin-top: 100px;
+}
+nav  ul{
+    gap: 50px;
+}
+.funciones button {
+
+
+width: 500px;
+height: 150px;
+border-radius: 30px;
+
+}
+
+.funciones {
+
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+      justify-content: center;
+
+}
+aside {
+
+
+    margin-top: 100px;
+
+
+}
+
+.Resultados{
+
+    
+    /* display: flex; */
+  
+  /* width: 70%;
+  height: 75%;
+  margin: auto; */
+   
+    /* flex-wrap: wrap;
+    flex-direction: row; */
+    gap: 1px;
+    justify-content: space-evenly;
+    
+  
+     /* Centra los elementos horizontalmente. */
+   /* Centra los elementos verticalmente. */
+
+
+}
+
+
+
+
+
+
+
+.container {
+   
+    width: 40%; 
+    /* height: 70%; */
+    margin-bottom: 10%;
+   
+    
+    
+  }
+  .container h1 {
+   margin: auto;
+  
+   justify-content: center;
+
+  }
+  .resultsContainer{
+    border: 1px solid black;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: column; */
+    padding: 1.5%;
+    border-radius: 10%;
+   
+
+  }
+  .resultsContainer h1 {
+
+    width: 90%;
+
+    
+  }
+
+  .container .horas {
+    display: flex;
+  gap: 1%;
+ 
+   
+    flex-wrap: wrap;
+ 
+    justify-content: center;
+  }
+  .container .horas  button{
+    width: 25%;
+    height: 10%;
+    border-radius: 30%;
+  }
+
+
+  .hidden{
+    display: none;
+
+
+  }
+
+
+  /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 5%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #modalResults{
+
+    display: flex;
+  
+    gap: 30px;
+   
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los elementos horizontalmente. */
+  align-items: center; /* Centra los elementos verticalmente. */
+
+
+
+
+
+  }
+  #search{
+
+    width: 60%;
+    height: 40px;
+   margin-bottom: 3%;
+    border-radius: 5%;
+
+  }
+  .numHolder{
+
+    padding: 5%;
+  }
+  .numHolder ul {
+   
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+   
+    
+    text-align: center; */
+
+    list-style: none;
+
+  }
+  .numHolder ul li {
+    font-size: 150%;
+    /* width: 32%;
+    height: 30%; */
+    
+border: 1px solid black;
+border-radius: 50%;
+text-align: center;
+
+  }
+  h6{
+
+    text-align: center;
+  }
+  .searchContainer{
+    border-radius: 5%;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 50px;
+    gap: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    padding: 1%;
+    
+
+
+
+  }
+  .container button {
+    border: 1px solid black;
+
+  }
