@@ -47,9 +47,9 @@ async fetchingTest() {
    let date = parseInt(new Date().getDate());
    let minutes = parseInt(new Date().getMinutes());
    
-   console.log(hora);
+   
    let tipo = hora<18?  "tarde":"noche";
-   console.log(tipo);
+  
     let results = await this.fetchingTest();
    console.log(results);
     results = this.resultsFilter(results,tipo,loterias);
@@ -70,7 +70,7 @@ async fetchingTest() {
           <button name="${x.id}" class="noche btn btn-default display-6">Noche</button>
         </div>
         <div class="resultsContainer">
-          <h6 class="display-6" >${x.descripcion}</h6>
+          <h6 class="display-4" >${x.descripcion}</h6>
           <div class="numHolder">
             <ul class= "d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap" >
               <li class="p-2">${x.num1}</li>

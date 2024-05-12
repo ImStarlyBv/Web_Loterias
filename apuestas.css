@@ -4,9 +4,25 @@
 
     margin: 0px;
     padding: 0px;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+  
     
     }
+    .pacifico-regular {
+      font-family: "Pacifico", cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+.back{
 
+  background-image: url("./imgs/newback\ \(2\).jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .sesion{
 
@@ -75,7 +91,16 @@ aside {
 
 
 
+.navbar button h6{
 
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  
+  
+
+
+}
 
 
 
@@ -87,6 +112,12 @@ aside {
    
     
     
+  }
+  .container button {
+
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
   }
   .container h1 {
    margin: auto;
@@ -102,13 +133,16 @@ aside {
     flex-direction: column; */
     padding: 1.5%;
     border-radius: 10%;
+    background-image: url("./imgs/fondo-arena-dorada-brillo_116547-1674.jpg");
    
 
   }
-  .resultsContainer h1 {
+  .resultsContainer h6 {
 
-    width: 90%;
-
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    color: #8C0200;
     
   }
 
@@ -217,11 +251,13 @@ aside {
     font-size: 150%;
     /* width: 32%;
     height: 30%; */
+
     
 border: 1px solid black;
 border-radius: 50%;
 text-align: center;
-
+background-color: #8C0200;
+color: #E3B057;;
   }
   h6{
 
@@ -246,4 +282,13 @@ text-align: center;
   .container button {
     border: 1px solid black;
 
+  }
+  .container .tarde{
+background-color: #0B4839;
+    color: #E4A700;
+
+  }
+  .container .noche{
+    color: #E4A700;
+    background-color: #041831;
   }
