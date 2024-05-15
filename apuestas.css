@@ -4,9 +4,9 @@
 
     margin: 0px;
     padding: 0px;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
+    font-family: "Anton";
+    font-weight: 800;
+    font-style: normal;
   
     
     }
@@ -18,7 +18,15 @@
     
 .back{
 
-  background-image: url("./imgs/newback\ \(2\).jpg");
+  /* background-image: url("./imgs/newback\ \(2\).jpg"); */
+  background-color: #191970;
+
+
+
+
+
+
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,7 +45,7 @@ list-style-type: none
 
 main{
 
-    margin-top: 100px;
+    margin-top: 80px;
 }
 nav  ul{
     gap: 50px;
@@ -90,6 +98,43 @@ aside {
 }
 
 
+@media only screen and (max-width: 932px) {
+  
+  div.numHolder  {
+
+    align-items: center;
+
+
+  }
+  .container {
+   
+    width: 100% !important;
+   
+    /* height: 70%; */
+    margin-bottom: 10%;
+   
+    
+    
+  }
+
+  div.resultsContainer h6 {
+    font-size: 200% !important; /* Adjust as needed */
+  }
+
+  div.numHolder ul li {
+    font-size: 32px !important; /* Adjust as needed */
+    width: 30%;
+    
+  }
+
+  div.container div.horas button {
+    width: 30% !important; /* Adjust as needed */
+    height: 20% !important; /* Adjust as needed */
+    font-size: 150%;
+  }
+}
+
+
 
 .navbar button h6{
 
@@ -106,7 +151,8 @@ aside {
 
 .container {
    
-    width: 40%; 
+    width: 40%;
+   
     /* height: 70%; */
     margin-bottom: 10%;
    
@@ -116,8 +162,8 @@ aside {
   .container button {
 
     font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
+    
+   
   }
   .container h1 {
    margin: auto;
@@ -137,12 +183,15 @@ aside {
    
 
   }
+  
   .resultsContainer h6 {
+    padding: 5%;
 
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
+    font-family: "Anton";
+    font-weight: 400;
+    font-style: normal;
     color: #8C0200;
+    font-size: 300%;
     
   }
 
@@ -166,6 +215,12 @@ aside {
     display: none;
 
 
+  }
+  .alerta {
+
+    /* color: #E3B057;
+    font-size: 40px; */
+  
   }
 
 
@@ -231,8 +286,7 @@ aside {
 
   }
   .numHolder{
-
-    padding: 5%;
+    
   }
   .numHolder ul {
    
@@ -248,16 +302,19 @@ aside {
 
   }
   .numHolder ul li {
-    font-size: 150%;
-    /* width: 32%;
-    height: 30%; */
+    font-family: "Anton";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 65px;
+    
+ 
 
     
 border: 1px solid black;
 border-radius: 50%;
 text-align: center;
 background-color: #8C0200;
-color: #E3B057;;
+color: #E3B057;
   }
   h6{
 
@@ -281,14 +338,32 @@ color: #E3B057;;
   }
   .container button {
     border: 1px solid black;
+    padding: 3%;
+    gap: 1px;
+    font-family: "Anton";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 200%;
 
   }
   .container .tarde{
-background-color: #0B4839;
+  background-color: #8C0200;
+/* background-color: #0B4839; */
     color: #E4A700;
 
   }
   .container .noche{
     color: #E4A700;
+    /* background-color: #041831; */
+    background-color: #8C0200;
+  }
+  .hot{
+
+    width: 40%;
+    color: #E4A700;
+    margin: auto;
+    margin-bottom: 60px;
     background-color: #041831;
+    border-radius: 10%;
+    font-weight: 900;
   }

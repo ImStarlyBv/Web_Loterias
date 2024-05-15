@@ -62,20 +62,20 @@ async fetchingTest() {
  
       document.getElementsByClassName("Resultados")[0].innerHTML += `
       <div class="container container-fluid" name="${x.descripcion}" id="${x.id}">
-        <div class="alerta hidden">
+        <div class="alerta hidden alert alert-danger" role="alert">
           <h1></h1>
         </div>
-        <div class="horas d-flex justify-content-center">
-          <button name="${x.id}" class="tarde btn btn-default display-6">Tarde</button>
-          <button name="${x.id}" class="noche btn btn-default display-6">Noche</button>
+        <div class="horas d-flex justify-content-center flex-wrap">
+          <button name="${x.id}" class="tarde btn btn-default display-3 ">Tarde</button>
+          <button name="${x.id}" class="noche btn btn-default display-3">Noche</button>
         </div>
         <div class="resultsContainer">
-          <h6 class="display-4" >${x.descripcion}</h6>
+          <h6 class="" >${x.descripcion}</h6>
           <div class="numHolder">
-            <ul class= "d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap" >
-              <li class="p-2">${x.num1}</li>
-              <li class="p-2">${x.num2}</li>
-              <li class="p-2">${x.num3}</li>
+            <ul class= "d-flex  flex-md-row  justify-content-around flex-wrap" >
+              <li class="p-4 ">${x.num1}</li>
+              <li class="p-4">${x.num2}</li>
+              <li class="p-4">${x.num3}</li>
             </ul>
           </div>
         </div>
@@ -241,10 +241,10 @@ id.setAttribute('id',results[0].id);
 
 
 id.innerHTML = ` 
-<div class="alerta hidden">
+<div class="alerta hidden alert alert-danger" role="alert">
   <h1></h1>
 </div>
-<div class="horas d-flex flex-md-row flex-column justify-content-center">
+<div class="horas d-flex flex-md-row flex-column justify-content-center flex-wrap">
   <button name="${results[0].id}" class="tarde btn btn-default display-6">Tarde</button>
   <button name="${results[0].id}" class="noche btn btn-default display-6">Noche</button>
 </div>
@@ -252,9 +252,9 @@ id.innerHTML = `
   <h6 class="display-6">${results[0].descripcion}</h6>
   <div class="numHolder">
     <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap">
-      <li class="p-2">${results[0].num1}</li>
-      <li class="p-2">${results[0].num2}</li>
-      <li class="p-2">${results[0].num3}</li>
+      <li class="p-4 ">${results[0].num1}</li>
+      <li class="p-4 ">${results[0].num2}</li>
+      <li class="p-4 ">${results[0].num3}</li>
     </ul>
   </div>
 </div>
@@ -305,20 +305,20 @@ if (!hidden) alerta.classList.add("hidden");
 id.setAttribute('id',results[0].id);
    // console.log(id.getAttribute('name'));
    id.innerHTML = ` 
-   <div class="alerta hidden">
+   <div class="alerta hidden alert alert-danger" role="alert">
    <h1></h1>
  </div>
- <div class="horas d-flex flex-md-row flex-column justify-content-center">
-   <button name="${results[0].id}" class="tarde btn btn-default display-6">Tarde</button>
-   <button name="${results[0].id}" class="noche btn btn-default display-6">Noche</button>
+ <div class="horas d-flex flex-md-row flex-column justify-content-center ">
+   <button name="${results[0].id}" class="tarde btn btn-default ">Tarde</button>
+   <button name="${results[0].id}" class="noche btn btn-default ">Noche</button>
  </div>
  <div class="resultsContainer">
    <h6 class="display-6">${results[0].descripcion}</h6>
    <div class="numHolder">
      <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap">
-       <li class="p-2">${results[0].num1}</li>
-       <li class="p-2">${results[0].num2}</li>
-       <li class="p-2">${results[0].num3}</li>
+       <li class="p-4">${results[0].num1}</li>
+       <li class="p-4">${results[0].num2}</li>
+       <li class="p-4">${results[0].num3}</li>
      </ul>
    </div>
  </div> 
