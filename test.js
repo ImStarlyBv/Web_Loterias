@@ -315,7 +315,7 @@ id.setAttribute('id',results[0].id);
  <div class="resultsContainer">
    <h6 class="display-6">${results[0].descripcion}</h6>
    <div class="numHolder">
-     <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap">
+     <ul class="d-flex p-2 flex-md-row  justify-content-around flex-wrap">
        <li class="p-4">${results[0].num1}</li>
        <li class="p-4">${results[0].num2}</li>
        <li class="p-4">${results[0].num3}</li>

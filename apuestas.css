@@ -16,10 +16,20 @@
       font-style: normal;
     }
     
+    
 .back{
 
   /* background-image: url("./imgs/newback\ \(2\).jpg"); */
-  background-color: #191970;
+  background-color: #2E8B57;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,8 +57,36 @@ main{
 
     margin-top: 80px;
 }
+.navbar {
+  
+  /* background-color: #041831; */
+/* background-color: #8C0200 !important; */
+
+border: 10px solid black;
+/* background-color: #8C0200 !important; */
+background-image: url("./imgs/fondo-arena-dorada-brillo_116547-1674.jpg");
+  
+}
+.navbar button{
+  /* border: 5px solid black; */
+  border-radius: 5%;
+ 
+
+
+}
+.navbar h6 {
+
+  /* color: #E3B057; */
+  color: #8C0200;
+  font-family: "Poetsen One" !important;
+  font-weight: 800 !important;
+  font-style: normal;
+  font-size: 52px !important;
+  
+}
 nav  ul{
     gap: 50px;
+   margin: auto;
 }
 .funciones button {
 
@@ -98,8 +136,16 @@ aside {
 }
 
 
-@media only screen and (max-width: 932px) {
+@media only screen and (max-width: 1320px) {
   
+  .navbar h6 {
+
+    font-size: 32px !important;
+
+
+  }
+
+
   div.numHolder  {
 
     align-items: center;
@@ -138,10 +184,10 @@ aside {
 
 .navbar button h6{
 
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Anton";
   font-optical-sizing: auto;
-  font-weight: bold;
-  
+  font-weight: 400;
+  font-size: 42px !important;
   
 
 
@@ -161,7 +207,7 @@ aside {
   }
   .container button {
 
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Josefin Sans";
     
    
   }
@@ -187,11 +233,12 @@ aside {
   .resultsContainer h6 {
     padding: 5%;
 
-    font-family: "Anton";
+    /* font-family: "Anton" !important; */
+    font-family: "Poetsen One" !important;
     font-weight: 400;
     font-style: normal;
     color: #8C0200;
-    font-size: 300%;
+    font-size: 350%;
     
   }
 
@@ -208,6 +255,7 @@ aside {
     width: 25%;
     height: 10%;
     border-radius: 30%;
+    font-family: "Poetsen One" !important;
   }
 
 
@@ -302,7 +350,7 @@ aside {
 
   }
   .numHolder ul li {
-    font-family: "Anton";
+    font-family: "Poetsen One" !important;
     font-weight: 400;
     font-style: normal;
     font-size: 65px;
@@ -358,12 +406,13 @@ color: #E3B057;
     background-color: #8C0200;
   }
   .hot{
-
+    font-family: "Poetsen One" !important;
     width: 40%;
     color: #E4A700;
     margin: auto;
     margin-bottom: 60px;
-    background-color: #041831;
+    background-color: #8C0200;
+    /* background-color: #041831; */
     border-radius: 10%;
     font-weight: 900;
   }

@@ -139,7 +139,7 @@ export default class ModalApiCalls extends ApiCallss {
                 <div class="resultsContainer">
                   <h6 class="display-6">${x.descripcion}</h6>
                   <div class="numHolder">
-                    <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap numChild">
+                    <ul class="d-flex p-2 flex-md-row justify-content-around flex-wrap numChild">
                       <li class="p-2">${x.num1}</li>
                       <li class="p-2">${x.num2}</li>
                       <li class="p-2">${x.num3}</li>
