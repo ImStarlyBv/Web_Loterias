@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ready{
+            background-color: #ddd;
+            color: red;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body onload="ready()">
+
+    <div class="main">
+        <input type="text" id="input" placeholder="yoyoyo mrWhite">
+        <button class="add" onclick="test()">add</button>
+    </div>
+
+    <ul id="output"></ul>
+
+<script>
+    function test(){
+        var input = document.getElementById("input").value;
+        let compras = localStorage.getItem("compras");
+        if(!compras) compras = [];
+        else  compras = JSON.parse(compras);
+        compras.push(input);
+        window.localStorage.setItem("compras",JSON.stringify(compras)); 
+        ready();
+    }
+
+    function ready() {
+        var div = document.getElementById("output");
+        div.innerHTML = ''; // Limpiar el contenido existente antes de añadir los nuevos elementos
+        let compras = localStorage.getItem("compras");
+        if(!compras) compras = [];
+        else  compras = JSON.parse(compras); 
+        compras.forEach(element => {
+            let li = document.createElement("li");
+            li.name= element;
+            li.innerText = element;
+            div.appendChild(li);
+        });
+    }
+</script>
+
+</body>
+</html>
