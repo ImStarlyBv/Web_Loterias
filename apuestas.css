@@ -137,6 +137,12 @@ aside {
 
 
 @media only screen and (max-width: 1320px) {
+  .hot{
+
+    font-size: 32px !important;
+    width: 50% !important;
+
+  }
   
   .navbar h6 {
 
@@ -164,7 +170,7 @@ aside {
   }
 
   div.resultsContainer h6 {
-    font-size: 200% !important; /* Adjust as needed */
+    font-size: 230% !important; /* Adjust as needed */
   }
 
   div.numHolder ul li {
