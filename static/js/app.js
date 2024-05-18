@@ -1,25 +1,15 @@
-console.log("By: New UI")
+console.log("From: New UI")
 
-// Abrir modal de todas las loterias de forma automatica durante el desarrollo
 const btnShowAllLotteries = document.querySelector(".btn-show-all-lotteries")
 //btnShowAllLotteries.click()
-
-// Mostrar todas las loterias en modal
-
-/* btn.onclick = async function() {
-  modal.style.display = "block";
-  document.getElementsByClassName("Resultados")[0].innerHTML="";
-  await josue.feedModal() 
-
-}
-*/
 
 const API_URL = "https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM"
 const CURRENT_DATE = new Date();
 
-
 btnShowAllLotteries.addEventListener("click", async () => {
     //document.getElementsByClassName("Resultados")[0].innerHTML = "";
+    let modalLabel = document.querySelector("#exampleModalToggleLabel");
+    modalLabel.textContent = "Todas las loterias"
     await feedModal()
 })
 
@@ -51,7 +41,6 @@ async function feedModal(filter = "") {
     }
 
     results.forEach(x => {
-
         if (x.descripcion.includes("Tu Fecha") || x.descripcion.includes("El Quemaito") || x.descripcion.includes("Repartidera Megachance")) {
             document.querySelector(".modal-body").innerHTML += `
             <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
@@ -69,8 +58,6 @@ async function feedModal(filter = "") {
                             </div>
                         </div>
                     </div>`;
-
-
         }
         else {
             document.querySelector(".modal-body").innerHTML += `
@@ -96,8 +83,8 @@ async function feedModal(filter = "") {
                             </div>
                         </div>
                     </div>`;
-
         }
+
         let jhour = new Date(x["created_at"]).getHours();
         let jminutes = new Date(x["created_at"]).getMinutes();
         let id = document.getElementById(x.id);
@@ -109,16 +96,11 @@ async function feedModal(filter = "") {
             id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
             <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
             <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
-        </div>`
+            </div>`
             console.log(id.childNodes[1].innerHTML);
-
-
-
         }
-
-
-
     })
+
     Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
     Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
 }
@@ -126,21 +108,10 @@ async function feedModal(filter = "") {
 async function fetchingTest() {
     let p = await fetch(`${API_URL}`);
     let newJson = await p.json()
-    newJson.forEach(element => {
-
-    });
     return newJson;
-
 }
 
 function resultsFiltering(results, tipo) {
-
-    // let alerta = document.getElementsByClassName("alerta")[0];
-    // let hidden = Array.from(alerta.classList).includes("hidden");
-
-
-
-
     let filteredDescriptions = new Set();
 
     return results.filter(x => {
@@ -157,53 +128,23 @@ function resultsFiltering(results, tipo) {
         let cMinutes = parseInt(CURRENT_DATE.getMinutes());
 
         if (cHours < hours) {
-
-
             cDate--;
         }
 
         if (!filteredDescriptions.has(x.descripcion)) {
-
             if (date == cDate) {
                 console.log("filtered " + x.descripcion);
                 filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
                 pear = true;
             }
-
         }
-
         return pear;
-
-
-
-
-
     });
-
-
-
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Resultados principales (loterias mas populares)
-
-async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa", "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale", "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
+async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa", "Quiniela LoteDom",
+    "La primera", "la suerte", "New York", "Florida", "Quiniela Pale", "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
     //["Loto Real", "Lotería Nacional", "Loteria Nacional","King Lottery", "King Lottery", "Leidsa","Quiniela LoteDom","La primera"]
     let resultadoss = document.getElementsByClassName("Resultados")[0];
     resultadoss.innerHTML = "";
@@ -214,7 +155,6 @@ async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lotter
     let date = parseInt(new Date().getDate());
     let minutes = parseInt(new Date().getMinutes());
 
-
     let tipo = hora < 18 ? "tarde" : "noche";
 
     let results = await fetchingTest();
@@ -222,11 +162,7 @@ async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lotter
     results = resultsFilter(results, tipo, loterias);
     console.log(results);
 
-
-
     results.forEach(x => {
-
-
         document.getElementsByClassName("Resultados")[0].innerHTML += `
         <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
         <div class="alerta hidden">
@@ -251,15 +187,11 @@ async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lotter
                     </div>
                 </div>`;
 
-
-
-
         let jhour = new Date(x["created_at"]).getHours();
         let jminutes = new Date(x["created_at"]).getMinutes();
         let jdate = new Date(x["created_at"]).getDate();
         let id = document.getElementById(x.id);
         console.log("here you go" + minutes + "waos" + jminutes);
-
 
         if (date !== jdate) {
             console.log("here");
@@ -272,16 +204,11 @@ async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lotter
         </div>`
             removerLoadding()
             //console.log(id.childNodes[1].innerHTML);
-
+            alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loadding")
         }
-
-
-
     })
     Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
     Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
-
-
 }
 
 async function tarde() {
@@ -292,42 +219,37 @@ async function tarde() {
 
     let id = document.getElementById(event.target.name)
     try {
-        let results = await this.fetchingTest();
+        let results = await fetchingTest();
 
-        results = this.resultsFilter(results, "tarde", [id.getAttribute('name').split(" ").slice(0, 2).join(" ")]);
+        results = resultsFilter(results, "tarde", [id.getAttribute('name').split(" ").slice(0, 2).join(" ")]);
         console.log(results);
         // console.log(id.getAttribute('name'));
 
         id.setAttribute('name', results[0].descripcion);
         id.setAttribute('id', results[0].id);
 
-
-
-
-
         id.innerHTML = ` 
- <div class="alerta hidden alert alert-danger" role="alert">
-   <h1></h1>
- </div>
- <div class="horas d-flex flex-md-row flex-column justify-content-center flex-wrap">
-   <button name="${results[0].id}" class="tarde btn btn-default display-6">Tarde</button>
-   <button name="${results[0].id}" class="noche btn btn-default display-6">Noche</button>
- </div>
- <div class="resultsContainer">
-   <h6 class="display-6">${results[0].descripcion}</h6>
-   <div class="numHolder">
-     <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap">
-       <li class="p-4 ">${results[0].num1}</li>
-       <li class="p-4 ">${results[0].num2}</li>
-       <li class="p-4 ">${results[0].num3}</li>
-     </ul>
-   </div>
- </div>
- 
-  `;
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
-        
+            <div class="alerta hidden alert alert-danger" role="alert">
+            <h1></h1>
+            </div>
+            <div class="horas d-flex flex-md-row flex-column justify-content-center flex-wrap">
+            <button name="${results[0].id}" class="tarde btn btn-default display-6">Tarde</button>
+            <button name="${results[0].id}" class="noche btn btn-default display-6">Noche</button>
+            </div>
+            <div class="resultsContainer">
+            <h6 class="display-6">${results[0].descripcion}</h6>
+            <div class="numHolder">
+                <ul class="d-flex p-2 flex-md-row flex-column justify-content-around flex-wrap">
+                <li class="p-4 ">${results[0].num1}</li>
+                <li class="p-4 ">${results[0].num2}</li>
+                <li class="p-4 ">${results[0].num3}</li>
+                </ul>
+            </div>
+            </div>`;
+
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
+
         let hora = parseInt(new Date().getHours());
         let minutes = parseInt(new Date().getMinutes());
         let jhora = parseInt(new Date(results[0]["created_at"]).getHours());
@@ -341,16 +263,12 @@ async function tarde() {
 
             id.childNodes[1].classList.remove("hidden");
             id.childNodes[1].innerHTML = `Aun no salen los numeros de ${targetName}, esta viendo los resultados de ayer`
-
         }
     }
     catch (e) {
         alerta.classList.remove("hidden");
         alerta.innerHTML = (`Esta loteria no tiene numeros en la ${targetName}`)
-
-
     }
-
 }
 
 async function noche() {
@@ -362,35 +280,35 @@ async function noche() {
 
     let id = document.getElementById(event.target.name)
     try {
-        let results = await this.fetchingTest();
+        let results = await fetchingTest();
 
-        results = this.resultsFilter(results, "noche", [id.getAttribute('name').split(" ").slice(0, 2).join(" ")]);
+        results = resultsFilter(results, "noche", [id.getAttribute('name').split(" ").slice(0, 2).join(" ")]);
         console.log(results);
 
         id.setAttribute('name', results[0].descripcion);
         id.setAttribute('id', results[0].id);
         // console.log(id.getAttribute('name'));
         id.innerHTML = ` 
-    <div class="alerta hidden alert alert-danger" role="alert">
-    <h1></h1>
-  </div>
-  <div class="horas d-flex flex-md-row flex-column justify-content-center ">
-    <button name="${results[0].id}" class="tarde btn btn-default ">Tarde</button>
-    <button name="${results[0].id}" class="noche btn btn-default ">Noche</button>
-  </div>
-  <div class="resultsContainer">
-    <h6 class="display-6">${results[0].descripcion}</h6>
-    <div class="numHolder">
-      <ul class="d-flex p-2 flex-md-row  justify-content-around flex-wrap">
-        <li class="p-4">${results[0].num1}</li>
-        <li class="p-4">${results[0].num2}</li>
-        <li class="p-4">${results[0].num3}</li>
-      </ul>
-    </div>
-  </div> 
-     `;
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
+            <div class="alerta hidden alert alert-danger" role="alert">
+            <h1></h1>
+        </div>
+        <div class="horas d-flex flex-md-row flex-column justify-content-center ">
+            <button name="${results[0].id}" class="tarde btn btn-default ">Tarde</button>
+            <button name="${results[0].id}" class="noche btn btn-default ">Noche</button>
+        </div>
+        <div class="resultsContainer">
+            <h6 class="display-6">${results[0].descripcion}</h6>
+            <div class="numHolder">
+            <ul class="d-flex p-2 flex-md-row  justify-content-around flex-wrap">
+                <li class="p-4">${results[0].num1}</li>
+                <li class="p-4">${results[0].num2}</li>
+                <li class="p-4">${results[0].num3}</li>
+            </ul>
+            </div>
+        </div>`;
+
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
         let hora = parseInt(new Date().getHours());
         let minutes = parseInt(new Date().getMinutes());
         let jhora = parseInt(new Date(results[0]["created_at"]).getHours());
@@ -400,27 +318,20 @@ async function noche() {
         if (hora < jhora) {
             id.childNodes[1].classList.remove("hidden");
             id.childNodes[1].innerHTML = `Aun no salen los numeros de ${targetName}, esta viendo los resultados de ayer`
-
         }
     }
     catch (e) {
         alerta.classList.remove("hidden");
         alerta.innerHTML = (`Esta loteria no tiene numeros en la ${targetName}`)
-
-
     }
-
-
 }
 
-function resultsFilter(results, tipo, loterias) {
 
+function resultsFilter(results, tipo, loterias) {
     // let alerta = document.getElementsByClassName("alerta")[0];
     // let hidden = Array.from(alerta.classList).includes("hidden");
 
     console.log(results);
-
-
 
     let filteredDescriptions = new Set(); // Usamos un Set para almacenar descripciones únicas
 
@@ -453,19 +364,11 @@ function resultsFilter(results, tipo, loterias) {
                         filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
                         pear = true;
                     }
-
                 }
             }
         });
         return pear;
     });
-
-
-
-
-
-
-
 }
 
 function removerLoadding() {
@@ -473,6 +376,37 @@ function removerLoadding() {
     document.querySelector(".loadding-container").remove()
 }
 
+// Suscribe
+
+const btnSuscribe = document.querySelector(".btn-suscribe")
+//btnSuscribe.click()
+
+btnSuscribe.addEventListener("click", (e) => {
+    e.preventDefault()
+
+    let modalBody = document.querySelector(".modal-body");
+    let modalLabel = document.querySelector("#exampleModalToggleLabel");
+    modalLabel.textContent = "Suscribete"
+    modalBody.innerHTML = `<form action="" class="register-form flex">
+    <label for="">Ingrese su correo electrónico</label>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">@</span>
+            <input type="text" class="form-control" placeholder="ejemplo@ejemplo.com" aria-label="ejemplo@ejemplo.com"
+            aria-describedby="addon-wrapping">
+        </div>
+        <button type="submit" class="btn btn-success btn-register">Registrar</button>
+    </form>`
+
+    registerSimulator()
+})
+
+function registerSimulator() {
+    document.querySelector(".btn-register").addEventListener("click", (e) => {
+        e.preventDefault()
+
+        alert("Hay que poner un regex\nPero supangamos que ya te registraste")
+    })
+}
 
 // Mostrar resultados de las mas populares al inicio
 document.body.onload = (async () => results());

@@ -2,9 +2,9 @@ body {
     background-color: var(--green-casino-original);
 }
 
-/* Modal de todas las loterias */
+/* Modal */
 .modal-header {
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
 }
 
 .search-lottery {
@@ -166,14 +166,6 @@ header a {
     }
 }
 
-/* Responsive */
-
-@media only screen and (max-width: 450px) {
-    .most-popular-lotteries .Resultados {
-        grid-template-columns: 100%;
-    }
-}
-
 /* Loadding */
 
 .loadding-container {
@@ -222,4 +214,29 @@ footer {
     color: var(--light);
     padding: var(--distance-xxl);
     text-align: center;
+}
+
+/* Formulario para registrarse */
+
+.register-form {
+    /*border: 1px solid red;*/
+    flex-direction: column;
+    gap: var(--distance-s);
+}
+
+.register-form .btn-register {
+    width: fit-content;
+    padding: var(--distance-s) var(--distance-xl);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 450px) {
+    .most-popular-lotteries .Resultados {
+        grid-template-columns: 100%;
+    }
+    
+    .register-form .btn-register {
+        width: var(--distance-total);
+    }
 }
