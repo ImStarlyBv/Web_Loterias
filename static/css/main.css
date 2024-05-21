@@ -15,7 +15,8 @@
     /* Specific dimentions */
     --numbers-dimention: 2.5em; /*80px*/
     --logo-dimention: 60px; /*70px*/
-    --loadding-dimention: 50px; /*80px*/
+    --loading-dimention: 50px; /*80px*/
+    --fz-inp-erorr: 14px;
 
     /* Colors */
     --light: #e6e6e6;
@@ -27,6 +28,8 @@
     --green-casino: #285859;
     --green-casino-2: #686F0E;
     --dark-casino: #110606;
+
+    --red: #d10000;
     
     /* Max values */
     /* Height 1200, 1400, >1440<, 1600 */
@@ -126,4 +129,13 @@ p {
     -moz-transition: var(--slow-transition);
     -ms-transition: var(--slow-transition);
     -o-transition: var(--slow-transition);
+}
+
+.error {
+    color: var(--red);
+    font-size: var(--fz-inp-erorr);
+}
+
+.hidden {
+    display: none;
 }
