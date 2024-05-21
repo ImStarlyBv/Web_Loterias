@@ -1,5 +1,12 @@
 console.log("From: New UI")
 
+alert("La linea de arriba no debe estar, es solo que el loading no desaparece poruqe creo que hay problema con la api para cargar los datos.")
+removerloading()
+
+const modalBody = document.querySelector(".modal-body")
+const modalLabel = document.querySelector("#exampleModalToggleLabel")
+//let selectLotteryForNotification = []
+
 const btnShowAllLotteries = document.querySelector(".btn-show-all-lotteries")
 //btnShowAllLotteries.click()
 
@@ -8,7 +15,6 @@ const CURRENT_DATE = new Date();
 
 btnShowAllLotteries.addEventListener("click", async () => {
     //document.getElementsByClassName("Resultados")[0].innerHTML = "";
-    let modalLabel = document.querySelector("#exampleModalToggleLabel");
     modalLabel.textContent = "Todas las loterias"
     await feedModal()
 })
@@ -16,8 +22,7 @@ btnShowAllLotteries.addEventListener("click", async () => {
 async function feedModal(filter = "") {
 
     console.log("Funcion feedModal")
-    let resultadoss = document.querySelector(".modal-body");
-    resultadoss.innerHTML = "";
+    modalBody.innerHTML = "";
     console.log(filter);
     console.log("here");
     let hora = parseInt(new Date().getHours());
@@ -42,7 +47,7 @@ async function feedModal(filter = "") {
 
     results.forEach(x => {
         if (x.descripcion.includes("Tu Fecha") || x.descripcion.includes("El Quemaito") || x.descripcion.includes("Repartidera Megachance")) {
-            document.querySelector(".modal-body").innerHTML += `
+            modalBody.innerHTML += `
             <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
             <div class="alerta hidden">
                 <h1></h1>
@@ -60,7 +65,7 @@ async function feedModal(filter = "") {
                     </div>`;
         }
         else {
-            document.querySelector(".modal-body").innerHTML += `
+            modalBody.innerHTML += `
             <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
             <div class="alerta hidden">
                 <h1></h1>
@@ -202,9 +207,10 @@ async function results(loterias = ["Loto Real", "Loteria Nacional", "King Lotter
             <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
             <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
         </div>`
-            removerLoadding()
             //console.log(id.childNodes[1].innerHTML);
-            alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loadding")
+
+            removerloading()
+            alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loading")
         }
     })
     Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
@@ -349,6 +355,8 @@ function resultsFilter(results, tipo, loterias) {
 
         loterias.forEach((y) => {
             let descriptionn = x.descripcion.split(" ").slice(0, 2).join(" ");
+            //selectLotteryForNotification.push(x.descripcion)
+            
             if (!filteredDescriptions.has(x.descripcion)) {
                 // Verificamos si la descripción ya está en el Set
                 if (tipo == "tarde") {
@@ -367,13 +375,14 @@ function resultsFilter(results, tipo, loterias) {
                 }
             }
         });
+
         return pear;
     });
 }
 
-function removerLoadding() {
-    //alert("Eliminar el loadding")
-    document.querySelector(".loadding-container").remove()
+function removerloading() {
+    //alert("Eliminar el loading")
+    document.querySelector(".loading-container").remove()
 }
 
 // Suscribe
@@ -384,29 +393,62 @@ const btnSuscribe = document.querySelector(".btn-suscribe")
 btnSuscribe.addEventListener("click", (e) => {
     e.preventDefault()
 
-    let modalBody = document.querySelector(".modal-body");
-    let modalLabel = document.querySelector("#exampleModalToggleLabel");
     modalLabel.textContent = "Suscribete"
     modalBody.innerHTML = `<form action="" class="register-form flex">
-    <label for="">Ingrese su correo electrónico</label>
+    <label for="inp-email">Ingrese su correo electrónico</label>
         <div class="input-group flex-nowrap">
             <span class="input-group-text" id="addon-wrapping">@</span>
-            <input type="text" class="form-control" placeholder="ejemplo@ejemplo.com" aria-label="ejemplo@ejemplo.com"
-            aria-describedby="addon-wrapping">
-        </div>
+            <input type="text" class="form-control" id="inp-email" placeholder="ejemplo@ejemplo.com" aria-label="ejemplo@ejemplo.com" aria-describedby="addon-wrapping">
+            </div>
+            <span class="error inp-error hidden">Debe introducir un correo válido</span>
         <button type="submit" class="btn btn-success btn-register">Registrar</button>
     </form>`
 
     registerSimulator()
 })
 
+const subscribedEmail = "ya@existe.com"
+
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+function inpSuscribeError(input, message) {
+    input.classList.add("is-invalid")
+    message.classList.remove("hidden")
+}
+
 function registerSimulator() {
     document.querySelector(".btn-register").addEventListener("click", (e) => {
         e.preventDefault()
 
-        alert("Hay que poner un regex\nPero supangamos que ya te registraste")
+        const inpEmail = document.querySelector("#inp-email")
+        const inpError = document.querySelector(".inp-error")
+
+        if (inpEmail.value == subscribedEmail) {
+            alert("Error\n\nEl correo ingresado ya está registrado\n\nNo se si ponerlo poruqe puede ser una vulnerabilidad de seguridad XD\n\nSi se deja este mensaje ponerlo en el span de error")
+            inpSuscribeError(inpEmail, inpError)
+            return
+        }
+
+        if (isValidEmail(inpEmail.value)) {
+            inpEmail.classList.remove("is-invalid")
+            inpEmail.classList.add("is-valid")
+            inpError.classList.add("hidden")
+            alert("Exito\n\nCorreo válido para registrarse")
+        } else {
+            //alert("Error\n\nCorreo no válido para registrarse")
+            inpSuscribeError(inpEmail, inpError)
+        }
     })
 }
 
 // Mostrar resultados de las mas populares al inicio
 document.body.onload = (async () => results());
+
+
+// setTimeout(() => {
+//     console.log(selectLotteryForNotification.length)
+//     console.log(selectLotteryForNotification)
+// }, 5000)

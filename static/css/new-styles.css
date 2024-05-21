@@ -5,11 +5,26 @@ body {
 /* Modal */
 .modal-header {
     /*border: 1px solid blue;*/
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--bs-modal-bg); /* Variable ce boostrap */
+}
+
+.header-top {
+    /*border: 1px solid red;*/
+    width: var(--distance-total);
+}
+
+.search-container {
+    /*border: 1px solid green;*/
+    width: 100%;
+    padding-top: var(--distance-m);
 }
 
 .search-lottery {
     /*border: 1px solid red;*/
-    flex-grow: 1;
 }
 
 .search-lottery #inp-search {
@@ -166,9 +181,9 @@ header a {
     }
 }
 
-/* Loadding */
+/* loading */
 
-.loadding-container {
+.loading-container {
     height: 100vh;
     width: 100%;
     position: fixed;
@@ -178,16 +193,16 @@ header a {
     left: 0;
 }
 
-.loadding {
-    height: var(--loadding-dimention);
-    width: var(--loadding-dimention);
+.loading {
+    height: var(--loading-dimention);
+    width: var(--loading-dimention);
     border: var(--distance-s) solid var(--yellow-casino);
     border-top-color: var(--green-casino-original);
-    animation: loadding 1.5s ease infinite linear;
-    -webkit-animation: loadding 1.5s infinite linear;
+    animation: loading 1.5s ease infinite linear;
+    -webkit-animation: loading 1.5s infinite linear;
 }
 
-@keyframes loadding {
+@keyframes loading {
     from {
         transform: rotate(0deg);
         -webkit-transform: rotate(0deg);
