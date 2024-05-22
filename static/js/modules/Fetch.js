@@ -20,15 +20,15 @@ export default class Fetch {
         return newJson;
     }
 
-    async feedModalWithAlllotteries(filter = "") {
+    async feedModalWithAlllotteries(filter) {
         //this.uiControls.modalBody.innerHTML = "";
 
-        this.uiControls.searchContainer.innerHTML = `<div class="search-lottery">
+        /*this.uiControls.searchContainer.innerHTML = `<div class="search-lottery">
         <form>
             <label for="inp-search">Buscar loterias</label>
             <input type="text" id="inp-search" class="cr-s" placeholder="Nombre de loterias">
         </form>
-        </div>`
+        </div>`*/
 
         console.log("Funcion feedModal")
         console.log(filter);
@@ -41,16 +41,20 @@ export default class Fetch {
         let results = await this.fetchingTest();
         results = await this.resultsFiltering(results, tipo);
 
-        if (filter.length > 0) {
-            let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
-            results = await results.filter(x => {
-                if (regex.test(x["descripcion"].toLocaleLowerCase())) { // Si la descripción contiene la palabra buscada
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
+        if (filter) {
+            this.uiControls.modalBody.innerHTML = ""
+
+            if (filter.length > 0) {
+                let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
+                results = await results.filter(x => {
+                    if (regex.test(x["descripcion"].toLocaleLowerCase())) { // Si la descripción contiene la palabra buscada
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+            }
         }
 
         results.forEach(x => {
@@ -119,8 +123,9 @@ export default class Fetch {
     }
 
     // Resultados principales (loterias mas populares)
-    async mainResults(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa", "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida",
-        "Quiniela Pale", "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
+    async mainResults(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa",
+        "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale",
+        "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
         //["Loto Real", "Lotería Nacional", "Loteria Nacional","King Lottery", "King Lottery", "Leidsa","Quiniela LoteDom","La primera"]
         //let resultadoss = document.getElementsByClassName("Resultados")[0];
         this.uiControls.$(".Resultados").innerHTML = "";
