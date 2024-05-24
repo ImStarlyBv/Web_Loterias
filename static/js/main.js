@@ -8,7 +8,7 @@ const fetch = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU
 //const loading = new Loading()
 const uiControls = new UiControls()
 const suscribe = new Suscribe()
-const searchLottery = new SearchLottery()
+const searchLottery = new SearchLottery(fetch)
 
 
 

@@ -7,7 +7,6 @@ export default class Fetch {
 
         this.API_URL = API_URL
 
-
         this.uiControls = new UiControls()
         this.loading = new Loading()
 
@@ -21,15 +20,6 @@ export default class Fetch {
     }
 
     async feedModalWithAlllotteries(filter) {
-        //this.uiControls.modalBody.innerHTML = "";
-
-        /*this.uiControls.searchContainer.innerHTML = `<div class="search-lottery">
-        <form>
-            <label for="inp-search">Buscar loterias</label>
-            <input type="text" id="inp-search" class="cr-s" placeholder="Nombre de loterias">
-        </form>
-        </div>`*/
-
         console.log("Funcion feedModal")
         console.log(filter);
         console.log("here");
@@ -54,6 +44,16 @@ export default class Fetch {
                         return false;
                     }
                 });
+            }
+
+            // Sin resultados // results es un array de objetos
+            //alert(results)
+            //alert(JSON.stringify(results))
+            //alert(results.length)
+            if (results.length === 0) {
+                this.uiControls.modalBody.innerHTML = `
+                    <h2 style="color: var(--red);">No se encontraron resultados sobre "${filter}"</h2>
+                `
             }
         }
 

@@ -5,7 +5,7 @@ export default class SearchLottery {
 
     search(searching) {
         console.log(searching)
-        fetch.feedModalWithAlllotteries(searching)
+        this.fetch.feedModalWithAlllotteries(searching)
     }
 
     // NO USADO, BORRAR

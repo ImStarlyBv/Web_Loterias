@@ -8,7 +8,19 @@ export default class Suscribe {
         <label for="inp-email">Ingrese su correo electrónico</label>
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="addon-wrapping">@</span>
-                <input type="text" class="form-control" id="inp-email" placeholder="ejemplo@ejemplo.com" aria-label="ejemplo@ejemplo.com" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" id="inp-email" placeholder="ejemplo" aria-label="ejemplo@ejemplo.com" aria-describedby="addon-wrapping" style="    flex-grow: 5;">
+
+                <select class="form-select" aria-label="Default select example">
+                <option value="gmail" selected>@gmail</option>
+                <option value="yahoo">@yahoo</option>
+                <option value="outlook">@outlook</option>
+                <option value="hotmail">@hotmail</option>
+                </select>
+
+                <select class="form-select" aria-label="Default select example">
+                <option value="com" selected>.com</option>
+                <option value="es">.es</option>
+                </select>
                 </div>
                 <span class="error inp-error hidden">Mensaje de error</span>
             <button type="submit" class="btn btn-success btn-register">Registrar</button>
