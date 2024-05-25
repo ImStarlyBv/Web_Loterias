@@ -3,6 +3,7 @@ export default class LotteryCard {
         console.log("Esto es de LotteryCard class")
     }
 
+    // Componente carta para las loterías que solo contienen un número
     cardOneNumber(cardInfo) {
         const card = `
         <div class="lottery cr-l flex-center " name="${cardInfo.descripcion}" id="${cardInfo.id}">
@@ -24,6 +25,7 @@ export default class LotteryCard {
         return card
     }
 
+    // Componente carta para las loterías que contienen tres números
     cardThreeNumbers(cardInfo) {
         const card = `
         <div class="lottery cr-l flex-center " name="${cardInfo.descripcion}" id="${cardInfo.id}">

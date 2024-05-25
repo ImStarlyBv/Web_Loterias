@@ -2,6 +2,11 @@ export default class UiControls {
     constructor() {
         console.log("Esto es de UiControls class")
 
+        /**
+         * Función para evitar repetir código al momento de seleccionar un elemento de DOM.
+         * @param {HTMLElement} selector - Elemento a seleccionar por su atributo class, id o etiqueta HTML
+         * @returns Elemento seleccionado
+         */
         this.$ = (selector) => {
             // Selecciona todos los elementos que coinciden con el selector
             const elements = document.querySelectorAll(selector)
@@ -20,6 +25,11 @@ export default class UiControls {
         this.btnSuscribe = this.$(".btn-suscribe")
     }
 
+    /**
+     * Función para seleccionar un elemento de DOM recién agregado.
+     * @param {HTMLElement} element - Elemento a seleccionar por su atributo class, id o etiqueta HTML
+     * @returns Elemento seleccionado
+     */
     selectNewlyAddedItem(element) {
         const elements = document.querySelectorAll(element)
         return elements.length === 1 ? elements[0] : elements

@@ -7,13 +7,10 @@ const fetch = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU
 
 const form = uiControls.$(".select-lotteries form")
 
-
-// Obtener todas las loterias para seleccionar las deseadas a notificar
+// Obtener todas las loterias existentes para seleccionar las deseadas a notificar
 await fetch.getAllLotteriesForNotification()
 
-
-
-
+// Crear las mini card para seleccionar las loterias deseadas a notificar
 function createCheckbox() {
     fetch.loteriesNotification.allLoteries.forEach(lottery => {
         //console.log(lottery)
@@ -23,18 +20,15 @@ function createCheckbox() {
         const newLabel = document.createElement("label")
         newLabel.innerHTML = lottery.descripcion
 
-        
+
         const newCheckbox = document.createElement("input")
         newCheckbox.type = "checkbox"
         newCheckbox.id = `lottery-${lottery.id}`
-        
+
         newLabel.appendChild(newCheckbox)
         newMiniCard.append(newCheckbox, newLabel)
         form.appendChild(newMiniCard)
     })
-
-
-
     //console.log(fetch.loteriesNotification.allLoteries[0])
 }
 

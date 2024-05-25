@@ -1,4 +1,3 @@
-//import UiControls from "./UiControls.js"
 import Loading from "./Loading.js"
 import LotteryCard from "./LotteryCard.js"
 import LoteriesNotification from "./LoteriesNotification.js"
@@ -224,6 +223,13 @@ export default class Fetch {
         });
     }
 
+    /**
+     * Introducir en el array "allLoteries" de la clase "LoteriesNotification" todas las loterias
+     * sin repeticiones.
+     * 
+     * La función está en desarrollo, por eso todos los comentarios a continuación
+     */
+
     async getAllLotteriesForNotification() {
         const allLoteries = await fetch(`${this.API_URL}`);
         let newJson = await allLoteries.json()
@@ -236,6 +242,10 @@ export default class Fetch {
         console.log(`Inicio de array = ${this.loteriesNotification.allLoteries}`)
         console.log(`Total de articulos = ${this.loteriesNotification.allLoteries.length}\n\n\n`)
 
+        /* Se recorre la variable "newJson" con el metodo "map", dando como resultado de cada
+        * iteración un objeto llamado "lottery"
+        */
+        
         newJson.map((lottery, i) => {
             /* Desde aki sin objeto
             //console.log(lottery.descripcion)
@@ -266,6 +276,7 @@ export default class Fetch {
             console.log(`\t\tupdated_at = ${lottery.updated_at}\n\n\n`)
 
             // Agregando elementos al array para notificaciones
+
             //this.loteriesNotification.allLoteries.push(lottery.id)
             if (!this.loteriesNotification.allLoteries.includes(lottery.descripcion)) {
                 this.loteriesNotification.allLoteries.push(
