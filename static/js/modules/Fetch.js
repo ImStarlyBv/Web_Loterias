@@ -1,16 +1,17 @@
-import UiControls from "./UiControls.js"
 import Loading from "./Loading.js"
+import LotteryCard from "./LotteryCard.js"
+import LoteriesNotification from "./LoteriesNotification.js"
 
 export default class Fetch {
-    constructor(API_URL) {
+    constructor(API_URL, uiControls) {
         console.log("Esto es de Fetch class")
 
         this.API_URL = API_URL
 
-
-        this.uiControls = new UiControls()
+        this.uiControls = uiControls
         this.loading = new Loading()
-
+        this.lotteryCard = new LotteryCard()
+        this.loteriesNotification = new LoteriesNotification()
         this.CURRENT_DATE = new Date()
     }
 
@@ -20,16 +21,7 @@ export default class Fetch {
         return newJson;
     }
 
-    async feedModalWithAlllotteries(filter = "") {
-        //this.uiControls.modalBody.innerHTML = "";
-
-        this.uiControls.searchContainer.innerHTML = `<div class="search-lottery">
-        <form>
-            <label for="inp-search">Buscar loterias</label>
-            <input type="text" id="inp-search" class="cr-s" placeholder="Nombre de loterias">
-        </form>
-        </div>`
-
+    async feedModalWithAlllotteries(filter) {
         console.log("Funcion feedModal")
         console.log(filter);
         console.log("here");
@@ -41,61 +33,45 @@ export default class Fetch {
         let results = await this.fetchingTest();
         results = await this.resultsFiltering(results, tipo);
 
-        if (filter.length > 0) {
-            let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
-            results = await results.filter(x => {
-                if (regex.test(x["descripcion"].toLocaleLowerCase())) { // Si la descripción contiene la palabra buscada
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
+        if (filter) {
+            this.uiControls.modalBody.innerHTML = ""
+
+            if (filter.length > 0) {
+                let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
+                results = await results.filter(x => {
+
+                    // Si la descripción contiene la palabra buscada
+                    if (regex.test(x["descripcion"].toLocaleLowerCase())) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+            }
+
+            // Sin resultados // results es un array de objetos
+            //alert(results)
+            //alert(JSON.stringify(results))
+            //alert(results.length)
+            if (results.length === 0) {
+                this.uiControls.modalBody.innerHTML = `
+                    <h2 style="color: var(--red);">
+                        No se encontraron resultados sobre "${filter}"
+                    </h2>
+                `
+            }
         }
 
         results.forEach(x => {
-            if (x.descripcion.includes("Tu Fecha") || x.descripcion.includes("El Quemaito") || x.descripcion.includes("Repartidera Megachance")) {
-                this.uiControls.modalBody.innerHTML += `
-                <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
-                <div class="alerta hidden">
-                    <h1></h1>
-                  </div>
-                            <h3 class="lottery-name"><strong>${x.descripcion}</strong></h3>
-                            <div class="schedule flex">
-                                <button class="btn tarde" name="${results[0].id}"><strong>Tarde</strong></button>
-                                <button class="btn noche" name="${results[0].id}"><strong>Noche</strong></button>
-                            </div>
-                            <div class="numbers flex-center">
-                                <div class="number flex-center cr-max">
-                                    <p><strong>${x.num1}</strong></p>
-                                </div>
-                            </div>
-                        </div>`;
+            if (x.descripcion.includes("Tu Fecha") ||
+                x.descripcion.includes("El Quemaito")
+                || x.descripcion.includes("Repartidera Megachance")) {
+
+                this.uiControls.modalBody.innerHTML += this.lotteryCard.cardOneNumber(x)
             }
             else {
-                this.uiControls.modalBody.innerHTML += `
-                <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
-                <div class="alerta hidden">
-                    <h1></h1>
-                  </div>
-                  
-                            <h3 class="lottery-name"><strong>${x.descripcion}</strong></h3>
-                            <div class="schedule flex">
-                                <button class="btn tarde" name="${results[0].id}"><strong>Tarde</strong></button>
-                                <button class="btn noche" name="${results[0].id}"><strong>Noche</strong></button>
-                            </div>
-                            <div class="numbers flex-center">
-                                <div class="number flex-center cr-max">
-                                    <p><strong>${x.num1}</strong></p>
-                                </div>
-                                <div class="number flex-center cr-max">
-                                    <p><strong>${x.num2}</strong></p>
-                                </div>
-                                <div class="number flex-center cr-max">
-                                    <p><strong>${x.num3}</strong></p>
-                                </div>
-                            </div>
-                        </div>`;
+                this.uiControls.modalBody.innerHTML += this.lotteryCard.cardThreeNumbers(x)
             }
 
             let jhour = new Date(x["created_at"]).getHours();
@@ -103,14 +79,14 @@ export default class Fetch {
             let id = document.getElementById(x.id);
             if (hora < jhour && minutes < jminutes) {
                 console.log("here");
-                console.log(id.childNodes[1].classList)
+                /*console.log(id.childNodes[1].classList)
                 id.childNodes[1].classList.remove("hidden");
                 console.log(id.childNodes[1].classList)
                 id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
                 <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
                 <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
                 </div>`
-                console.log(id.childNodes[1].innerHTML);
+                console.log(id.childNodes[1].innerHTML);*/
             }
         })
 
@@ -119,10 +95,10 @@ export default class Fetch {
     }
 
     // Resultados principales (loterias mas populares)
-    async mainResults(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa", "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida",
-        "Quiniela Pale", "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
+    async mainResults(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa",
+        "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale",
+        "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
         //["Loto Real", "Lotería Nacional", "Loteria Nacional","King Lottery", "King Lottery", "Leidsa","Quiniela LoteDom","La primera"]
-        //let resultadoss = document.getElementsByClassName("Resultados")[0];
         this.uiControls.$(".Resultados").innerHTML = "";
 
         // if(!loterias||loterias=="undefined") loterias = ['Loteria Nacional 8:50 PM',"Loto Real 12:55 PM",'Quiniela Pale Leidsa 8:55 PM / Dom 3:00 PM',"Quiniela Loteka 7:55 PM"];
@@ -139,29 +115,9 @@ export default class Fetch {
         console.log(results);
 
         results.forEach(x => {
-            document.getElementsByClassName("Resultados")[0].innerHTML += `
-            <div class="lottery cr-l flex-center "name ="${x.descripcion}" id="${x.id}">
-            <div class="alerta hidden">
-                <h1></h1>
-              </div>
-              
-                        <h3 class="lottery-name"><strong>${x.descripcion}</strong></h3>
-                        <div class="schedule flex">
-                            <button class="btn tarde" name="${results[0].id}"><strong>Tarde</strong></button>
-                            <button class="btn noche" name="${results[0].id}"><strong>Noche</strong></button>
-                        </div>
-                        <div class="numbers flex-center">
-                            <div class="number flex-center cr-max">
-                                <p><strong>${x.num1}</strong></p>
-                            </div>
-                            <div class="number flex-center cr-max">
-                                <p><strong>${x.num2}</strong></p>
-                            </div>
-                            <div class="number flex-center cr-max">
-                                <p><strong>${x.num3}</strong></p>
-                            </div>
-                        </div>
-                    </div>`;
+            this.uiControls.modalBody.innerHTML = ""
+
+            document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x)
 
             let jhour = new Date(x["created_at"]).getHours();
             let jminutes = new Date(x["created_at"]).getMinutes();
@@ -265,5 +221,79 @@ export default class Fetch {
             }
             return pear;
         });
+    }
+
+    /**
+     * Introducir en el array "allLoteries" de la clase "LoteriesNotification" todas las loterias
+     * sin repeticiones.
+     * 
+     * La función está en desarrollo, por eso todos los comentarios a continuación
+     */
+
+    async getAllLotteriesForNotification() {
+        const allLoteries = await fetch(`${this.API_URL}`);
+        let newJson = await allLoteries.json()
+        //return newJson
+
+        console.log("\n\n\n\n\nTrabajando para notificaciones\n\n\n\n\n")
+
+        // Inicio de array para notificaciones
+        //console.log(`Inicio de array = ${typeof(this.loteriesNotification.allLoteries)}`)
+        console.log(`Inicio de array = ${this.loteriesNotification.allLoteries}`)
+        console.log(`Total de articulos = ${this.loteriesNotification.allLoteries.length}\n\n\n`)
+
+        /* Se recorre la variable "newJson" con el metodo "map", dando como resultado de cada
+        * iteración un objeto llamado "lottery"
+        */
+        
+        newJson.map((lottery, i) => {
+            /* Desde aki sin objeto
+            //console.log(lottery.descripcion)
+            //if (lottery.descripcion.includes("Anguila")) {
+                //console.log(lottery)
+                console.log(lottery.descripcion)
+                //console.log(`id = ${lottery.id}`)
+                console.log(`\t\tcreated_at = ${lottery.created_at}`)
+                console.log(`\t\tupdated_at = ${lottery.updated_at}\n\n\n`)
+
+                // Agregando elementos al array para notificaciones
+                //this.loteriesNotification.allLoteries.push(lottery.id)
+                if (!this.loteriesNotification.allLoteries.includes(lottery.descripcion)) {
+                    this.loteriesNotification.allLoteries.push(lottery.descripcion)
+                }
+            //}
+            //console.log(`i = ${i}`)
+            Hasta aki sin objeto */
+
+            // Se pasa como objeto para el array de notificaciones para poder tener acceso al id y usarlo en el checkbox
+
+            //console.log(lottery.descripcion)
+            //if (lottery.descripcion.includes("Anguila")) {
+            //console.log(lottery)
+            console.log(lottery.descripcion)
+            //console.log(`id = ${lottery.id}`)
+            console.log(`\t\tcreated_at = ${lottery.created_at}`)
+            console.log(`\t\tupdated_at = ${lottery.updated_at}\n\n\n`)
+
+            // Agregando elementos al array para notificaciones
+
+            //this.loteriesNotification.allLoteries.push(lottery.id)
+            if (!this.loteriesNotification.allLoteries.includes(lottery.descripcion)) {
+                this.loteriesNotification.allLoteries.push(
+                    {
+                        descripcion: lottery.descripcion,
+                        id: lottery.id,
+                    }
+                )
+            }
+            //}
+            //console.log(`i = ${i}`)
+        })
+
+        // Fin de array para notificaciones
+        console.log(`Inicio de array = ${this.loteriesNotification.allLoteries}`)
+
+        // Todas las loterias sin repetir
+        console.log(`Total de articulos = ${this.loteriesNotification.allLoteries.length}`)
     }
 }
