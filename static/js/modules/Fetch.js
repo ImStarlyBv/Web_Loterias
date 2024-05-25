@@ -3,10 +3,10 @@ import LotteryCard from "./LotteryCard.js"
 import LoteriesNotification from "./LoteriesNotification.js"
 
 export default class Fetch {
-    constructor(API_URL, uiControls) {
+    constructor(uiControls) {
         console.log("Esto es de Fetch class")
 
-        this.API_URL = API_URL
+        this.API_URL = "https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM";
 
         this.uiControls = uiControls
         this.loading = new Loading()
@@ -90,8 +90,8 @@ export default class Fetch {
             }
         })
 
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde());
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche());
     }
 
     // Resultados principales (loterias mas populares)
@@ -117,7 +117,7 @@ export default class Fetch {
         results.forEach(x => {
             this.uiControls.modalBody.innerHTML = ""
 
-            document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x)
+            document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x);
 
             let jhour = new Date(x["created_at"]).getHours();
             let jminutes = new Date(x["created_at"]).getMinutes();
@@ -141,9 +141,9 @@ export default class Fetch {
 
             }
         })
-        this.loading.removeLoading()
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => noche());
+        this.loading.forcedRemoveLoading()
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde());
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche());
     }
 
     resultsFilter(results, tipo, loterias) {

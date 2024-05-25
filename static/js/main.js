@@ -5,7 +5,7 @@ import Suscribe from "./modules/Suscribe.js"
 import SearchLottery from "./modules/SearchLottery.js"
 
 const uiControls = new UiControls()
-const fetch = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM", uiControls)
+const fetch = new Fetch( uiControls)
 //const loading = new Loading()
 const suscribe = new Suscribe()
 const searchLottery = new SearchLottery(fetch)

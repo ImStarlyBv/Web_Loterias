@@ -1,10 +1,12 @@
 
 import Fetch from "./Fetch.js";
-
+import LotteryCard from "./LotteryCard.js";
 
 export default class SwitchHours   {
     constructor() {
 
+     this.LotteryCard = new LotteryCard();
+    
         
        
 
@@ -14,6 +16,7 @@ async tarde(){
     const carlos = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM");
 
     let alerta = event.target.parentNode.parentNode.childNodes[1];
+    console.log(alerta);
     let hidden = Array.from(alerta.classList).includes("hidden");
     let targetName = event.target.innerText;
  if (!hidden) alerta.classList.add("hidden");
@@ -33,30 +36,7 @@ async tarde(){
  
  
  
- id.innerHTML = ` 
- <div class="alerta hidden" role="alert">
-     <h1></h1>
- </div>
- <h3 class="lottery-name"><strong>${results[0].descripcion}</strong></h3>
- <div class="schedule flex">
-     <button name="${results[0].id}" class="btn tarde"><strong>Tarde</strong></button>
-     <button name="${results[0].id}" class="btn noche"><strong>Noche</strong></button>
- </div>
- <div class="resultsContainer">
-    
-     <div class="numbers flex-center">
-         <div class="number flex-center cr-max">
-             <p><strong>${results[0].num1}</strong></p>
-         </div>
-         <div class="number flex-center cr-max">
-             <p><strong>${results[0].num2}</strong></p>
-         </div>
-         <div class="number flex-center cr-max">
-             <p><strong>${results[0].num3}</strong></p>
-         </div>
-     </div>
- </div> 
-`;
+ id.innerHTML = LotteryCard.InnerCardUpdate(results[0]);
 
  Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
   Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
@@ -103,31 +83,7 @@ async tarde(){
      id.setAttribute('name',results[0].descripcion);
  id.setAttribute('id',results[0].id);
     // console.log(id.getAttribute('name'));
-    id.innerHTML = ` 
-    <div class="alerta hidden" role="alert">
-        <h1></h1>
-    </div>
-    <h3 class="lottery-name"><strong>${results[0].descripcion}</strong></h3>
-    <div class="schedule flex">
-        <button name="${results[0].id}" class="btn tarde"><strong>Tarde</strong></button>
-        <button name="${results[0].id}" class="btn noche"><strong>Noche</strong></button>
-    </div>
-    <div class="resultsContainer">
-        
-        <div class="numbers flex-center">
-            <div class="number flex-center cr-max">
-                <p><strong>${results[0].num1}</strong></p>
-            </div>
-            <div class="number flex-center cr-max">
-                <p><strong>${results[0].num2}</strong></p>
-            </div>
-            <div class="number flex-center cr-max">
-                <p><strong>${results[0].num3}</strong></p>
-            </div>
-        </div>
-    </div> 
-`;
-
+    id.innerHTML = LotteryCard.InnerCardUpdate(results[0]);
  Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
   Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
   let hora = parseInt(new Date().getHours());
