@@ -1,8 +1,15 @@
 export default class Suscribe {
     constructor() {
+        console.log("Esto es de Suscribe class")
+
+        // Para pruebas de correo que ya están registrados
         this.subscribedEmail = "ya@existe.com"
     }
 
+    /**
+     * Crear el formulario para registrarse
+     * @param {HTMLElement} modalBody - Cuerpo del modal donde se crea el formulario de esta función
+     */
     start(modalBody) {
         modalBody.innerHTML = `<form action="" class="register-form flex">
         <label for="inp-email">Ingrese su correo electrónico</label>

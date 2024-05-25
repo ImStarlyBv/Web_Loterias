@@ -2,14 +2,15 @@ export default class Loading {
     constructor() {
         console.log("Esto es de Loading class")
     }
-
+    
     removeLoading() {
         //alert("Eliminar el loading")
         document.querySelector(".loading-container").remove()
     }
     
+    // Función de emergencia
     forcedRemoveLoading() {
-        alert("La linea de arriba no debe estar, es solo que el loading no desaparece poruqe creo que hay problema con la api para cargar los datos.")
+        alert("Esta función es solo porque el loading no desaparece, creo que hay problema con la API para cargar los datos.")
         this.removeLoading()
     }
 }
