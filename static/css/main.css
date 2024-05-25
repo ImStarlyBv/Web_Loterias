@@ -22,6 +22,7 @@
     --light: #e6e6e6;
     --red-casino: #8C0200;
     --red-casino-transparent: #8c0200de;
+    --red-casino-hover: #720a08;
     --yellow-casino: #E4A700;
     --brown-casino: #932518;
     --green-casino-original: #2E8B57;
@@ -35,15 +36,18 @@
     /* Height 1200, 1400, >1440<, 1600 */
     --max-width: 1440px;
     --max-height: 800px;
+    --max-width-confirmation-code: 500px;
 
     /* Transitions */
     --fast-transition: all 0.5s ease;
     --slow-transition: all 1s ease;
 
-    /* Size text nav bar */
+    /* Text size */
     --fz-1: 1.2em;
     --fz-2: 2em;
     --fz-3: 4em;
+
+    --email-confirmation: 3rem;
 }
 
 /* Default (reset) styles */
@@ -138,4 +142,8 @@ p {
 
 .hidden {
     display: none;
+}
+
+.center {
+    text-align: center;
 }
