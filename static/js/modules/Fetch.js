@@ -7,7 +7,7 @@ export default class Fetch {
         console.log("Esto es de Fetch class")
 
         this.API_URL = "https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM";
-
+        this.File = 'elguevomio';
         this.uiControls = uiControls
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
@@ -15,10 +15,11 @@ export default class Fetch {
         this.CURRENT_DATE = new Date()
     }
 
-    async fetchingTest() {
-        let p = await fetch(`${this.API_URL}`);
+    async fetchingTest(FileUrl=this.File) {
+        let p = await fetch(`${FileUrl}`);
         let newJson = await p.json()
         return newJson;
+       
     }
 
     async feedModalWithAlllotteries(filter) {
@@ -30,7 +31,7 @@ export default class Fetch {
 
         console.log(hora);
         let tipo = hora < 19 ? "tarde" : "noche";
-        let results = await this.fetchingTest();
+        let results = await this.fetchingTest(this.File);
         results = await this.resultsFiltering(results, tipo);
 
         if (filter) {
