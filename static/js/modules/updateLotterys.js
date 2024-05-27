@@ -5,13 +5,9 @@ import fs from 'fs';
 
 const fetchingInstance = new Fetch();
 
-
-// Convert the object to a JSON string
-
-
-
-// Write the JSON string to a file
-fs.writeFile('data.json',  JSON.stringify(await fetchingInstance.fetchingTest(), null,2), (err) => {
+//escribe un json que sera de donde la interfaz de usuario haga el fetch para asi
+//la pagina cargue mas rapido , debe actualizarse para que cargue cada 10 minutos
+fs.writeFile('data.json',  JSON.stringify(await fetchingInstance.fetchingTest("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM"), null,2), (err) => {
     if (err) {
         console.log('Error writing file', err);
     } else {

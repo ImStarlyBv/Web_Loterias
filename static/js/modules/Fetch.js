@@ -7,7 +7,7 @@ export default class Fetch {
         console.log("Esto es de Fetch class")
 
         this.API_URL = "https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM";
-        this.File = 'elguevomio';
+        this.File = 'static/js/modules/data.json';
         this.uiControls = uiControls
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
@@ -16,6 +16,10 @@ export default class Fetch {
     }
 
     async fetchingTest(FileUrl=this.File) {
+        // ahora puedes pasarle como parametro de donde quieres sacar los datos
+        // tiene por defecto data.json , este json es escrito con node js 
+        // llamando la api de sorteosrd
+        console.log(FileUrl);
         let p = await fetch(`${FileUrl}`);
         let newJson = await p.json()
         return newJson;
@@ -142,7 +146,7 @@ export default class Fetch {
 
             }
         })
-        this.loading.forcedRemoveLoading()
+        this.loading.removeLoading();
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde());
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche());
     }
