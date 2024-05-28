@@ -62,7 +62,7 @@ export default class UiControls {
         element.classList.remove("hidden")
     }
     async tarde(){
-        const carlos = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM");
+        const carlos = new Fetch();
     
         let alerta = event.target.parentNode.parentNode.childNodes[0]; 
         console.log(alerta);
@@ -116,7 +116,7 @@ export default class UiControls {
      }
     
      async noche(){
-      const carlos = new Fetch("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM");
+      const carlos = new Fetch();
         console.log();
         let alerta = event.target.parentNode.parentNode.childNodes[0];
         // let hidden = Array.from(alerta.classList).includes("hidden");
