@@ -95,8 +95,8 @@ export default class Fetch {
             }
         })
 
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche());
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.uiControls.tarde()));
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.uiControls.noche()));
     }
 
     // Resultados principales (loterias mas populares)
@@ -115,40 +115,40 @@ export default class Fetch {
         let tipo = hora < 18 ? "tarde" : "noche";
 
         let results = await this.fetchingTest();
-        console.log(results);
         results = this.resultsFilter(results, tipo, loterias);
-        console.log(results);
-
+        let tracker = [] ;
+        this.uiControls.modalBody.innerHTML = "";
         results.forEach(x => {
-            this.uiControls.modalBody.innerHTML = ""
-
+          
+            if(!tracker.includes(x.descripcion)){
+                console.log(tracker);
             document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x);
-
-            let jhour = new Date(x["created_at"]).getHours();
-            let jminutes = new Date(x["created_at"]).getMinutes();
+            tracker.push(x.descripcion);
             let jdate = new Date(x["created_at"]).getDate();
-            let id = document.getElementById(x.id);
-            console.log("here you go" + minutes + "waos" + jminutes);
+            // let id = document.getElementById(x.id);
+           
 
             if (date !== jdate) {
-                console.log("here");
-                console.log(id.childNodes[1].classList)
-                id.childNodes[1].classList.remove("hidden");
-                console.log(id.childNodes[1].classList)
-                id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
-                <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
-                <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
-            </div>`
+                
+                // id.childNodes[1].classList.remove("hidden");
+                // console.log(id.childNodes[1].classList)
+            //     id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
+            //     <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
+            //     <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
+            // </div>`
                 //console.log(id.childNodes[1].innerHTML);
 
                 // removerloading()
                 // alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loading")
 
             }
+        }
+            
+          
         })
-        this.loading.removeLoading();
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde());
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche());
+        // this.loading.removeLoading();
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.uiControls.tarde()));
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.uiControls.noche()));
     }
 
     resultsFilter(results, tipo, loterias) {
