@@ -3,7 +3,7 @@ export default class LotteryCard {
         console.log("Esto es de LotteryCard class");
         this.randomNumber = 0;
     }
-
+    
     // Componente carta para las loterías que solo contienen un número
     cardOneNumber(cardInfo) {
         const card = `
@@ -38,8 +38,8 @@ export default class LotteryCard {
     
         <h3 class="lottery-name" id="h3${this.randomNumber}"><strong>${cardInfo.descripcion}</strong></h3>
         <div class="schedule flex">
-            <button class="btn tarde" name="${this.randomNumber}"><strong>Tarde</strong></button>
-            <button class="btn noche" name="${this.randomNumber}"><strong>Noche</strong></button>
+            <button class="btn tarde" id="${this.randomNumber}"><strong>Tarde</strong></button>
+            <button class="btn noche" id="${this.randomNumber}"><strong>Noche</strong></button>
         </div>
         <div class="numbers flex-center">
             <div class="number flex-center cr-max">
@@ -66,8 +66,8 @@ export default class LotteryCard {
     </div>
     <h3 class="lottery-name" id="h3${ramdom}"><strong>${cardInfo.descripcion}</strong></h3>
     <div class="schedule flex">
-        <button name="${ramdom}" class="btn tarde"><strong>Tarde</strong></button>
-        <button name="${ramdom}" class="btn noche"><strong>Noche</strong></button>
+        <button id="${ramdom}" class="btn tarde"><strong>Tarde</strong></button>
+        <button id="${ramdom}" class="btn noche"><strong>Noche</strong></button>
     </div>
     <div class="resultsContainer">
        

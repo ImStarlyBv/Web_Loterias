@@ -12,7 +12,14 @@ export default class Fetch {
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
         this.loteriesNotification = new LoteriesNotification()
-        this.CURRENT_DATE = new Date()
+        this.CURRENT_DATE = new Date() 
+    }
+
+     getResults() {
+
+        let  resultados =this.fetchingTest();
+        return resultados;
+
     }
 
     async fetchingTest(FileUrl=this.File) {
@@ -22,7 +29,7 @@ export default class Fetch {
         console.log(FileUrl);
         let p = await fetch(`${FileUrl}`);
         let newJson = await p.json()
-        return newJson;
+        return await newJson;
        
     }
 
@@ -95,8 +102,8 @@ export default class Fetch {
             }
         })
 
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.uiControls.tarde()));
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.uiControls.noche()));
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche("modal-body"));
     }
 
     // Resultados principales (loterias mas populares)
@@ -115,7 +122,7 @@ export default class Fetch {
         let tipo = hora < 18 ? "tarde" : "noche";
 
         let results = await this.fetchingTest();
-        results = this.resultsFilter(results, tipo, loterias);
+        results = await this.resultsFilter(results, tipo, loterias);
         let tracker = [] ;
         this.uiControls.modalBody.innerHTML = "";
         results.forEach(x => {
@@ -147,11 +154,11 @@ export default class Fetch {
           
         })
         // this.loading.removeLoading();
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.uiControls.tarde()));
-        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.uiControls.noche()));
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = (event) =>  this.uiControls.tarde("Resultados"));
+Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (event) => this.uiControls.noche("Resultados"));
     }
 
-    resultsFilter(results, tipo, loterias) {
+    async resultsFilter(results, tipo, loterias) {
         // let alerta = document.getElementsByClassName("alerta")[0];
         // let hidden = Array.from(alerta.classList).includes("hidden");
 

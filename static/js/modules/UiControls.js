@@ -3,7 +3,7 @@ import LotteryCard from "./LotteryCard.js"
 export default class UiControls {
     constructor() {
         console.log("Esto es de UiControls class")
-
+        this.carlos = new Fetch();
         /**
          * Función para evitar repetir código al momento de seleccionar un elemento de DOM.
          * @param {HTMLElement} selector - Elemento a seleccionar por su atributo class, id o etiqueta HTML
@@ -61,116 +61,130 @@ export default class UiControls {
         // }
         element.classList.remove("hidden")
     }
-    async tarde(){
-        const carlos = new Fetch();
+     tarde(childContainer){
+
+        let parser = new DOMParser();
+        console.log(event.currentTarget.id); 
+        let id = event.currentTarget.id;
+
+
+        // // Guarda una referencia del evento
+       
+      
+       
+      
         let ramdomId = this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-        // let alerta = event.target.parentNode.parentNode.childNodes[0]; 
-    
-        // let hidden = Array.from(alerta.classList).includes("hidden");
-        // let targetName = event.target.innerText;
-    //  if (!hidden) alerta.classList.add("hidden");
-    let targeted = event.target.name;   
-    console.log(targeted); 
-    let $id = $(`#${targeted}`);
-    console.log($id);
-    //  try {
-     let results = await carlos.fetchingTest();
-      let created = new Date(results[0]["created_at"]);
-           let name = $(`#h3${targeted}`).text();
-           console.log(name);
-           let nameToFilter = name.split(" ").slice(0, 2).join(" ");
-           console.log(nameToFilter);
-            results = await carlos.resultsFilter(results, "tarde", [nameToFilter]);
-      console.log(results[0]);
-     // console.log(id.getAttribute('name'));
-     
-     $id.attr('name', results[0]["descripcion"]);
-     $id.attr('id', ramdomId);
-     $id.html(this.LotteryCard.InnerCardUpdate(results[0], ramdomId));
-    
-     Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
-      Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
-      let hora = parseInt(new Date().getHours());
-        let minutes = parseInt(new Date().getMinutes());
-        let jhora = parseInt(new Date(results[0]["created_at"]).getHours());
-        let jminutes = parseInt(new Date(results[0]["created_at"]).getHours());
+        let $resultados = $(`.${childContainer}`); 
+        let childNodesArray =  $resultados[0].children;
+        let indice;
+        console.log(childNodesArray);
+        console.log(childNodesArray[1].id);
+      
+        // // Utiliza la referencia guardada
+        console.log(id);
+        let chosenChild = Array.from(childNodesArray).filter((x,b,c) => {
+
+            if(x.id === id){
+                indice= b;
+                return x;
+
+            }
+
+
+        });
+      
+        // console.log(chosenChild);
+        let nameToFilter = chosenChild[0].children[1].innerText;
+        console.log(nameToFilter);
+        this.carlos.getResults()
+        .then(results => {
+            console.log(results);
+            return this.carlos.resultsFilter(results, "tarde", [nameToFilter]);
+        })
+        .then(filteredResults => {
+            console.log(filteredResults);
+            return this.LotteryCard.cardThreeNumbers(filteredResults[0]);
+
+        })
+        .then(newChild => {
+            // Use chosenChild as needed
+            newChild = parser.parseFromString(newChild, 'text/html');
+            console.log(newChild.body);
+            $resultados[0].replaceChild(newChild.body.firstChild, childNodesArray[indice]);
+            Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde(childContainer));
+            Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche(childContainer));
+        })
+        .catch(error => {
+            console.error(error);
+            alert("esta loteria no tiene numeros en la tarde")
+        });
         
-        console.log(jminutes);
-        console.log(jhora);
-        let date = parseInt(created.getDate());
-        let jdate = new Date(results[0]["created_at"]).getDate();
-        //    if(date!==jdate){
-              
-        //       id.childNodes[1].classList.remove("hidden");
-        //       id.childNodes[1].innerHTML= `Aun no salen los numeros de ${targetName}, esta viendo los resultados de ayer` 
-     
-        //    }
-    //  }
-    //  catch (e){
-    //     // alerta.classList.remove("hidden");
-    //     // alerta.innerHTML= (`Esta loteria no tiene numeros en la ${targetName}` )
-        
-        
-    //     }
+       
      
      }
     //will redo this
-     async noche(){
+    noche(childContainer) {
+
+        let parser = new DOMParser();
+        console.log(event.currentTarget.id); 
+        let id = event.currentTarget.id;
+
+
+        // // Guarda una referencia del evento
        
-        const carlos = new Fetch();
-        console.log('noche function called');
-        
-        // Reference the parent node
-        let alerta = event.target.parentNode.parentNode.childNodes[0];
-        let randomId = this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-        let  targeted = event.target.name;
-        console.log(targeted);
-        let $id = $(`#${targeted}`);
-    
-        if (!$id) {
-            console.error('Element with id not found');
-            return;
-        }
-    
-        try {
-            // Fetch the results
-            await new Promise(resolve => setTimeout(resolve, 100));
-            console.log('Fetching results...');
-            let results = await carlos.fetchingTest();
-            await new Promise(resolve => setTimeout(resolve, 100));
-            // Filter the results
-            console.log('Filtering results...');
-            let name = $(`#h3${targeted}`).text();
+      
+       
+      
+        let ramdomId = this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+        let $resultados = $(`.${childContainer}`); 
+        let childNodesArray =  $resultados[0].children;
+        let indice;
+        console.log(childNodesArray);
+        console.log(childNodesArray[1].id);
+      
+        // // Utiliza la referencia guardada
+        console.log(id);
+        let chosenChild = Array.from(childNodesArray).filter((x,b,c) => {
+            console.log(x.id +"nigga" + id );
             
-            let nameToFilter = name.split(" ").slice(0, 2).join(" ");
-            results = await carlos.resultsFilter(results, "noche", [nameToFilter]);
-            
-            console.log('Results:', results);
-            await new Promise(resolve => setTimeout(resolve, 100));
+            if(x.id === id){
+                
+                indice= b;
+                return x;
+
+            }
+
+
+        });
+      
+        console.log(chosenChild);
+        let nameToFilter = chosenChild[0].children[1].innerText;
+        console.log(nameToFilter);
+        this.carlos.getResults()
+        .then(results => {
+            console.log(results);
+            return this.carlos.resultsFilter(results, "noche", [nameToFilter]);
+        })
+        .then(filteredResults => {
+            console.log(filteredResults);
+            return this.LotteryCard.cardThreeNumbers(filteredResults[0]);
+
+        })
+        .then(newChild => {
+            // Use chosenChild as needed
+            newChild = parser.parseFromString(newChild, 'text/html');
+            console.log(newChild.body.firstChild);
+            $resultados[0].replaceChild(newChild.body.firstChild, childNodesArray[indice]);
+            Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.tarde(childContainer)));
+            Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.noche(childContainer)));
+        })
+        .catch(error => {
+            console.error(error);
+            alert("esta loteria no tiene numeros en la noche")
+        });
     
-            // Update attributes and innerHTML
-            $id.attr('name', results[0]["descripcion"]);
-            $id.attr('id', randomId);
-            $id.html(this.LotteryCard.InnerCardUpdate(results[0], randomId));
-    
-            // Add event listeners
-            console.log('Adding event listeners...');
-            Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde());
-            Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche());
-            
-            // Check time and update UI
-            let hora = parseInt(new Date().getHours());
-            let jhora = parseInt(new Date(results[0]["created_at"]).getHours());
-    
-            // if(hora < jhora){
-            //     id.childNodes[1].classList.remove("hidden");
-            //     id.childNodes[1].innerHTML = `Aun no salen los numeros de ${targetName}, esta viendo los resultados de ayer`; 
-            // }
-        } catch (e) {
-            console.error('Error:', e);
-            // alerta.classList.remove("hidden");
-            // alerta.innerHTML = `Esta loteria no tiene numeros en la ${targetName}`;
-        }
-    }
+       
+      }
+      
     
 }
