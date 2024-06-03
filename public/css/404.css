@@ -1,0 +1,19 @@
+body {
+    background-color: var(--green-casino-original);
+}
+
+.title {
+    /*margin: var(--distance-xxl) 0;* Aplicado por main.css */
+    color: var(--light);
+}
+
+.description {
+    font-size: var(--fz-2);
+    color: var(--light);
+}
+
+.btn-go-back {
+    margin: var(--distance-xl) auto 0;
+    color: var(--light);
+    width: fit-content;
+}

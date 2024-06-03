@@ -1,0 +1,5 @@
+- 02/06/2024 - 09:22:05 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 02/06/2024 - 09:22:12 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 02/06/2024 - 09:22:14 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 02/06/2024 - 09:22:26 PM: GET /verify-email/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
+- 02/06/2024 - 09:22:28 PM: POST /resend-code/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
