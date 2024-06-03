@@ -1,0 +1,253 @@
+body {
+    background-color: var(--green-casino-original);
+}
+
+/* Modal */
+.modal-header {
+    /*border: 1px solid blue;*/
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--bs-modal-bg); /* Variable ce bootstrap */
+}
+
+.header-top {
+    /*border: 1px solid red;*/
+    width: var(--distance-total);
+}
+
+.search-container {
+    /*border: 1px solid green;*/
+    width: 100%;
+    padding-top: var(--distance-m);
+}
+
+.search-lottery {
+    /*border: 1px solid red;*/
+}
+
+.search-lottery #inp-search {
+    width: var(--distance-total);
+    border: 2px solid var(--light);
+    padding: var(--distance-s);
+}
+
+header {
+    /*border: 1px solid red;*/
+    background-image: url(/imgs/fondo-arena-dorada-brillo_116547-1674.jpg);
+    /*background-color: var(--red-casino);*/
+    box-shadow: var(--dark-casino) 0 0 20px 10px;
+    padding: var(--distance-m);
+}
+
+.nav-item {
+    /*border: 1px solid blue;*/
+    position: relative;
+    padding: 0 var(--distance-m);
+}
+
+.nav-item::after {
+    content: "";
+    height: var(--distance-xs);
+    width: 0;
+    /*background-color: var(--light);*/
+    background-color: var(--red-casino);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: var(--fast-transition);
+    -webkit-transition: var(--fast-transition);
+    -moz-transition: var(--fast-transition);
+    -ms-transition: var(--fast-transition);
+    -o-transition: var(--fast-transition);
+}
+
+.nav-item:hover::after {
+    width: var(--distance-total);
+}
+
+header a {
+    /*color: var(--light) !important;*/
+    color: var(--red-casino) !important;
+    font-size: var(--fz-1) !important;
+}
+
+.logo {
+    /*border: 1px solid blue;*/
+    height: var(--logo-dimention);
+    width: var(--logo-dimention);
+    background-color: var(--yellow-casino);
+}
+
+.title {
+    background: url(/imgs/fondo-arena-dorada-brillo_116547-1674.jpg);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.most-popular-lotteries .Resultados {
+    /*border: 1px solid red;*/
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 400px)); */
+    grid-template-columns: repeat(auto-fit, minmax(400px, .4fr));
+    grid-gap: var(--distance-xl);
+    justify-content: center;
+}
+
+.lottery {
+    /*border: 1px solid black;*/
+    padding: var(--distance-xl);
+    flex-direction: column;
+    gap: var(--distance-m);
+    background-image: url(/imgs/fondo-arena-dorada-brillo_116547-1674.jpg);
+    background-size: cover;
+}
+
+.lottery-name {
+    color: var(--red-casino);
+}
+
+.lottery .schedule {
+    /*border: 1px solid blue;*/
+    width: var(--distance-total);
+    gap: var(--distance-m);
+}
+
+.lottery .schedule button {
+    flex-grow: 1;
+    background-color: var(--red-casino);
+    color: var(--yellow-casino);
+}
+
+.lottery .numbers {
+    /*border: 1px solid red;*/
+    gap: var(--distance-m);
+}
+
+.lottery .numbers .number {
+    /*border: 1px solid blue;*/
+    height: var(--numbers-dimention);
+    width: var(--numbers-dimention);
+    background-color: var(--red-casino);
+    color: var(--yellow-casino);
+    font-size: var(--fz-2);
+}
+
+/* Modal styles */
+
+.modal-body {
+    /*border: 1px solid red;*/
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--distance-xl);
+    padding: var(--distance-xl);
+}
+
+/* Alerta de numeros que no han salido */
+
+.alert {
+    /*border: 1px solid red;*/
+    background-color: var(--light);
+    justify-content: space-between;
+}
+
+.alert .icon {
+    /*border: 1px solid blue;*/
+    animation: alert-icon 1s ease infinite;
+    -webkit-animation: alert-icon 1s ease infinite alternate;
+    margin-bottom: 0 !important;
+}
+
+@keyframes alert-icon {
+    from {
+        transform: translateY(calc(var(--distance-s) - var(--distance-s) * 2));
+        -webkit-transform: translateY(calc(var(--distance-s) - var(--distance-s) * 2));
+        -moz-transform: translateY(calc(var(--distance-s) - var(--distance-s) * 2));
+        -ms-transform: translateY(calc(var(--distance-s) - var(--distance-s) * 2));
+        -o-transform: translateY(calc(var(--distance-s) - var(--distance-s) * 2));
+    }
+
+    to {
+        transform: translateY(var(--distance-s));
+        -webkit-transform: translateY(var(--distance-s));
+        -moz-transform: translateY(var(--distance-s));
+        -ms-transform: translateY(var(--distance-s));
+        -o-transform: translateY(var(--distance-s));
+    }
+}
+
+/* loading */
+
+.loading-container {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 9999;
+    background-color: var(--red-casino-transparent);
+    top: 0;
+    left: 0;
+}
+
+.loading {
+    height: var(--loading-dimention);
+    width: var(--loading-dimention);
+    border: var(--distance-s) solid var(--yellow-casino);
+    border-top-color: var(--green-casino-original);
+    animation: loading 1.5s ease infinite linear;
+    -webkit-animation: loading 1.5s infinite linear;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}
+
+/* Footer */
+
+footer {
+    /*border: 1px solid red;*/
+    margin-top: var(--distance-xxl);
+    background-color: var(--red-casino);
+    color: var(--light);
+    padding: var(--distance-xxl);
+    text-align: center;
+}
+
+/* Formulario para registrarse */
+
+.register-form {
+    /*border: 1px solid red;*/
+    flex-direction: column;
+    gap: var(--distance-s);
+}
+
+.register-form .btn-register {
+    width: fit-content;
+    padding: var(--distance-s) var(--distance-xl);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 450px) {
+    .most-popular-lotteries .Resultados {
+        grid-template-columns: 100%;
+    }
+    
+    .register-form .btn-register {
+        width: var(--distance-total);
+    }
+}

@@ -1,0 +1,96 @@
+body {
+    background-color: var(--green-casino-original);
+    color: var(--light);
+}
+
+.title {
+    /*margin: var(--distance-xxl) 0;* Aplicado por main.css */
+}
+
+.confirmation-code-form {
+    /*border: 1px solid blue;*/
+    max-width: var(--max-width-confirmation-code);
+    margin: auto;
+}
+
+label.order {
+    font-size: var(--fz-1);
+    font-weight: bold;
+    margin-bottom: var(--distance-l);
+}
+
+.code-entries {
+    /*border: 1px solid red;*/
+    gap: var(--distance-s);
+
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin-bottom: var(--distance-m);
+}
+
+.code-entries .inp-code {
+    font-size: var(--email-confirmation);
+    width: var(--distance-total);
+    text-align: center;
+}
+
+.btn-send-code {
+    background-color: var(--red-casino);
+    padding: var(--distance-s) var(--distance-xxl);
+}
+
+.btn-send-code:hover {
+    background-color: var(--red-casino-hover);
+}
+
+.btn-resend {
+    color: var(--light);
+    float: right;
+}
+
+.select-lotteries {
+    border: 1px solid red;
+    padding: var(--distance-m);
+}
+
+.select-lotteries form {
+    border: 1px solid black;
+    flex-wrap: wrap;
+    gap: var(--distance-m);
+}
+
+.mini-card {
+    border: 1px solid blue;
+    padding: var(--distance-s);
+    gap: var(--distance-m);
+    background-color: var(--light);
+    color: var(--dark-casino);
+}
+
+/* Footer */
+
+footer {
+    /*border: 1px solid red;*/
+    margin-top: var(--distance-xxl);
+    background-color: var(--red-casino);
+    color: var(--light);
+    padding: var(--distance-xxl);
+    text-align: center;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 450px) {
+    .buttons {
+        /*border: 1px solid red;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: var(--distance-l);
+    }
+
+    .buttons .btn-send-code {
+        width: var(--distance-total);
+    }
+}

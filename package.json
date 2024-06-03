@@ -1,4 +1,12 @@
 {
+  "name": "mi-proyecto",
+  "version": "1.0.0",
+  "description": "Mi App.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "@azure/ai-language-text": "^1.1.0",
     "ws": "^8.17.0"
