@@ -139,11 +139,8 @@ export default class Fetch {
                 
                 // id.childNodes[1].classList.remove("hidden");
                 // console.log(id.childNodes[1].classList)
-            //     id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
-            //     <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
-            //     <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
-            // </div>`
-                //console.log(id.childNodes[1].innerHTML);
+                // id.childNodes[1].innerHTML = this.lotteryCard.oldCardAlert("hoy");
+                // console.log(id.childNodes[1].innerHTML);
 
                 // removerloading()
                 // alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loading")
