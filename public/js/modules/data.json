@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD:public/js/modules/data.json
     "descripcion": "Loto Pool Leidsa 8:55 PM Dom 3:00 PM",
     "id": 8401,
     "num1": "12",
@@ -234,6 +235,8 @@
     "updated_at": "2024-06-02 23:02:47"
   },
   {
+=======
+>>>>>>> af6be26 (botones arreglados):static/js/modules/data.json
     "descripcion": "Loteria Nacional 8:50 PM",
     "id": 8392,
     "num1": "73",

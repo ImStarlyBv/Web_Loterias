@@ -4,6 +4,8 @@ import UiControls from "./modules/UiControls.js"
 import Suscribe from "./modules/Suscribe.js"
 import SearchLottery from "./modules/SearchLottery.js"
 
+const socket = new WebSocket('ws://localhost:8080');
+
 const uiControls = new UiControls()
 const fetch = new Fetch( uiControls)
 //const loading = new Loading()
@@ -19,8 +21,8 @@ const searchLottery = new SearchLottery(fetch)
 
 
 // Cargar datos de las loterias mas populares
-fetch.mainResults()
 
+socket.onmessage = fetch.mainResults();
 // Agregar acciones a la UI
 uiControls.btnShowAllLotteries.addEventListener("click", (e) => {
     e.preventDefault()

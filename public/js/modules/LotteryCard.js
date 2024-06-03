@@ -57,34 +57,13 @@ export default class LotteryCard {
         return card
     }
     //this about to be  deprecated 
-    InnerCardUpdate(cardInfo, ramdom) {
-        console.log("we here");
-        
+   oldCardAlert(fecha){
 
-        const card =  `<div class="alerta hidden" role="alert">
-        <h1></h1>
-    </div>
-    <h3 class="lottery-name" id="h3${ramdom}"><strong>${cardInfo.descripcion}</strong></h3>
-    <div class="schedule flex">
-        <button id="${ramdom}" class="btn tarde"><strong>Tarde</strong></button>
-        <button id="${ramdom}" class="btn noche"><strong>Noche</strong></button>
-    </div>
-    <div class="resultsContainer">
-       
-        <div class="numbers flex-center">
-            <div class="number flex-center cr-max">
-                <p><strong>${cardInfo.num1}</strong></p>
-            </div>
-            <div class="number flex-center cr-max">
-                <p><strong>${cardInfo.num2}</strong></p>
-            </div>
-            <div class="number flex-center cr-max">
-                <p><strong>${cardInfo.num3}</strong></p>
-            </div>
-        </div>
-    </div> 
-   `;
+    const alert = `<div class="alert flex cr-s">
+    <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros de ${fecha}.</p>
+    <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
+</div>`;
+return alert
 
-        return card;
-    }
+   }
 }
