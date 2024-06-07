@@ -110,7 +110,7 @@ export default class UiControls {
             // Use chosenChild as needed
             newChild = parser.parseFromString(newChild, 'text/html');
             console.log(newChild.body);
-            $resultados[0].replaceChild(newChild.body.firstChild, childNodesArray[indice]);
+            $resultados.replaceChild(newChild.body.firstChild, childNodesArray[indice]);
             Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde(childContainer));
             Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche(childContainer));
         })
@@ -137,11 +137,9 @@ export default class UiControls {
       
         let ramdomId = this.randomNumber = Math.floor(Math.random() * 1000) + 1;
         let $resultados = this.$(`.${childContainer}`); 
+        console.log();
         let childNodesArray =  $resultados.children;
         let indice;
-        console.log(childNodesArray);
-        console.log(childNodesArray[1].id);
-      
         // // Utiliza la referencia guardada
         console.log(id);
         let chosenChild = Array.from(childNodesArray).filter((x,b,c) => {
@@ -173,8 +171,7 @@ export default class UiControls {
         .then(newChild => {
             // Use chosenChild as needed
             newChild = parser.parseFromString(newChild, 'text/html');
-            console.log(newChild.body.firstChild);
-            $resultados[0].replaceChild(newChild.body.firstChild, childNodesArray[indice]);
+            $resultados.replaceChild(newChild.body.firstChild, childNodesArray[indice]);
             Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.tarde(childContainer)));
             Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.noche(childContainer)));
         })

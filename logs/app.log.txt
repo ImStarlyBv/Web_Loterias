@@ -3,3 +3,24 @@
 - 02/06/2024 - 09:22:14 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
 - 02/06/2024 - 09:22:26 PM: GET /verify-email/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
 - 02/06/2024 - 09:22:28 PM: POST /resend-code/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:05:20 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 06:05:43 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:05:44 PM: GET /favicon.ico - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:16:30 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:17:10 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:17:34 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:17:35 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:18:30 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:19:38 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:19:39 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:22:22 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:27:36 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:32:27 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:33:38 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:34:34 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:35:23 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:37:23 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:39:13 PM: GET /testiculos - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:39:19 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:40:28 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 06:41:41 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
