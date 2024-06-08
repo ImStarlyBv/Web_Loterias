@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import AppLogs from './utils/logger.js';
 import sendEmail from './sendEmail.js';
 import EmailConfirmationCode from './utils/EmailConfirmationCode.js';
+import updateJson from './utils/updateLotteries.js';
 const emailConfirmationCode = new EmailConfirmationCode()
 
 // Cargar las variables de entorno
@@ -19,6 +20,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 const logger = new AppLogs();
+
+// Inicair aupdateLotteries
+updateJson() // Se actualiza por cada cliente abierto (cada ventana en el navegador)
 
 // Middleware para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));

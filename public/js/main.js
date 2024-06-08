@@ -21,8 +21,8 @@ const searchLottery = new SearchLottery(fetch)
 
 
 // Cargar datos de las loterias mas populares
-
 socket.onmessage = fetch.mainResults();
+
 // Agregar acciones a la UI
 uiControls.btnShowAllLotteries.addEventListener("click", (e) => {
     e.preventDefault()

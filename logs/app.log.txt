@@ -24,3 +24,74 @@
 - 07/06/2024 - 06:39:19 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
 - 07/06/2024 - 06:40:28 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
 - 07/06/2024 - 06:41:41 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:00:06 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:00:08 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:01:28 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:01:31 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 07/06/2024 - 07:01:45 PM: GET /verify-email/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:02:07 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:31:25 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:31:27 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:31:35 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:33:17 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:33:19 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:33:35 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:33:36 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:33:36 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:33:37 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:34:04 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:36:48 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:36:54 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:37:46 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:38:32 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:38:48 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:38:57 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:00 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:01 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:01 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:01 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:03 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:04 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:39:16 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:40:33 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:40:35 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:40:43 PM: GET /static/js/main.js - Desde Middleware para registrar solicitudes
+- 07/06/2024 - 07:47:42 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:47:58 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:50:44 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:51:27 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 07:58:27 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:00:43 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:07:23 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:08:03 PM: Json updated!
+- 07/06/2024 - 08:08:23 PM: Json updated!
+- 07/06/2024 - 08:08:43 PM: Json updated!
+- 07/06/2024 - 08:09:03 PM: Json updated!
+- 07/06/2024 - 08:09:23 PM: Json updated!
+- 07/06/2024 - 08:09:43 PM: Json updated!
+- 07/06/2024 - 08:10:03 PM: Json updated!
+- 07/06/2024 - 08:10:23 PM: Json updated!
+- 07/06/2024 - 08:10:43 PM: Json updated!
+- 07/06/2024 - 08:13:50 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:14:46 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:15:55 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:17:45 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:19:34 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:21:01 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:21:22 PM: Json data updated!
+- 07/06/2024 - 08:21:42 PM: Json data updated!
+- 07/06/2024 - 08:21:49 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:22:20 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 07/06/2024 - 08:22:40 PM: Json data updated!
+- 07/06/2024 - 08:23:40 PM: Json data updated!
+- 07/06/2024 - 08:24:00 PM: Json data updated!
+- 07/06/2024 - 08:24:20 PM: Json data updated!
+- 07/06/2024 - 08:24:20 PM: Json data updated!
+- 07/06/2024 - 08:24:40 PM: Json data updated!
+- 07/06/2024 - 08:24:40 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!
+- 07/06/2024 - 08:25:00 PM: Json data updated!

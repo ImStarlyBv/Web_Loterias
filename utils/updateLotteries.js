@@ -1,7 +1,10 @@
 import { log } from 'console';
-import Fetch from './Fetch.js';
+import Fetch from '../public/js/modules/Fetch.js';
 import fs from 'fs';
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
+import AppLogs from './logger.js';
+
+const logger = new AppLogs()
 
 const wss = new WebSocketServer({ port: 8080 });
 
@@ -22,13 +25,16 @@ async function updateJson() {
         fs.writeFile('data.json', JSON.stringify(data, null, 2), (err) => {
             if (err) {
                 console.log('Error writing file', err);
+                logger.writeAppLogs(`Error writing file, ${err}`);
             } else {
                 console.log('Successfully wrote file');
                 // Broadcast message to all connected clients
                 wss.clients.forEach(function each(client) {
                     if (client.readyState === WebSocket.OPEN) {
                         client.send('Json updated!');
+                        console.log('Json updated!');
                         console.log("well done nigga");
+                        logger.writeAppLogs(`Json data updated!`);
                     }
                     console.log("is out");
                 });
@@ -36,8 +42,11 @@ async function updateJson() {
         });
     } catch (error) {
         console.error('Error fetching data:', error);
+        logger.writeAppLogs(`Error fetching data: ${error}`);
     }
 }
 
 // Update JSON every 10 minutes (600000 milliseconds)
 setInterval(updateJson, 20000);
+
+export default updateJson
