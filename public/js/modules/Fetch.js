@@ -8,6 +8,9 @@ export default class Fetch {
 
         this.API_URL = "https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM";
         this.File = '/js/modules/data.json';
+
+        console.log("File = " + this.File)
+
         this.uiControls = uiControls
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
@@ -117,12 +120,13 @@ export default class Fetch {
         // else loterias = JSON.parse(loterias);
         let hora = parseInt(new Date().getHours());
         let date = parseInt(new Date().getDate());
-        let minutes = parseInt(new Date().getMinutes());
+        
 
         let tipo = hora < 18 ? "tarde" : "noche";
 
         let results = await this.fetchingTest();
         results = await this.resultsFilter(results, tipo, loterias);
+        console.log(results);
         let tracker = [] ;
         this.uiControls.modalBody.innerHTML = "";
         results.forEach(x => {
@@ -132,20 +136,10 @@ export default class Fetch {
             document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x);
             tracker.push(x.descripcion);
             let jdate = new Date(x["created_at"]).getDate();
-            // let id = document.getElementById(x.id);
            
-
-            if (date !== jdate) {
-                
-                // id.childNodes[1].classList.remove("hidden");
-                // console.log(id.childNodes[1].classList)
-                // id.childNodes[1].innerHTML = this.lotteryCard.oldCardAlert("hoy");
-                // console.log(id.childNodes[1].innerHTML);
-
-                // removerloading()
-                // alert("Todo listo - alerte puesta poruqe al parecer no cargan los datos de la api y nunca se elimina el loading")
-
-            }
+           
+`1`
+    
         }
             
           

@@ -22,7 +22,7 @@ const fetchingInstance = new Fetch();
 async function updateJson() {
     try {
         const data = await fetchingInstance.fetchingTest("https://sorteosrd.com/api/sorteosrd-results/b3cEnQTK2uU6aLu4PHhDwZUKiTcbQgyM");
-        fs.writeFile('data.json', JSON.stringify(data, null, 2), (err) => {
+        fs.writeFile('./public/js/modules/data.json', JSON.stringify(data, null, 2), (err) => {
             if (err) {
                 console.log('Error writing file', err);
                 logger.writeAppLogs(`Error writing file, ${err}`);

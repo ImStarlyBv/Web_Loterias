@@ -6,7 +6,7 @@ const logger = new AppLogs();
 async function sendEmail(to, subject, text, html) {
     try {
         await transporter.sendMail({
-            from: "probando-apps@outlook.com", // Correo electrónico del remitente
+            from: "notificacionLoterias@outlook.com", // Correo electrónico del remitente
             to: to, // Correo electrónico del destinatario
             subject: subject, // Asunto del correo
             text: text, // Contenido del correo en texto plano

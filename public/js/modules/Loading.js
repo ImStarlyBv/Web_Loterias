@@ -5,8 +5,9 @@ export default class Loading {
     
     removeLoading() {
         //alert("Eliminar el loading")
-        document.querySelector(".loading-container").remove()
-    }
+        // document.querySelector(".loading-container").remove()
+        if(document.querySelector(".loading-container")) document.querySelector(".loading-container").remove();
+    } 
     
     // Función de emergencia
     forcedRemoveLoading() {
