@@ -386,3 +386,81 @@
 - 09/06/2024 - 04:55:15 PM: Json data updated!
 - 09/06/2024 - 04:55:31 PM: Json data updated!
 - 09/06/2024 - 04:55:51 PM: Json data updated!
+- 09/06/2024 - 08:03:18 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:03:22 PM: GET /favicon.ico - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:03:39 PM: Json data updated!
+- 09/06/2024 - 08:03:59 PM: Json data updated!
+- 09/06/2024 - 08:04:17 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:04:24 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:04:26 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 09/06/2024 - 08:04:38 PM: Json data updated!
+- 09/06/2024 - 08:04:42 PM: GET /verify-email/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:04:45 PM: POST /resend-code/YWxleGFuZGVyNjVtZXJjZWRlc0BnbWFpbC5jb20= - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:04:58 PM: Json data updated!
+- 09/06/2024 - 08:05:29 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:05:37 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:05:42 PM: Error al enviar el correo 1 - catch result = Error: Message failed: 554 5.2.252 SendAsDenied; notificacionLoterias@outlook.com not allowed to send as probando-apps@gamil.com; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 1.84300:0A000000, 1.84300:0A000000, 1.84300:0E000000, 1.84300:32000000, 1.116652:24140000, 1.81836:36020000, 0.117068:56000000, 1.79180:0A000000, 1.79180:0A000000, 1.79180:0E000000, 1.79180:32000000, 1.79180:FA000000, 0.73100:2C000000, 0.38698:47000000, 1.41134:87000000, 1.41134:47000000, 0.37692:87000000, 0.37948:47000000, 5.33852:00000000534D545000000100, 7.36354:010000000000010929B23102, 4.56248:DC040000, 7.40748:010000000000010B874A159B, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:0140030053747309000000000000000033343A42, 1.46798:04000000, 5.10786:0000000031352E32302E373633332E3033343A424E37505230334D42343438323A65393539323561302D373632662D346364622D626433362D3434633865393961613237643A36383633323A2E4E455420382E302E35001002000000, 7.51330:E3AF0D11E188DC0800000000, 0.39570:07000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.64146:0E000000, 1.33010:0E000000, 2.54258:00000000, 1.33010:0E000000, 2.54258:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 0.79500:00000000, 0.100684:00000000, 4.120460:DC040000, 1.52466:02000000, 1.52466:02000000, 1.42738:05000000, 0.37698:02000000, 1.42738:05000000, 0.37698:02000000, 1.52466:01000000, 0.60402:02000000, 1.52466:01000000[EndDiagnosticData] [Hostname=BN7PR03MB4482.namprd03.prod.outlook.com]
+- 09/06/2024 - 08:05:42 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 09/06/2024 - 08:05:50 PM: Json data updated!
+- 09/06/2024 - 08:06:02 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:06:08 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:06:10 PM: Error al enviar el correo 1 - catch result = Error: Message failed: 554 5.2.252 SendAsDenied; notificacionLoterias@outlook.com not allowed to send as probando-apps@outlook.com; STOREDRV.Submission.Exception:SendAsDeniedException.MapiExceptionSendAsDenied; Failed to process message due to a permanent exception with message [BeginDiagnosticData]Cannot submit message. 1.84300:0A000000, 1.84300:0A000000, 1.84300:0E000000, 1.84300:32000000, 1.116652:F7130000, 1.81836:36020000, 0.117068:56000000, 1.79180:0A000000, 1.79180:0A000000, 1.79180:0E000000, 1.79180:32000000, 1.79180:FA000000, 0.73100:2C000000, 0.38698:05000780, 1.41134:87000000, 1.41134:47000000, 0.37692:87000000, 0.37948:47000000, 5.33852:00000000534D545000000100, 7.36354:010000000000010929B23102, 4.56248:DC040000, 7.40748:010000000000010B04000000, 7.57132:000000000000000000000000, 4.39640:DC040000, 1.63016:32000000, 8.45434:0140030053747309000000000000000033343A42, 1.46798:04000000, 5.10786:0000000031352E32302E373633332E3033343A424E37505230334D42343438323A65393539323561302D373632662D346364622D626433362D3434633865393961613237643A36383633323A2E4E455420382E302E35001002000000, 7.51330:B8A5D321E188DC0800000000, 0.39570:07000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.55954:0A000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.33010:0A000000, 2.54258:00000000, 0.40002:00000000, 1.56562:00000000, 1.64146:0E000000, 1.33010:0E000000, 2.54258:00000000, 1.33010:0E000000, 2.54258:00000000, 1.64146:32000000, 1.33010:32000000, 2.54258:DC040000, 1.33010:32000000, 2.54258:DC040000, 0.79500:13000000, 0.100684:13000000, 4.120460:DC040000, 1.52466:02000000, 1.52466:02000000, 1.42738:05000000, 0.37698:02000000, 1.42738:05000000, 0.37698:02000000, 1.52466:01000000, 0.60402:02000000, 1.52466:01000000[EndDiagnosticData] [Hostname=BN7PR03MB4482.namprd03.prod.outlook.com]
+- 09/06/2024 - 08:06:10 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 09/06/2024 - 08:06:22 PM: Json data updated!
+- 09/06/2024 - 08:06:42 PM: Json data updated!
+- 09/06/2024 - 08:07:02 PM: Json data updated!
+- 09/06/2024 - 08:08:10 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:08:16 PM: POST /send-email - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:08:18 PM: Correo enviado con éxito - Desde sendEmail | Estado: 200
+- 09/06/2024 - 08:36:38 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:36:46 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:37:03 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:37:23 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:37:25 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:37:26 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:39:30 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:39:32 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:39:51 PM: Json data updated!
+- 09/06/2024 - 08:40:11 PM: Json data updated!
+- 09/06/2024 - 08:40:27 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:40:34 PM: GET /saludo - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:40:38 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:41:38 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:53:19 PM: Json data updated!
+- 09/06/2024 - 08:53:39 PM: Json data updated!
+- 09/06/2024 - 08:53:59 PM: Json data updated!
+- 09/06/2024 - 08:54:19 PM: Json data updated!
+- 09/06/2024 - 08:54:39 PM: Json data updated!
+- 09/06/2024 - 08:54:49 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:59:23 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:59:28 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 08:59:29 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:59:30 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:59:30 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 08:59:30 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:00:59 PM: GET /create-subscription - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:01:11 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:01:17 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 09:01:18 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:03:41 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 09:03:42 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:03:52 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:03:55 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 09:03:56 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:04:02 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:04:05 PM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 09/06/2024 - 09:04:06 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:04:32 PM: GET /create-subscription - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:06:27 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 09/06/2024 - 09:13:04 PM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:09:18 AM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 10/06/2024 - 00:09:22 AM: GET /webhook - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:09:27 AM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:09:39 AM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:09:40 AM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:19:01 AM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 10/06/2024 - 00:31:02 AM: Servidor escuchando en http://localhost:3000 - Desde App en ejecución escuchando
+- 10/06/2024 - 00:31:02 AM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:31:03 AM: GET /suscribe - Desde Middleware para registrar solicitudes
+- 10/06/2024 - 00:31:22 AM: Json data updated!
+- 10/06/2024 - 00:31:42 AM: Json data updated!

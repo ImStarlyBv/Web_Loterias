@@ -8,6 +8,10 @@ import EmailConfirmationCode from './utils/EmailConfirmationCode.js';
 import updateJson from './utils/updateLotteries.js';
 const emailConfirmationCode = new EmailConfirmationCode()
 
+// Implementando pagos
+import Stripe from 'stripe';
+import bodyParser from 'body-parser';
+
 // Cargar las variables de entorno
 dotenv.config();
 
@@ -105,6 +109,68 @@ app.use('/resend-code/:e', async (req, res) => {
 });
 */
 
+// Implementando pagos
+
+
+// Usar el router para las rutas de correo electrónico
+app.get('/suscribe', async (req, res) => {
+  //res.send('Estas en verify-email');
+  res.sendFile(__dirname + '/public/suscribe.html');
+});
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post('/create-subscription', async (req, res) => {
+  try {
+    const { email, paymentMethodId } = req.body;
+
+    // Crear un cliente
+    const customer = await stripe.customers.create({
+      payment_method: paymentMethodId,
+      email: email,
+      invoice_settings: {
+        default_payment_method: paymentMethodId,
+      },
+    });
+
+    // Crear una suscripción
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ price: 'your_price_id' }],
+      expand: ['latest_invoice.payment_intent'],
+    });
+
+    res.send(subscription);
+  } catch (error) {
+    res.status(400).send({ error: { message: error.message } });
+  }
+});
+
+
+
+// server.js (continuación)
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {
+  const event = request.body;
+
+  switch (event.type) {
+    case 'invoice.payment_succeeded':
+      const invoice = event.data.object;
+      console.log(`Payment for invoice ${invoice.id} succeeded.`);
+      break;
+    case 'invoice.payment_failed':
+      const failedInvoice = event.data.object;
+      console.log(`Payment for invoice ${failedInvoice.id} failed.`);
+      break;
+    // Maneja otros eventos que te interesen
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  response.send();
+});
+
+
+
 // Middleware para manejar rutas no definidas (404)
 app.use((req, res, next) => {
   res.status(404).sendFile(__dirname + '/public/404.html');
@@ -127,25 +193,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('¡Algo salió mal!');
 });
-
-// App en ejecución escuchando
-const server = app.listen(port, () => {
-  logger.writeAppLogs(`Servidor escuchando en http://localhost:${port} - Desde App en ejecución escuchando`);
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-
-
-
-  let host2 = server.address().address;
-  // En local, cambia la IP a 'localhost' para facilidad
-  if (host2 === '::' || host2 === '0.0.0.0') {
-    host2 = 'localhost';
-  }
-  const port2 = server.address().port;
-  globalHost = `http://${host2}:${port2}`
-  console.log(`#2 - Server is listening at http://${host2}:${port2}`);
-});
-
-
 
 
 /*
@@ -171,3 +218,22 @@ const server = app.listen(port, () => {
 });
 
 */
+
+
+
+
+
+// App en ejecución escuchando
+const server = app.listen(port, () => {
+  logger.writeAppLogs(`Servidor escuchando en http://localhost:${port} - Desde App en ejecución escuchando`);
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+
+  let host2 = server.address().address;
+  // En local, cambia la IP a 'localhost' para facilidad
+  if (host2 === '::' || host2 === '0.0.0.0') {
+    host2 = 'localhost';
+  }
+  const port2 = server.address().port;
+  globalHost = `http://${host2}:${port2}`
+  console.log(`#2 - Server is listening at http://${host2}:${port2}`);
+});
