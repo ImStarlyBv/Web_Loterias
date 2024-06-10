@@ -16,6 +16,9 @@ export default class Fetch {
         this.lotteryCard = new LotteryCard()
         this.loteriesNotification = new LoteriesNotification()
         this.CURRENT_DATE = new Date() 
+        this.mainLotterys = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa",
+            "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale",
+            "Quiniela Loteka", "La Suerte", "Quiniela Pale"];
     }
 
      getResults() {
@@ -56,19 +59,13 @@ export default class Fetch {
                 results = await results.filter(x => {
 
                     // Si la descripción contiene la palabra buscada
-                    if (regex.test(x["descripcion"].toLocaleLowerCase())) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
+
+                    return regex.test(x["descripcion"].toLocaleLowerCase())? true : false;
+                  
                 });
             }
 
-            // Sin resultados // results es un array de objetos
-            //alert(results)
-            //alert(JSON.stringify(results))
-            //alert(results.length)
+          
             if (results.length === 0) {
                 this.uiControls.modalBody.innerHTML = `
                     <h2 style="color: var(--red);">
@@ -89,20 +86,8 @@ export default class Fetch {
                 this.uiControls.modalBody.innerHTML += this.lotteryCard.cardThreeNumbers(x)
             }
 
-            let jhour = new Date(x["created_at"]).getHours();
-            let jminutes = new Date(x["created_at"]).getMinutes();
-            let id = document.getElementById(x.id);
-            if (hora < jhour && minutes < jminutes) {
-                console.log("here");
-                /*console.log(id.childNodes[1].classList)
-                id.childNodes[1].classList.remove("hidden");
-                console.log(id.childNodes[1].classList)
-                id.childNodes[1].innerHTML = `<div class="alert flex cr-s">
-                <p>Estas viendo los resultados de ayer. <br> Aun no salen los numeros del día de hoy.</p>
-                <img src="imgs/alert.svg" class="icon" alt="Icono de alerta">
-                </div>`
-                console.log(id.childNodes[1].innerHTML);*/
-            }
+         
+          
         })
 
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
@@ -110,47 +95,29 @@ export default class Fetch {
     }
 
     // Resultados principales (loterias mas populares)
-    async mainResults(loterias = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa",
-        "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale",
-        "Quiniela Loteka", "La Suerte", "Quiniela Pale"]) {
-        //["Loto Real", "Lotería Nacional", "Loteria Nacional","King Lottery", "King Lottery", "Leidsa","Quiniela LoteDom","La primera"]
-        this.uiControls.$(".Resultados").innerHTML = "";
-
-        // if(!loterias||loterias=="undefined") loterias = ['Loteria Nacional 8:50 PM',"Loto Real 12:55 PM",'Quiniela Pale Leidsa 8:55 PM / Dom 3:00 PM',"Quiniela Loteka 7:55 PM"];
-        // else loterias = JSON.parse(loterias);
-        let hora = parseInt(new Date().getHours());
-        let date = parseInt(new Date().getDate());
-        
-
-        let tipo = hora < 18 ? "tarde" : "noche";
-
+    async mainResults(loterias = this.mainLotterys) {
+        // Limpiar el contenido actual de Resultados
+        const resultadosContainer = this.uiControls.$(".Resultados");
+        let hora = new Date().getHours();
+        let newDiv = document.createElement("div");
+        let tipo = hora < 18 ? "tarde" : "noche";    
         let results = await this.fetchingTest();
         results = await this.resultsFilter(results, tipo, loterias);
-        console.log(results);
-        let tracker = [] ;
-        this.uiControls.modalBody.innerHTML = "";
-        results.forEach(x => {
-          
-            if(!tracker.includes(x.descripcion)){
-                console.log(tracker);
-            document.getElementsByClassName("Resultados")[0].innerHTML += this.lotteryCard.cardThreeNumbers(x);
-            tracker.push(x.descripcion);
-            let jdate = new Date(x["created_at"]).getDate();
-           
-           
-`1`
+       results.forEach(x => {
     
-        }
-            
-          
-        })
-
+        // Set its innerHTML to the result of cardThreeNumbers
+        newDiv.innerHTML += this.lotteryCard.cardThreeNumbers(x);
+        // Append the new div to the temporary div
+        
+})
+document.getElementsByClassName("Resultados")[0].innerHTML = newDiv.innerHTML;
+    
         // Quitar loading del principio cuando cargan los resultados principales
         this.loading.removeLoading();
-        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = (event) =>  this.uiControls.tarde("Resultados"));
-Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (event) => this.uiControls.noche("Resultados"));
+        // Asignar eventos a los elementos con clase "tarde" y "noche"
+        Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = (event) => this.uiControls.tarde("Resultados"));
+        Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (event) => this.uiControls.noche("Resultados"));
     }
-
     async resultsFilter(results, tipo, loterias) {
         // let alerta = document.getElementsByClassName("alerta")[0];
         // let hidden = Array.from(alerta.classList).includes("hidden");
@@ -176,20 +143,15 @@ Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (e
 
                 if (!filteredDescriptions.has(x.descripcion)) {
                     // Verificamos si la descripción ya está en el Set
-                    if (tipo == "tarde") {
-                        if (y.includes(descriptionn) && hours < 18 && date == cDate) {
-                            console.log("filtered " + x.descripcion);
-                            filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
-                            pear = true;
-                        }
+                    let isTarde = (tipo == "tarde" && hours < 18);
+                    let isNoche = (tipo == "noche" && hours > 17);
+
+                    if ((isTarde || isNoche) && y.includes(descriptionn) && date == cDate) {
+                        console.log("filtered " + x.descripcion);
+                        filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
+                        pear = true;
                     }
-                    if (tipo == "noche") {
-                        if (y.includes(descriptionn) && hours > 17 && date == cDate) {
-                            console.log("filtered " + x.descripcion);
-                            filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
-                            pear = true;
-                        }
-                    }
+
                 }
             });
 
@@ -202,16 +164,12 @@ Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (e
 
         return results.filter(x => {
             let pear = false;
-            let dateChanged = false;
             let created = new Date(x["created_at"]);
-            // let hours = parseInt(created.getHours());
+            
             let date = parseInt(created.getDate());
             let hours = parseInt(created.getHours());
-
-            let minutes = parseInt(created.getMinutes());
             let cDate = parseInt(this.CURRENT_DATE.getDate());
             let cHours = parseInt(this.CURRENT_DATE.getHours());
-            let cMinutes = parseInt(this.CURRENT_DATE.getMinutes());
 
             if (cHours < hours) {
                 cDate--;
@@ -219,7 +177,6 @@ Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (e
 
             if (!filteredDescriptions.has(x.descripcion)) {
                 if (date == cDate) {
-                    console.log("filtered " + x.descripcion);
                     filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
                     pear = true;
                 }
