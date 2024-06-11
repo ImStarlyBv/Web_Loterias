@@ -36,6 +36,7 @@ form.addEventListener('submit', async (event) => {
     });
 
     const subscription = await response.json();
+    console.log(JSON.stringify(subscription))
 
     if (subscription.error) {
       console.error(subscription.error.message);

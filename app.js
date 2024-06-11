@@ -136,11 +136,19 @@ app.post('/create-subscription', async (req, res) => {
     // Crear una suscripción
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
-      items: [{ price: 'your_price_id' }],
+      items: [{ price: 'price_1PQFN7P6py5lJhlwUxUuTz6e' }],
       expand: ['latest_invoice.payment_intent'],
     });
 
+    // Info que se le envia al cliente que hacer fetch POST
     res.send(subscription);
+
+    // Otra opcion es enviar true si la suscripción se crea correctamente y no mandar tantos datos que pueden ser sensibles
+    //res.send({ success: true });
+
+    // Extraer el correo electrónico del cliente
+    const emailCustomer = subscription.latest_invoice.customer_email;
+    console.log(`\nServer line: 145\n\n${emailCustomer}\n\n`)
   } catch (error) {
     res.status(400).send({ error: { message: error.message } });
   }
