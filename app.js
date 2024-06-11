@@ -119,7 +119,7 @@ app.get('/suscribe', async (req, res) => {
 });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
+/* Suscribirse que si funciona
 app.post('/create-subscription', async (req, res) => {
   try {
     const { email, paymentMethodId } = req.body;
@@ -153,13 +153,196 @@ app.post('/create-subscription', async (req, res) => {
     res.status(400).send({ error: { message: error.message } });
   }
 });
+*/
+
+// Ruta para manejar la creación de suscripciones
+app.post('/create-subscription', async (req, res) => {
+  try {
+    const { email, paymentMethodId } = req.body;
+
+    // Verificar si el cliente ya existe
+    const customers = await stripe.customers.list({
+      email: email,
+      limit: 1,
+    });
+
+    let customer;
+
+    if (customers.data.length > 0) {
+      customer = customers.data[0];
+    } else {
+      // Crear un nuevo cliente si no existe
+      customer = await stripe.customers.create({
+        payment_method: paymentMethodId,
+        email: email,
+        invoice_settings: {
+          default_payment_method: paymentMethodId,
+        },
+      });
+    }
+
+    // Verificar si el cliente ya tiene una suscripción activa
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'active',
+      limit: 1,
+    });
+
+    if (subscriptions.data.length > 0) {
+      // Si ya hay una suscripción activa, no crear una nueva
+      return res.status(400).send({ success: false, error: 'Customer already has an active subscription' });
+    }
+
+    // Crear una nueva suscripción
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ price: 'price_1PQFN7P6py5lJhlwUxUuTz6e' }], // Reemplaza con tu ID de precio real
+    });
+
+    // Enviar true si la suscripción se crea correctamente
+    res.send({ success: true });
+  } catch (error) {
+    // Enviar false si hay algún error
+    res.status(400).send({ success: false, error: error.message });
+  }
+});
+
+// Ruta para servir el archivo HTML de cancelar suscripción
+app.get('/cancel', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'cancel-subscription.html'));
+});
 
 
+// Endpoint/ruta para manejar la cancelación de suscripciones basado en email
+/*
+NO SE QUE HACE ESTE AKI SI ESTA EL DE ARRIBA
+app.post('/create-subscription', async (req, res) => {
+  try {
+    const { email, paymentMethodId } = req.body;
+
+    // Verificar si el cliente ya existe
+    const customers = await stripe.customers.list({
+      email: email,
+      limit: 1,
+    });
+
+    let customer;
+
+    if (customers.data.length > 0) {
+      customer = customers.data[0];
+    } else {
+      // Crear un nuevo cliente si no existe
+      customer = await stripe.customers.create({
+        payment_method: paymentMethodId,
+        email: email,
+        invoice_settings: {
+          default_payment_method: paymentMethodId,
+        },
+      });
+    }
+
+    // Verificar si el cliente ya tiene una suscripción activa
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'active',
+      limit: 1,
+    });
+
+    if (subscriptions.data.length > 0) {
+      // Si ya hay una suscripción activa, no crear una nueva
+      return res.status(400).send({ success: false, error: 'Customer already has an active subscription' });
+    }
+
+    // Crear una nueva suscripción
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ price: 'price_1JXXYZ2eZvKYlo2CE9DxyX2A' }], // Reemplaza con tu ID de precio real
+    });
+
+    // Enviar true si la suscripción se crea correctamente
+    res.send({ success: true });
+  } catch (error) {
+    // Enviar false si hay algún error
+    res.status(400).send({ success: false, error: error.message });
+  }
+});*/
 
 // server.js (continuación)
-app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {
+/*app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {
   const event = request.body;
 
+  switch (event.type) {
+    case 'invoice.payment_succeeded':
+      const invoice = event.data.object;
+      console.log(`Payment for invoice ${invoice.id} succeeded.`);
+      break;
+    case 'invoice.payment_failed':
+      const failedInvoice = event.data.object;
+      console.log(`Payment for invoice ${failedInvoice.id} failed.`);
+      break;
+    // Maneja otros eventos que te interesen
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  response.send();
+});*/
+
+
+// Cancelar suscripcion con correo
+
+app.post('/cancel-subscription', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Buscar el cliente por correo electrónico
+    const customers = await stripe.customers.list({
+      email: email,
+      limit: 1,
+    });
+
+    if (customers.data.length === 0) {
+      return res.status(400).send({ success: false, error: 'Customer not found' });
+    }
+
+    const customer = customers.data[0];
+
+    // Buscar la suscripción activa del cliente
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'active',
+      limit: 1,
+    });
+
+    if (subscriptions.data.length === 0) {
+      return res.status(400).send({ success: false, error: 'No active subscription found' });
+    }
+
+    const subscriptionId = subscriptions.data[0].id;
+
+    // Cancelar la suscripción
+    const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId);
+
+    res.send({ success: true });
+  } catch (error) {
+    res.status(400).send({ success: false, error: error.message });
+  }
+});
+
+// Endpoint para manejar el webhook de Stripe
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {
+  const sig = request.headers['stripe-signature'];
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_SECRET_KEY);
+  } catch (err) {
+    console.log(`⚠️  Webhook signature verification failed:`, err.message);
+    return response.sendStatus(400);
+  }
+
+  // Manejar el evento
   switch (event.type) {
     case 'invoice.payment_succeeded':
       const invoice = event.data.object;

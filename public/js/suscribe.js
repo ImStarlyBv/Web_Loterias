@@ -39,7 +39,7 @@ form.addEventListener('submit', async (event) => {
     console.log(JSON.stringify(subscription))
 
     if (subscription.error) {
-      console.error(subscription.error.message);
+      console.error(`Error personalizado:\n${subscription.error}`);
       document.getElementById('payment-message').textContent = subscription.error.message;
       document.getElementById('payment-message').classList.remove('hidden');
     } else {
