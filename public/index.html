@@ -43,9 +43,25 @@
     <!-- Con node -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="css/new-styles.css">
+
+    <!-- Suscripción -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="/css/suscribe.css">
+    <script defer src="/js/suscribe.js" type="module"></script>
 </head>
 
 <body>
+
+    <!-- div class="aaa">
+        <form id="subscription-form">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            <label for="card-element">Credit or debit card</label>
+            <div id="card-element"></div>
+            <button type="submit">Subscribe</button>
+        </form>
+        <div id="payment-message" class="hidden"></div>
+    </div -->
 
     <div class="loading-container flex-center">
         <div class="loading cr-max"></div>
@@ -98,10 +114,8 @@
                                     data-bs-toggle="modal"><strong>Suscribete</strong></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn-suscribe-card" href="/suscribe"><strong>Suscribe card</strong></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-suscribe-card" href="/cancel"><strong>Cancelar suscripción</strong></a>
+                                <a class="nav-link btn-suscribe-card" href="/cancel"><strong>Cancelar
+                                        suscripción</strong></a>
                             </li>
                         </ul>
                     </div>

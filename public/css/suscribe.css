@@ -1,5 +1,5 @@
 /* public/styles.css */
-body {
+/*body {
     font-family: Arial, sans-serif;
     background-color: var(--green-casino-original);
     display: flex;
@@ -11,12 +11,15 @@ body {
 }
 
 .container {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 8px;
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);* /
     width: 400px;
     max-width: 100%;
+    }*/
+
+.subscription-container {
+    /*border: 1px solid red;*/
+    
+    background: var(--white);
 }
 
 h1 {
@@ -47,25 +50,6 @@ input[type="email"] {
     border: 1px solid var(--light-2);
     border-radius: 4px;
     margin-bottom: 20px;
-}
-
-button {
-    padding: 10px;
-    font-size: 16px;
-    color: var(--white);
-    background-color: var(--blue-1);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--fast-transition);
-    -webkit-transition: var(--fast-transition);
-    -moz-transition: var(--fast-transition);
-    -ms-transition: var(--fast-transition);
-    -o-transition: var(--fast-transition);
-}
-
-button:hover {
-    background-color: var(--blue-1-hover);
 }
 
 #payment-message {
