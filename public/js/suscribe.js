@@ -1,6 +1,6 @@
 const bbb = () => {
 
-  const stripe = Stripe('pk_test_51PPw1mP6py5lJhlwvK6QjnGqYEt4vD1b9rnIz5J74iMAWYj4d2HtnsHzfPD098OYXmGy5dEAt52o3RUTGHOys3SK00AlG8V8Es');
+  /*const stripe = Stripe('pk_test_51PPw1mP6py5lJhlwvK6QjnGqYEt4vD1b9rnIz5J74iMAWYj4d2HtnsHzfPD098OYXmGy5dEAt52o3RUTGHOys3SK00AlG8V8Es');
   const elements = stripe.elements();
   const cardElement = elements.create('card');
   cardElement.mount('#card-element');
@@ -16,12 +16,12 @@ const bbb = () => {
       type: 'card',
       card: cardElement,
       billing_details: {
-        email: inpEmail,
+        email: inpEmail.value,
       },
     });
 
     if (error) {
-      console.error(error);
+      console.error(`Error personalizado\n${error}`);
       document.getElementById('payment-message').textContent = error.message;
       document.getElementById('payment-message').classList.remove('hidden');
     } else {
@@ -31,13 +31,14 @@ const bbb = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: inpEmail,
+          email: inpEmail.value,
           paymentMethodId: paymentMethod.id,
         }),
       });
 
       const subscription = await response.json();
       console.log(JSON.stringify(subscription))
+      alert(JSON.stringify(subscription))
 
       if (subscription.error) {
         console.error(`Error personalizado:\n${subscription.error}`);
@@ -48,7 +49,7 @@ const bbb = () => {
         document.getElementById('payment-message').classList.remove('hidden');
       }
     }
-  });
+  });*/
 
 
 }

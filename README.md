@@ -6,6 +6,8 @@ Iniciar la app `node app.js`
 - express
 - nodemailer
 - ws
+- stripe
+- body-parser
 
 ### Configuración para enviar correos
 Crear un archivo `.env` en la raiz del proyecto. <br/>

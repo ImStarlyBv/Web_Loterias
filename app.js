@@ -199,8 +199,12 @@ app.post('/create-subscription', async (req, res) => {
       items: [{ price: 'price_1PQFN7P6py5lJhlwUxUuTz6e' }], // Reemplaza con tu ID de precio real
     });
 
-    // Enviar true si la suscripción se crea correctamente
-    res.send({ success: true });
+    // Enviar true si la tarjeta es correcta
+    res.send(
+      {
+        validCard: true
+      }
+    );
   } catch (error) {
     // Enviar false si hay algún error
     res.status(400).send({ success: false, error: error.message });
@@ -289,7 +293,7 @@ app.post('/create-subscription', async (req, res) => {
 });*/
 
 
-// Cancelar suscripcion con correo
+// Cancelar suscripción con correo
 
 app.post('/cancel-subscription', async (req, res) => {
   try {

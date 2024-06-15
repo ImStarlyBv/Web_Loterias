@@ -15,20 +15,22 @@ export default class Fetch {
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
         this.loteriesNotification = new LoteriesNotification()
-        this.CURRENT_DATE = new Date() 
+        this.CURRENT_DATE = new Date()
         this.mainLotterys = ["Loto Real", "Loteria Nacional", "King Lottery", "Leidsa",
             "Quiniela LoteDom", "La primera", "la suerte", "New York", "Florida", "Quiniela Pale",
             "Quiniela Loteka", "La Suerte", "Quiniela Pale"];
+
+            this.firstLoading = true
     }
 
-     getResults() {
+    getResults() {
 
-        let  resultados =this.fetchingTest();
+        let resultados = this.fetchingTest();
         return resultados;
 
     }
 
-    async fetchingTest(FileUrl=this.File) {
+    async fetchingTest(FileUrl = this.File) {
         // ahora puedes pasarle como parametro de donde quieres sacar los datos
         // tiene por defecto data.json , este json es escrito con node js 
         // llamando la api de sorteosrd
@@ -36,7 +38,7 @@ export default class Fetch {
         let p = await fetch(`${FileUrl}`);
         let newJson = await p.json()
         return await newJson;
-       
+
     }
 
     async feedModalWithAlllotteries(filter) {
@@ -60,12 +62,12 @@ export default class Fetch {
 
                     // Si la descripción contiene la palabra buscada
 
-                    return regex.test(x["descripcion"].toLocaleLowerCase())? true : false;
-                  
+                    return regex.test(x["descripcion"].toLocaleLowerCase()) ? true : false;
+
                 });
             }
 
-          
+
             if (results.length === 0) {
                 this.uiControls.modalBody.innerHTML = `
                     <h2 style="color: var(--red);">
@@ -86,8 +88,8 @@ export default class Fetch {
                 this.uiControls.modalBody.innerHTML += this.lotteryCard.cardThreeNumbers(x)
             }
 
-         
-          
+
+
         })
 
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
@@ -100,20 +102,23 @@ export default class Fetch {
         const resultadosContainer = this.uiControls.$(".Resultados");
         let hora = new Date().getHours();
         let newDiv = document.createElement("div");
-        let tipo = hora < 18 ? "tarde" : "noche";    
+        let tipo = hora < 18 ? "tarde" : "noche";
         let results = await this.fetchingTest();
         results = await this.resultsFilter(results, tipo, loterias);
-       results.forEach(x => {
-    
-        // Set its innerHTML to the result of cardThreeNumbers
-        newDiv.innerHTML += this.lotteryCard.cardThreeNumbers(x);
-        // Append the new div to the temporary div
-        
-})
-document.getElementsByClassName("Resultados")[0].innerHTML = newDiv.innerHTML;
-    
+        results.forEach(x => {
+
+            // Set its innerHTML to the result of cardThreeNumbers
+            newDiv.innerHTML += this.lotteryCard.cardThreeNumbers(x);
+            // Append the new div to the temporary div
+
+        })
+        document.getElementsByClassName("Resultados")[0].innerHTML = newDiv.innerHTML;
+
         // Quitar loading del principio cuando cargan los resultados principales
-        this.loading.removeLoading();
+        if (this.firstLoading) {
+            this.loading.removeLoading();
+            this.firstLoading = false
+        }
         // Asignar eventos a los elementos con clase "tarde" y "noche"
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = (event) => this.uiControls.tarde("Resultados"));
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (event) => this.uiControls.noche("Resultados"));
@@ -165,7 +170,7 @@ document.getElementsByClassName("Resultados")[0].innerHTML = newDiv.innerHTML;
         return results.filter(x => {
             let pear = false;
             let created = new Date(x["created_at"]);
-            
+
             let date = parseInt(created.getDate());
             let hours = parseInt(created.getHours());
             let cDate = parseInt(this.CURRENT_DATE.getDate());
@@ -207,7 +212,7 @@ document.getElementsByClassName("Resultados")[0].innerHTML = newDiv.innerHTML;
         /* Se recorre la variable "newJson" con el metodo "map", dando como resultado de cada
         * iteración un objeto llamado "lottery"
         */
-        
+
         newJson.map((lottery, i) => {
             /* Desde aki sin objeto
             //console.log(lottery.descripcion)

@@ -18,7 +18,7 @@
 
 .subscription-container {
     /*border: 1px solid red;*/
-    
+
     background: var(--white);
 }
 
@@ -72,4 +72,15 @@ input[type="email"] {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
+}
+
+
+#card-element.is-invalid {
+    border-color: var(--bs-form-invalid-border-color);
+    box-shadow: 0 0 0 .25rem rgba(var(--bs-danger-rgb), .25);
+}
+
+#card-element.is-valid {
+    border-color: var(--bs-form-valid-border-color);
+    box-shadow: 0 0 0 .25rem rgba(var(--bs-success-rgb), .25);
 }
