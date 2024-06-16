@@ -91,6 +91,9 @@ export default class Suscribe {
                         email: inpEmail.value,
                     },
                 });
+
+                //console.log(`\n\n${JSON.stringify(paymentMethod)}\n\n`)
+
                 console.log(`\n\nDebug 2\n\n`)
 
                 if (error) {
@@ -115,13 +118,6 @@ export default class Suscribe {
                     });
 
                     const subscription = await response.json();
-                    console.log(JSON.stringify(subscription))
-                    //alert(JSON.stringify(subscription))
-
-                    // Creo que nunca pasa, borrar este if
-                    /*if (!subscription.success) {
-                        
-                    }*/
 
                     if (subscription.error) {
                         this.loading.removeLoading()
@@ -136,7 +132,9 @@ export default class Suscribe {
                         this.loading.removeLoading()
 
                         const emailData = {
-                            to: `${inpEmail.value}`
+                            to: `${inpEmail.value}`,
+                            nav_invoice: subscription.nav_invoice,
+                            pdf_invoice: subscription.pdf_invoice
                         };
 
                         fetch('/send-email', {
@@ -146,7 +144,7 @@ export default class Suscribe {
                             },
                             body: JSON.stringify(emailData)
                         })
-                            .then(response => response.text())
+                            .then(response =>response.text())
                             .then(data => {
                                 console.log('Correo enviado:', data);
                                 console.log('Correo enviado con éxito - Suscribe');

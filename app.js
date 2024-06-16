@@ -50,9 +50,13 @@ app.use((req, res, next) => {
 
 // sendEmail
 app.post('/send-email', async (req, res) => {
-  //console.log(`Esto es req = \n\n${req}`)
-  //console.log(`Esto es res = \n\n${res}`)
-  const { to } = req.body;
+  /*console.log(`\n\nEsto es req = \n\n`)
+  console.log(req)
+  console.log(`\n\n`)*/
+  //console.log(`Esto es res = \n\n${JSON.stringify(res)}\n\n`)
+  const { to, nav_invoice, pdf_invoice } = req.body;
+
+  console.log(req.body)
 
   const subject = 'Código de verificación'
   const text = "Codigo de verificación de correo electrónico."
@@ -64,8 +68,39 @@ app.post('/send-email', async (req, res) => {
     const encodedText = Buffer.from(to).toString('base64');
 
     const htmlContent = `
-    <p>Su código de verificación es: <b>${code}</b></p> <br/>
-    <p>Haga <a href="${confirmationUrl}/${encodedText}">click en este enlace</a> para confirmar su cuenta.</p>
+    <p style="font-size: 16px;">Su código de verificación es: <b>${code}</b></p> <br />
+    <p style="font-size: 16px;">Haga <a href="${confirmationUrl}/${encodedText}">click en este enlace</a> para confirmar su cuenta.</p>
+
+    <h3>Verifica tu cuenta</h3>
+    <p style="font-size: 16px;">Beneficios de confirmar la cuenta:</p>
+    <ul style="font-size: 16px;">
+        <li>Seguridad</li>
+        <li>Recuperar contraseña de forma fácil y rápido</li>
+    </ul>
+
+    <div style="height: 3px;
+    border-radius: 50rem;
+    width: 100%;
+    background-color: rgb(209, 209, 209);"></div>
+
+    <h3>Facturas</h3>
+    <div style="display: flex;">
+        <a href="${nav_invoice}" style="text-decoration: none; background-color: #2E8B57; color: white;
+            padding: 10px 20px; font-size: 16px;">Ver en el navegador</a>
+        <br />
+        <a href="${pdf_invoice}" style="text-decoration: none;
+            background-color: #2E8B57;
+            color: white;
+            padding: 10px 20px;
+            margin-left: 7px; font-size: 16px;">Descargar PDF</a>
+    </div>
+
+    <p style="font-size: 16px;">Algo que tenga que ir en el footer del correo</p>
+    <p style="font-size: 16px;">Ejemplo: si desconoce este correo ignore el contenido del mismo porque es confidencial o si quiere dejar un
+        comentario para mejorar la comunicación o algo asi</p>
+    <p style="font-size: 16px;">Y un contáctenos profesional ejemplo:</p>
+    <p style="font-size: 16px;">Si tiene duda o desea comunicarse con nosotros puede hacerlo via <a href="#">nuestro centro de contactos</a> o
+        escríbenos al siguiente<a href="#"> correo electrónico</a>.</p>
     `
     await sendEmail(to, subject, text, htmlContent);
     res.status(200).send('Correo enviado con éxito');
@@ -89,16 +124,61 @@ app.use('/verify-email', async (req, res) => {
 
 // Reenviar código
 app.use('/resend-code/:e', async (req, res) => {
+  console.log('\n\n')
+  // Protocolo (http o https)
+  const protocol = req.protocol;
+  console.log(protocol)
+
+  // Host (incluye el nombre de dominio y el puerto)
+  const host = req.get('host');
+  console.log(host)
+
+  // Ruta (URL relativa)
+  const path = req.originalUrl;
+  console.log(path)
+  // URL completa
+  //const fullUrl = `${protocol}://${host}${path}`;
+  //console.log('URL actual:', fullUrl);
+
+  console.log('\n\n')
+
   const decodedText = Buffer.from(req.params.e, 'base64').toString('utf-8');
 
   const code = emailConfirmationCode.getACode()
-  const htmlContent = `
+  /*const htmlContent = `
     <p>Su código de verificación es: <b>${code}</b></p> <br/>
     <p>Haga <a href="http://localhost:3000/verify-email/${req.params.e}">click en este enlace</a> para confirmar su cuenta.</p>
-    `
-  // Cambiar la forma de URL (estatica para los ejemplos de desarrollo)
+    `*/
+  const htmlContent = `
+    <p style="font-size: 16px;">Su código de verificación es: <b>${code}</b></p> <br />
+    <p style="font-size: 16px;">Haga <a href="${protocol}://${host}/verify-email/${req.params.e}">click en este enlace</a> para confirmar su cuenta.</p>
 
-  await sendEmail(decodedText, "Nuevo código de confirmación", "text", htmlContent)
+    <h3>Verifica tu cuenta</h3>
+    <p style="font-size: 16px;">Beneficios de confirmar la cuenta:</p>
+    <ul style="font-size: 16px;">
+        <li>Seguridad</li>
+        <li>Recuperar contraseña de forma fácil y rápido</li>
+    </ul>
+
+    <br />
+
+    <p style="font-size: 16px;">Algo que tenga que ir en el footer del correo</p>
+    <p style="font-size: 16px;">Ejemplo: si desconoce este correo ignore el contenido del mismo porque es confidencial o si quiere dejar un
+        comentario para mejorar la comunicación o algo asi</p>
+    <p style="font-size: 16px;">Y un contáctenos profesional ejemplo:</p>
+    <p style="font-size: 16px;">Si tiene duda o desea comunicarse con nosotros puede hacerlo via <a href="#">nuestro centro de contactos</a> o
+        escríbenos al siguiente<a href="#"> correo electrónico</a>.</p>
+    `
+
+
+  // Cambiar la forma de URL (estática para los ejemplos de desarrollo)
+
+  //await sendEmail(decodedText, "Nuevo código de confirmación", "text", htmlContent)
+  if (await sendEmail(decodedText, "Nuevo código de confirmación", "text", htmlContent)) {
+    res.send({ result: true })
+  } else {
+    res.send({ result: false })
+  }
 });
 
 
@@ -114,7 +194,12 @@ app.get('/suscribe', async (req, res) => {
 // Ruta para manejar la creación de suscripciones
 app.post('/create-subscription', async (req, res) => {
   try {
-    const { email, paymentMethodId } = req.body;
+
+    //console.log("\n\n")
+    //console.log(res)
+    //console.log("\n\n")
+
+    const { email, paymentMethodId, m } = req.body;
 
     // Verificar si el cliente ya existe
     const customers = await stripe.customers.list({
@@ -133,7 +218,7 @@ app.post('/create-subscription', async (req, res) => {
         email: email,
         invoice_settings: {
           default_payment_method: paymentMethodId,
-        },
+        }
       });
     }
 
@@ -152,15 +237,26 @@ app.post('/create-subscription', async (req, res) => {
     // Crear una nueva suscripción
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
-      items: [{ price: 'price_1PQFN7P6py5lJhlwUxUuTz6e' }], // Reemplaza con tu ID de precio real
+      items: [{ price: 'price_1PQFN7P6py5lJhlwUxUuTz6e' }],
+      expand: ['latest_invoice']
     });
 
+    console.log("\n\n")
+    const { hosted_invoice_url, invoice_pdf } = await stripe.invoices.retrieve(subscription.latest_invoice.id)
+    console.log(`\n\nFactura en navegador = ${hosted_invoice_url}`)
+    console.log(`\n\nFactura en PDF = ${invoice_pdf}\n\n`)
+    console.log("\n\n")
+
     // Enviar true si la tarjeta es correcta
-    res.send(
-      {
-        validCard: true
-      }
-    );
+    res.send({
+      validCard: true,
+      nav_invoice: hosted_invoice_url,
+      pdf_invoice: invoice_pdf
+    });
+
+    /*console.log("\n\n")
+    console.log(res)
+    console.log("\n\n")*/
   } catch (error) {
     // Enviar false si hay algún error
     res.status(400).send({ success: false, error: error.message });
@@ -234,15 +330,15 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, res
   switch (event.type) {
     case 'invoice.payment_succeeded':
       const invoice = event.data.object;
-      console.log(`Payment for invoice ${invoice.id} succeeded.`);
+      console.log(`\n\nPayment for invoice ${invoice.id} succeeded.\n\n`);
       break;
     case 'invoice.payment_failed':
       const failedInvoice = event.data.object;
-      console.log(`Payment for invoice ${failedInvoice.id} failed.`);
+      console.log(`\n\nPayment for invoice ${failedInvoice.id} failed.\n\n`);
       break;
     // Maneja otros eventos que te interesen
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      console.log(`\n\nUnhandled event type ${event.type}\n\n`);
   }
 
   response.send();

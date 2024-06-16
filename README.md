@@ -1,3 +1,6 @@
+# Repositorio original
+https://github.com/ImStarlyBv/verLoterias
+
 # Comandos
 Iniciar la app `node app.js`
 

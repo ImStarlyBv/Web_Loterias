@@ -78,6 +78,15 @@ footer {
     text-align: center;
 }
 
+.notification-container {
+    border: 2px solid var(--green-casino);
+    background-color: var(--valid-bg);
+    color: var(--valid-color);
+    margin-top: var(--distance-m);
+    padding: var(--distance-s);
+    display: none;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 450px) {

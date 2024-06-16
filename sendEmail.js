@@ -15,6 +15,7 @@ async function sendEmail(to, subject, text, html) {
             html: html
         });
         console.log('Correo enviado con éxito 1');
+        return true
     } catch (error) {
         console.error('Error al enviar el correo 1:', error);
 

@@ -35,6 +35,14 @@
     --dark-casino: #110606;
 
     --red: #d10000;
+
+    --valid-bg: #d4edda;
+    --valid-color: #155724;
+    --valid-border: 1px solid #c3e6cb;
+
+    --invalid-bg: #f8d7da;
+    --invalid-color: #721c24;
+    --invalid-border: 1px solid #f5c6cb;
     
     /* Max values */
     /* Height 1200, 1400, >1440<, 1600 */

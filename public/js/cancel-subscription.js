@@ -23,11 +23,15 @@ document.getElementById('cancel-subscription-form').addEventListener('submit', a
 });
 */
 
-
 // Eliminar suscripcion con correo
+const message = document.getElementById('message');
+
 console.log("Funcinando con correo")
 document.getElementById('cancel-subscription-form').addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  message.textContent = ""
+
 
   const email = document.getElementById('email').value;
 
@@ -44,10 +48,9 @@ document.getElementById('cancel-subscription-form').addEventListener('submit', a
   console.log(response)
 
   const result = await response.json();
-  const message = document.getElementById('message');
   if (result.success) {
     message.textContent = 'Subscription cancelled successfully.';
-    message.style.color = 'green';
+    message.style.color = 'darkgreen';
   } else {
     message.textContent = `Error cancelling subscription: ${result.error}`;
     message.style.color = 'darkred';
