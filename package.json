@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@azure/ai-language-text": "^1.1.0",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "nodemailer": "^6.9.13",
+    "stripe": "^15.10.0",
     "ws": "^8.17.0"
   }
 }

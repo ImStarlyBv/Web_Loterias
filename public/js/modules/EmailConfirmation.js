@@ -1,6 +1,7 @@
 import UiControls from "./UiControls.js"
 
 const uiControls = new UiControls()
+const notificationContainer = document.querySelector(".notification-container")
 
 // Cambiar de inp de forma automática al escribir el código de verificación
 const allInps = uiControls.$(".inp-code")
@@ -26,6 +27,9 @@ const btnResend = document.querySelector(".btn-resend")
 btnResend.addEventListener("click", (e) => {
     e.preventDefault()
 
+    notificationContainer.innerHTML = "Enviando nuevo código..."
+    notificationContainer.style.display = "block"
+
     const url = window.location.href
     const urlObject = new URL(url);
     const em = urlObject.pathname.split('/').pop();
@@ -42,7 +46,14 @@ btnResend.addEventListener("click", (e) => {
         },
         body: JSON.stringify(rs)
     })
-        .then(response => response.text())
+        .then(response => {
+            response.text()
+            notificationContainer.innerHTML = "Correo enviado."
+            const timeout = setTimeout(() => {
+                notificationContainer.style.display = "none"
+                clearTimeout(timeout)
+            }, 5000);
+        })
         .catch(error => {
             console.error('Error al enviar el correo - Resend code:', error);
             //alert('Error al enviar el correo');

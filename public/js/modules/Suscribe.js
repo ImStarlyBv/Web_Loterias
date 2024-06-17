@@ -1,9 +1,13 @@
+import Loading from "./Loading.js";
+
+const stripe = Stripe('pk_test_51PPw1mP6py5lJhlwvK6QjnGqYEt4vD1b9rnIz5J74iMAWYj4d2HtnsHzfPD098OYXmGy5dEAt52o3RUTGHOys3SK00AlG8V8Es');
+const elements = stripe.elements();
+const cardElement = elements.create('card');
+
 export default class Suscribe {
     constructor() {
         console.log("Esto es de Suscribe class")
-
-        // Para pruebas de correo que ya están registrados
-        this.subscribedEmail = "ya@existe.com"
+        this.loading = new Loading()
     }
 
     /**
@@ -11,34 +15,24 @@ export default class Suscribe {
      * @param {HTMLElement} modalBody - Cuerpo del modal donde se crea el formulario de esta función
      */
     start(modalBody) {
-        modalBody.innerHTML = `<form action="" class="register-form flex">
-        <label for="inp-email">Ingrese su correo electrónico</label>
-            <div class="input-group flex-nowrap">
-                <span class="input-group-text" id="addon-wrapping">@</span>
-                <input type="text" class="form-control" id="inp-email" placeholder="ejemplo" aria-label="ejemplo@ejemplo.com" aria-describedby="addon-wrapping" style="    flex-grow: 5;">
-
-                <select class="form-select" aria-label="Default select example" id="email-type">
-                <option value="gmail" selected>@gmail</option>
-                <option value="yahoo">@yahoo</option>
-                <option value="outlook">@outlook</option>
-                <option value="hotmail">@hotmail</option>
-                </select>
-
-                <select class="form-select" aria-label="Default select example" id="email-dot">
-                <option value="com" selected>.com</option>
-                <option value="es">.es</option>
-                </select>
-                </div>
-                <span class="error inp-error hidden">Mensaje de error</span>
+        modalBody.innerHTML = `
+        <div class="subscription-container cr-s">
+        <form id="subscription-form" class="register-form flex">
+            <label for="inp-email">Correo electrónico</label>
+            <input type="email" id="inp-email" class="form-control" required>
+            <label for="card-element">Tarjeta de crédito o débito</label>
+            <div id="card-element"></div>
             <button type="submit" class="btn btn-success btn-register">Registrar</button>
-        </form>`
+        </form>
+        <div id="payment-message" class="hidden">Mostrar mensajes.</div>
+        </div>
+        `
 
         this.registerProcess()
     }
 
     isValidEmail(email) {
-        //const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const emailRegex = /^[a-zA-Z0-9._%+-]{1,}$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return emailRegex.test(email);
     }
 
@@ -50,69 +44,134 @@ export default class Suscribe {
      * @param {boolean} isValid - El menaje es de éxito (true) o error (false)
      */
 
-    inpSuscribeMessage(input, messageItem, messageText, isValid) {
-        if (isValid) { messageItem.classList.add("success") }
-            else { messageItem.classList.remove("success") }
-        //input.classList.add(valid)
+    inpSuscribeMessage(inputAbout, messageItem, messageText, isValid) {
+        if (isValid) {
+            messageItem.classList.add("success")
+        }
+        else {
+            inputAbout.classList.remove("is-valid")
+            inputAbout.classList.add("is-invalid")
+            inputAbout.focus()
+
+            messageItem.classList.remove("success")
+            messageItem.classList.add("error")
+        }
         messageItem.classList.remove("hidden")
         messageItem.textContent = messageText
     }
 
     registerProcess() {
+        cardElement.mount('#card-element');
+
+        const inpEmail = document.querySelector("#inp-email")
+        const errorMessage = document.querySelector("#payment-message")
+        const cardElementContainer = document.querySelector("#card-element")
+        const form = document.getElementById('subscription-form');
+
         // Btn que se crea en la funcion "start" arriba
+        /*document.querySelector(".btn-register")
+            .addEventListener("click", (e) => {
+                e.preventDefault()
+            })*/
 
-        document.querySelector(".btn-register").addEventListener("click", (e) => {
-            e.preventDefault()
-
-            const inpEmail = document.querySelector("#inp-email")
-            const inpErrorMessage = document.querySelector(".inp-error")
-            const emailType = document.querySelector("#email-type")
-            const emailDot = document.querySelector("#email-dot")
-
-            if (inpEmail.value == this.subscribedEmail) {
-                alert("Error\n\nEl correo ingresado ya está registrado\n\nNo se si ponerlo poruqe puede ser una vulnerabilidad de seguridad XD\n\nSi se deja este mensaje ponerlo en el span de error")
-                this.inpSuscribeMessage(inpEmail, inpErrorMessage, "El correo ingresado ya está suscrito.")
-                return
-            }
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
             if (this.isValidEmail(inpEmail.value)) {
+
+                console.log(`\n\nDebug 1\n\n`)
+
                 inpEmail.classList.remove("is-invalid")
                 inpEmail.classList.add("is-valid")
-                inpErrorMessage.classList.add("hidden")
-                // Enviar el correo con el codigo y redireccionar a confirmar el codigo en la page
-                //alert("Exito\n\nCorreo válido para registrarse")
 
-                //alert(`Correo:\n\n${inpEmail.value}@${emailType.value}.${emailDot.value}`)                
-
-                const confirmationURL = window.location.href + "verify-email"
-                //console.log(confirmationURL)
-                const emailData = {
-                    to: `${inpEmail.value}@${emailType.value}.${emailDot.value}`
-                };
-                
-                fetch('/send-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        email: inpEmail.value,
                     },
-                    body: JSON.stringify(emailData)
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log('Correo enviado:', data);
-                        console.log('Correo enviado con éxito - Suscribe');
+                });
 
-                        //Aki debe ir el mensaje de correo enviado
-                        this.inpSuscribeMessage(inpEmail, inpErrorMessage, "Le hemos enviado un código de verificación al correo ingresado.", true)
-                    })
-                    .catch(error => {
-                        console.error('Error al enviar el correo - Suscribe:', error);
-                        console.log('Error al enviar el correo');
+                //console.log(`\n\n${JSON.stringify(paymentMethod)}\n\n`)
+
+                console.log(`\n\nDebug 2\n\n`)
+
+                if (error) {
+                    if (error.code == "incomplete_number") {
+
+                        console.error(`Error personalizado\n${JSON.stringify(error)}`);
+
+                        this.inpSuscribeMessage(cardElementContainer, errorMessage, "Debe introducir un número de tarjeta válido.")
+                        //errorMessage.classList.remove('hidden');
+                    }
+                } else {
+                    this.loading.createLoading()
+                    const response = await fetch('/create-subscription', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: inpEmail.value,
+                            paymentMethodId: paymentMethod.id,
+                        }),
                     });
-            } else {
-                //alert("Error\n\nCorreo no válido para registrarse")
-                this.inpSuscribeMessage(inpEmail, inpErrorMessage, "Debe introducir un correo válido.")
+
+                    const subscription = await response.json();
+
+                    if (subscription.error) {
+                        this.loading.removeLoading()
+                        console.error(`Error personalizado:\n${subscription.error}`);
+                        this.inpSuscribeMessage(cardElementContainer, errorMessage, "", true)
+
+                        this.inpSuscribeMessage(inpEmail, errorMessage, "Este correo ya tiene una suscripción en curso.")
+                    } else {
+                        cardElementContainer.classList.remove("is-invalid")
+                        cardElementContainer.classList.add("is-valid")
+
+                        this.loading.removeLoading()
+
+                        const emailData = {
+                            to: `${inpEmail.value}`,
+                            nav_invoice: subscription.nav_invoice,
+                            pdf_invoice: subscription.pdf_invoice
+                        };
+
+                        fetch('/send-email', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(emailData)
+                        })
+                            .then(response =>response.text())
+                            .then(data => {
+                                console.log('Correo enviado:', data);
+                                console.log('Correo enviado con éxito - Suscribe');
+
+                                //Aki debe ir el mensaje de correo enviado
+                                this.inpSuscribeMessage(inpEmail, errorMessage, "Le hemos enviado un código de verificación al correo ingresado.", true)
+                            })
+                            .catch(error => {
+                                console.error('Error al enviar el correo - Suscribe:', error);
+                                console.log('Error al enviar el correo');
+                            });
+
+                        this.inpSuscribeMessage(cardElementContainer, errorMessage, "Le hemos enviado un código de verificación al correo ingresado.", true)
+                    }
+                }
             }
-        })
+            else {
+                //alert("Error\n\nCorreo no válido para registrarse")
+                errorMessage.classList.add("hidden")
+                errorMessage.classList.remove("hidden")
+
+                this.inpSuscribeMessage(inpEmail, errorMessage, "Debe introducir un correo válido.")
+            }
+        }
+        );
+
     }
 }
+
+
