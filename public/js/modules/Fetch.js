@@ -42,20 +42,15 @@ export default class Fetch {
     }
 
     async feedModalWithAlllotteries(filter) {
-        console.log("Funcion feedModal")
-        console.log(filter);
-        console.log("here");
-        let hora = parseInt(new Date().getHours());
-        let minutes = parseInt(new Date().getMinutes());
-
-        console.log(hora);
-        let tipo = hora < 19 ? "tarde" : "noche";
+        // Limpiar el contenido actual del modal
+      
+    
+        let hora = new Date().getHours();
+        let tipo = "modal";
         let results = await this.fetchingTest(this.File);
         results = await this.resultsFiltering(results, tipo);
-
+    
         if (filter) {
-            this.uiControls.modalBody.innerHTML = ""
-
             if (filter.length > 0) {
                 let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
                 results = await results.filter(x => {
@@ -67,16 +62,20 @@ export default class Fetch {
                 });
             }
 
-
+          
             if (results.length === 0) {
                 this.uiControls.modalBody.innerHTML = `
                     <h2 style="color: var(--red);">
                         No se encontraron resultados sobre "${filter}"
                     </h2>
-                `
+                `;
+                return;
             }
         }
-
+    
+        let newDiv = document.createElement("div");
+    
+        let filteredDescriptions = [];
         results.forEach(x => {
             if (x.descripcion.includes("Tu Fecha") ||
                 x.descripcion.includes("El Quemaito")
@@ -94,12 +93,13 @@ export default class Fetch {
 
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche("modal-body"));
-    }
+      }
+    
+
 
     // Resultados principales (loterias mas populares)
     async mainResults(loterias = this.mainLotterys) {
         // Limpiar el contenido actual de Resultados
-        const resultadosContainer = this.uiControls.$(".Resultados");
         let hora = new Date().getHours();
         let newDiv = document.createElement("div");
         let tipo = hora < 18 ? "tarde" : "noche";
@@ -150,8 +150,9 @@ export default class Fetch {
                     // Verificamos si la descripción ya está en el Set
                     let isTarde = (tipo == "tarde" && hours < 18);
                     let isNoche = (tipo == "noche" && hours > 17);
+                    
 
-                    if ((isTarde || isNoche) && y.includes(descriptionn) && date == cDate) {
+                    if ((isTarde || isNoche ) && y.includes(descriptionn) && date == cDate) {
                         console.log("filtered " + x.descripcion);
                         filteredDescriptions.add(x.descripcion); // Agregamos la descripción al Set
                         pear = true;
@@ -252,10 +253,10 @@ export default class Fetch {
                         id: lottery.id,
                     }
                 )
-            }
+            
             //}
             //console.log(`i = ${i}`)
-        })
+        }})
 
         // Fin de array para notificaciones
         console.log(`Inicio de array = ${this.loteriesNotification.allLoteries}`)

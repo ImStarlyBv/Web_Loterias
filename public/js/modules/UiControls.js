@@ -19,7 +19,8 @@ export default class UiControls {
         }
 
         this.btnShowAllLotteries = this.$(".btn-show-all-lotteries")
-        this.modalBody = this.$(".modal-body")
+        this.modalToggle =this.$("#exampleModalToggle");
+        this.modalBody = this.$(".modal-body");
         this.searchContainer = this.$(".search-container")
         //this.searchLottery = this.$(".search-lottery")
         this.modalLabel = this.$("#exampleModalToggleLabel")
@@ -61,6 +62,7 @@ export default class UiControls {
         // }
         element.classList.remove("hidden")
     }
+   
      tarde(childContainer){
 
         let parser = new DOMParser();
@@ -85,6 +87,7 @@ export default class UiControls {
         let chosenChild = Array.from(childNodesArray).filter((x,b,c) => {
 
             if(x.id === id){
+                console.log(x.id);
                 indice= b;
                 return x;
 
@@ -92,6 +95,7 @@ export default class UiControls {
 
 
         });
+        console.log(chosenChild[1]);
       
         // console.log(chosenChild);
         let nameToFilter = chosenChild[0].children[1].innerText;
@@ -182,6 +186,6 @@ export default class UiControls {
     
        
       }
-      
+     
     
 }
