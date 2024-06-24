@@ -22,7 +22,7 @@ fetch.mainResults();
 socket.onmessage = (e) => {
     fetch.mainResults();
   //  fetch.feedModalWithAlllotteries();
-  if(document.getElementsByClassName("show").length>0) fetch.feedModalWithAlllotteries();
+  if(document.getElementsByClassName("show").length>0){ fetch.feedModalWithAlllotteries(); } 
 }
  uiControls.modalToggle.addEventListener('hidden.bs.modal', () => {
   uiControls.modalBody.innerHTML = '';

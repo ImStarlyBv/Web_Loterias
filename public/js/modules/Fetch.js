@@ -10,7 +10,7 @@ export default class Fetch {
         this.File = '/js/modules/data.json';
 
         console.log("File = " + this.File)
-
+        this.socket = new WebSocket("ws://localhost:8080");
         this.uiControls = uiControls
         this.loading = new Loading()
         this.lotteryCard = new LotteryCard()
@@ -42,8 +42,12 @@ export default class Fetch {
     }
 
     async feedModalWithAlllotteries(filter) {
+        console.log("recursividad?");
+    
         // Limpiar el contenido actual del modal
-      
+        // while (this.uiControls.modalBody.firstChild) {
+        //     this.uiControls.modalBody.removeChild(this.uiControls.modalBody.firstChild);
+        // }
     
         let hora = new Date().getHours();
         let tipo = "modal";
@@ -53,16 +57,9 @@ export default class Fetch {
         if (filter) {
             if (filter.length > 0) {
                 let regex = new RegExp(filter.toLocaleLowerCase()); // Crea una nueva expresión regular con el contenido de 'filter'. La 'i' hace que la búsqueda sea insensible a mayúsculas y minúsculas.
-                results = await results.filter(x => {
-
-                    // Si la descripción contiene la palabra buscada
-
-                    return regex.test(x["descripcion"].toLocaleLowerCase()) ? true : false;
-
-                });
+                results = results.filter(x => regex.test(x["descripcion"].toLocaleLowerCase()));
             }
-
-          
+    
             if (results.length === 0) {
                 this.uiControls.modalBody.innerHTML = `
                     <h2 style="color: var(--red);">
@@ -75,25 +72,22 @@ export default class Fetch {
     
         let newDiv = document.createElement("div");
     
-        let filteredDescriptions = [];
         results.forEach(x => {
-            if (x.descripcion.includes("Tu Fecha") ||
-                x.descripcion.includes("El Quemaito")
-                || x.descripcion.includes("Repartidera Megachance")) {
-
-                this.uiControls.modalBody.innerHTML += this.lotteryCard.cardOneNumber(x)
+            if (x.descripcion.includes("Tu Fecha") || 
+                x.descripcion.includes("El Quemaito") || 
+                x.descripcion.includes("Repartidera Megachance")) {
+                newDiv.innerHTML += this.lotteryCard.cardOneNumber(x);
+            } else {
+                newDiv.innerHTML += this.lotteryCard.cardThreeNumbers(x);
             }
-            else {
-                this.uiControls.modalBody.innerHTML += this.lotteryCard.cardThreeNumbers(x)
-            }
-
-
-
-        })
-
+        });
+    
+        this.uiControls.modalBody.innerHTML = newDiv.innerHTML;
+    
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche("modal-body"));
-      }
+    }
+    
     
 
 
