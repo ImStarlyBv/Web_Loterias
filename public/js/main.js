@@ -22,7 +22,10 @@ fetch.mainResults();
 socket.onmessage = (e) => {
     fetch.mainResults();
   //  fetch.feedModalWithAlllotteries();
-  if(document.getElementsByClassName("show").length>0){ fetch.feedModalWithAlllotteries(); } 
+  const isSuscribe = document.getElementsByClassName("modal-title")[0].innerText =="Suscribete"? true: false;
+  const isShow= document.getElementsByClassName("show").length>0 ? true : false; 
+
+  if(isShow && !isSuscribe ){ fetch.feedModalWithAlllotteries(); } 
 }
  uiControls.modalToggle.addEventListener('hidden.bs.modal', () => {
   uiControls.modalBody.innerHTML = '';
