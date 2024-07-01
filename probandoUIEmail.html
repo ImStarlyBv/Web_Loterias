@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .links {}
+
+        a {}
+
+        .divider {
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>Su código de verificación es: <b>${code}</b></p> <br />
+    <p>Haga <a href="${confirmationUrl}/${encodedText}">click en este enlace</a> para confirmar su cuenta.</p>
+
+    <h3>Verifica tu cuenta</h3>
+    <p>Beneficios de confirmar la cuenta:</p>
+    <ul>
+        <li>Seguridad</li>
+        <li>Recuperar contraseña de forma fácil y rápido</li>
+    </ul>
+
+    <div style="height: 3px;
+    border-radius: 50rem;
+    width: 100%;
+    background-color: rgb(209, 209, 209);"></div>
+
+    <h3>Facturas</h3>
+    <div style="display: flex;">
+        <a href="${nav_invoice}" style="text-decoration: none; background-color: #2E8B57; color: white;
+            padding: 10px 20px;">Ver en una nueva pestaña</a>
+        <br />
+        <a href="${pdf_invoice}" style="text-decoration: none;
+            background-color: #2E8B57;
+            color: white;
+            padding: 10px 20px;
+            margin-left: 7px;">Descargar PDF</a>
+    </div>
+
+    <p>Algo que tenga que ir en el footer del correo</p>
+    <p>Ejemplo: si desconoce este correo ignore el contenido del mismo porque es confidencial o si quiere dejar un
+        comentario para mejorar la comunicación o algo asi</p>
+    <p>Y un contáctenos profesional ejemplo:</p>
+    <p>Si tiene duda o desea comunicarse con nosotros puede hacerlo via <a href="#">nuestro centro de contactos</a> o
+        escríbenos al siguiente<a href="#"> correo electrónico</a>.</p>
+
+</body>
+
+</html>

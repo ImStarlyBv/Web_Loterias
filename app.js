@@ -7,6 +7,8 @@ import sendEmail from './sendEmail.js';
 import EmailConfirmationCode from './utils/EmailConfirmationCode.js';
 import updateJson from './utils/updateLotteries.js';
 const emailConfirmationCode = new EmailConfirmationCode()
+import { Atlas } from './Atlas.js';
+import axios from 'axios';
 
 // Implementando pagos
 import Stripe from 'stripe';
@@ -47,6 +49,7 @@ app.use((req, res, next) => {
 
 
 // Rutas
+let actualConfirmationCode = ""
 
 // sendEmail
 app.post('/send-email', async (req, res) => {
@@ -64,6 +67,7 @@ app.post('/send-email', async (req, res) => {
   console.log(`confirmationUrl = ${confirmationUrl}`)
   try {
     const code = emailConfirmationCode.getACode()
+    actualConfirmationCode = code
 
     const encodedText = Buffer.from(to).toString('base64');
 
@@ -103,7 +107,60 @@ app.post('/send-email', async (req, res) => {
         escríbenos al siguiente<a href="#"> correo electrónico</a>.</p>
     `
     await sendEmail(to, subject, text, htmlContent);
-    res.status(200).send('Correo enviado con éxito');
+
+    if (await Atlas.getAUserByEmail({ email: "alexander65mercedes@gmail.com" })) {
+      console.log("\n\n" + `Usuario encontrado con el correo: "alexander65mercedes@gmail.com"` + "\n\n")
+    } else {
+      console.log("\n\n" + "Usuario no encontrado con ese correo" + "\n\n")
+    }
+
+    /* Crear usuario en la DB - Desde aki */
+    const date = new Date()
+    
+    const day = date.getDate() < 10 ?
+      "0" + date.getDate() : date.getDate()
+    const month = (date.getUTCMonth() + 1) < 10 ?
+      "0" + (date.getUTCMonth() + 1) : (date.getUTCMonth() + 1)
+    const year = date.getUTCFullYear() < 10 ?
+      "0" + date.getUTCFullYear() : date.getUTCFullYear()
+
+    const hour = date.getHours()
+    // Poner hora en formato de 24 horas
+    let formatedHour = hour > 12 ? hour - 12 : hour
+    formatedHour = formatedHour < 10 ?
+      "0" + formatedHour : formatedHour
+
+    const minute = date.getUTCMinutes() < 10 ?
+      "0" + date.getUTCMinutes() : date.getUTCMinutes()
+    const second = date.getUTCSeconds() < 10 ?
+      "0" + date.getUTCSeconds() : date.getUTCSeconds()
+
+    const timeType = hour > 12 ? "PM" : "AM"
+
+    const actualDateTime = `${day}/${month}/${year} - ${formatedHour}:${minute}:${second} ${timeType}`
+
+    try {
+      await Atlas.create({
+        email: to,
+        creation_date: actualDateTime,
+        confirmation_code: actualConfirmationCode,
+        status_account: "active"
+      })
+      res.status(201).send({
+        ok: true,
+        message: "Correo enviado con éxito",
+        validCard: true,
+        //nav_invoice: hosted_invoice_url,
+        //pdf_invoice: invoice_pdf
+      });
+    } catch (error) {
+      console.log("El usuario no pudo ser creado...")
+      console.log(`Error: ${error}`)
+      res.status(201).send({ ok: false });
+    }
+    /* Crear usuario en la DB - Hasta aki */
+
+    //res.status(200).send('Correo enviado con éxito');
     logger.writeAppLogs(`Correo enviado con éxito - Desde sendEmail | Estado: 200`);
   } catch (error) {
     res.status(500).send('Error al enviar el correo');
@@ -145,6 +202,8 @@ app.use('/resend-code/:e', async (req, res) => {
   const decodedText = Buffer.from(req.params.e, 'base64').toString('utf-8');
 
   const code = emailConfirmationCode.getACode()
+  actualConfirmationCode = code
+
   /*const htmlContent = `
     <p>Su código de verificación es: <b>${code}</b></p> <br/>
     <p>Haga <a href="http://localhost:3000/verify-email/${req.params.e}">click en este enlace</a> para confirmar su cuenta.</p>
@@ -196,10 +255,10 @@ app.post('/create-subscription', async (req, res) => {
   try {
 
     //console.log("\n\n")
-    //console.log(res)
+    //console.log(req)
     //console.log("\n\n")
 
-    const { email, paymentMethodId, m } = req.body;
+    const { email, paymentMethodId, m, creation_date, confirmation_code } = req.body;
 
     // Verificar si el cliente ya existe
     const customers = await stripe.customers.list({
@@ -273,6 +332,7 @@ app.get('/cancel', (req, res) => {
 
 
 // Cancelar suscripción con correo
+/*
 app.post('/cancel-subscription', async (req, res) => {
   try {
     const { email } = req.body;
@@ -305,13 +365,120 @@ app.post('/cancel-subscription', async (req, res) => {
     // Cancelar la suscripción
     const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId);
 
+    Atlas.updateUser({ status_account: "inactive", end_subscription_date: "ahora mismo" })
+    logger.writeAppLogs("Usuario cancela suscripción.")
+    console.log(`--- ${customer.email} ---`)
+    await axios.put(`http://localhost:3000/cancel-subscription2/${customer.email}`, {
+      status_account: "inactive"
+    })
     res.send({ success: true });
   } catch (error) {
     res.status(400).send({ success: false, error: error.message });
   }
 });
 
+// Ruta para manejar la actualización de usuarios (PUT)
+app.put('/cancel-subscription2/:email', async (req, res) => {
+  const userEmail = req.params.email;
+  const newData = req.body
+  //console.log(`\n\n${JSON.stringify(req.body)}\n\n`)
 
+  console.log(`\n\nUser Email: ${userEmail}, Subscription Cancelled: ${req.body.status_account}\n\n`);
+
+  await Atlas.updateUser({
+    userEmail: userEmail,
+    newData: newData,
+    options: { new: true, runValidators: true }
+  })
+    .then((updatedUser) => {
+      if (!updatedUser) {
+        return res.status(404).send({ message: 'Usuario no encontrado' });
+      }
+      //res.status(200).send(updatedUser);
+      res.status(200).send({ message: 'Usuario actualizado correctamente' });
+      console.log("Usuario actualizado")
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+
+  // Suponiendo que la actualización fue exitosa
+  res.send({ success: true, message: 'Usuario actualizado correctamente' });
+});
+*/
+
+/* A inicio */
+// Ruta para cancelar suscripción basado en correo
+app.post('/cancel-subscription', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Buscar el cliente por correo electrónico
+    const customers = await stripe.customers.list({
+      email: email,
+      limit: 1,
+    });
+
+    if (customers.data.length === 0) {
+      return res.status(400).send({ success: false, error: 'Customer not found' });
+    }
+
+    const customer = customers.data[0];
+
+    // Buscar la suscripción activa del cliente
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      status: 'active',
+      limit: 1,
+    });
+
+    if (subscriptions.data.length === 0) {
+      return res.status(400).send({ success: false, error: 'No active subscription found' });
+    }
+
+    const subscriptionId = subscriptions.data[0].id;
+
+    // Cancelar la suscripción
+    const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId);
+
+    // Actualizar la base de datos del usuario usando la ruta PUT
+    const response = await axios.put(`http://localhost:3000/cancel-subscription2/${customer.email}`, {
+      status_account: "inactive",
+      end_subscription_date: new Date().toISOString(),
+    });
+
+    if (response.status === 200) {
+      res.send({ success: true });
+    } else {
+      res.status(500).send({ success: false, message: 'Failed to update user' });
+    }
+  } catch (error) {
+    res.status(400).send({ success: false, error: error.message });
+  }
+});
+
+// Ruta para manejar la actualización de usuarios (PUT)
+app.put('/cancel-subscription2/:email', async (req, res) => {
+  const userEmail = req.params.email;
+  const newData = req.body;
+
+  try {
+    const updatedUser = await Atlas.updateUser({
+      email: userEmail,
+      newData: newData,
+      options: { new: true, runValidators: true },
+    });
+
+    if (!updatedUser) {
+      return res.status(404).send({ message: 'Usuario no encontrado' });
+    }
+
+    res.status(200).send({ success: true, message: 'Usuario actualizado correctamente' });
+  } catch (err) {
+    res.status(400).send({ success: false, error: err.message });
+  }
+});
+/* A fin */
 
 // Endpoint para manejar el webhook de Stripe
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {
@@ -372,5 +539,5 @@ const server = app.listen(port, () => {
   }
   const port2 = server.address().port;
   globalHost = `http://${host2}:${port2}`
-  console.log(`#2 - Server is listening at http://${host2}:${port2}`);
+  //console.log(`#2 - Server is listening at http://${host2}:${port2}`);
 });

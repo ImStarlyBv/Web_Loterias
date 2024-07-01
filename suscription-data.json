@@ -152,8 +152,8 @@
         "ending_balance": 0,
         "footer": null,
         "from_invoice": null,
-        "hosted_invoice_url": "",
-        "invoice_pdf": "",
+        "hosted_invoice_url": "", // Ver en navegador con link
+        "invoice_pdf": "", // Descargar PDF
         "issuer": {
             "type": "self"
         },
