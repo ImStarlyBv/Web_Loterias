@@ -36,13 +36,14 @@
 
     --red: #d10000;
 
+    /* Validations */
     --valid-bg: #d4edda;
     --valid-color: #155724;
-    --valid-border: 1px solid #c3e6cb;
+    --valid-border: 2px solid var(--green-casino);
 
     --invalid-bg: #f8d7da;
     --invalid-color: #721c24;
-    --invalid-border: 1px solid #f5c6cb;
+    --invalid-border: 2px solid #721c24;
     
     /* Max values */
     /* Height 1200, 1400, >1440<, 1600 */
@@ -170,4 +171,16 @@ p {
     font-weight: bold;
     text-align: center;
     margin: var(--distance-xxl) 0;
+}
+
+.is-invalid {
+    border: var(--invalid-border);
+    background-color: var(--invalid-bg);
+    color: var(--invalid-color);
+}
+
+.is-valid {
+    border: var(--valid-border);
+    background-color: var(--valid-bg);
+    color: var(--valid-color);
 }

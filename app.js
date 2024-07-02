@@ -13,6 +13,7 @@ import axios from 'axios';
 // Implementando pagos
 import Stripe from 'stripe';
 import bodyParser from 'body-parser';
+import { resolveSoa } from 'dns';
 
 // Cargar las variables de entorno
 dotenv.config();
@@ -116,7 +117,7 @@ app.post('/send-email', async (req, res) => {
 
     /* Crear usuario en la DB - Desde aki */
     const date = new Date()
-    
+
     const day = date.getDate() < 10 ?
       "0" + date.getDate() : date.getDate()
     const month = (date.getUTCMonth() + 1) < 10 ?
@@ -144,7 +145,7 @@ app.post('/send-email', async (req, res) => {
         email: to,
         creation_date: actualDateTime,
         confirmation_code: actualConfirmationCode,
-        status_account: "active"
+        status_account: "pending"
       })
       res.status(201).send({
         ok: true,
@@ -176,6 +177,54 @@ app.use('/verify-email', async (req, res) => {
   //res.send('Estas en verify-email');
   res.sendFile(__dirname + '/public/email-confirmation.html');
 });
+
+app.post("/confirmation-code", async (req, res) => {
+  const decodedEmail = Buffer.from(req.body.em, 'base64').toString('utf-8');
+  try {
+    console.log('\n\n')
+    console.log("Confirmando el código del body")
+    console.log(`Code = ${req.body.code}`)
+    console.log(`decodedEmail = ${decodedEmail}`)
+    console.log('\n\n')
+
+    // Actualizar la base de datos del usuario usando la ruta PUT
+    const response = await axios.put(`http://localhost:3000/update-user-status-acc/${decodedEmail}`, {
+      status_account: "active"
+    });
+
+    console.error(`--- response.status = ${response.status}`)
+    if (response.status === 200) {
+      // Jodiendo, est line no va
+      //res.status(404).send({ success: "na na ni na", message: 'Bien - código correcto' });
+      //res.send({ success: "na na ni na", message: 'Bien - código correcto' });
+
+
+      // A partir de aki si
+      const result = await Atlas.confirmationCode({ code: req.body.code, email: decodedEmail })
+
+      console.log(`result = ${result}`)
+      
+      if (result) {
+        //res.status(200).send({ confirmed: true });
+        console.log("EO - 1")
+        //res.send({ success: true });
+        res.status(200).send({ success: true, message: 'Bien - código correcto' });
+      } else {
+        //res.status(404).send({ confirmed: false });
+        console.log("EO - 2")
+        //res.send({ success: false });
+        res.status(200).send({ success: false, message: 'Mal - código incorrecto' });
+      }
+      console.log(`result = ${result}`)
+      //res.send({ success: true });
+    } else {
+      res.status(500).send({ success: false, message: 'Failed to update user' });
+    }
+  }
+  catch (error) {
+    console.log(`Pasa algo aki - error: ${error}`)
+  }
+})
 
 
 
@@ -228,7 +277,6 @@ app.use('/resend-code/:e', async (req, res) => {
     <p style="font-size: 16px;">Si tiene duda o desea comunicarse con nosotros puede hacerlo via <a href="#">nuestro centro de contactos</a> o
         escríbenos al siguiente<a href="#"> correo electrónico</a>.</p>
     `
-
 
   // Cambiar la forma de URL (estática para los ejemplos de desarrollo)
 
@@ -332,83 +380,6 @@ app.get('/cancel', (req, res) => {
 
 
 // Cancelar suscripción con correo
-/*
-app.post('/cancel-subscription', async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    // Buscar el cliente por correo electrónico
-    const customers = await stripe.customers.list({
-      email: email,
-      limit: 1,
-    });
-
-    if (customers.data.length === 0) {
-      return res.status(400).send({ success: false, error: 'Customer not found' });
-    }
-
-    const customer = customers.data[0];
-
-    // Buscar la suscripción activa del cliente
-    const subscriptions = await stripe.subscriptions.list({
-      customer: customer.id,
-      status: 'active',
-      limit: 1,
-    });
-
-    if (subscriptions.data.length === 0) {
-      return res.status(400).send({ success: false, error: 'No active subscription found' });
-    }
-
-    const subscriptionId = subscriptions.data[0].id;
-
-    // Cancelar la suscripción
-    const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId);
-
-    Atlas.updateUser({ status_account: "inactive", end_subscription_date: "ahora mismo" })
-    logger.writeAppLogs("Usuario cancela suscripción.")
-    console.log(`--- ${customer.email} ---`)
-    await axios.put(`http://localhost:3000/cancel-subscription2/${customer.email}`, {
-      status_account: "inactive"
-    })
-    res.send({ success: true });
-  } catch (error) {
-    res.status(400).send({ success: false, error: error.message });
-  }
-});
-
-// Ruta para manejar la actualización de usuarios (PUT)
-app.put('/cancel-subscription2/:email', async (req, res) => {
-  const userEmail = req.params.email;
-  const newData = req.body
-  //console.log(`\n\n${JSON.stringify(req.body)}\n\n`)
-
-  console.log(`\n\nUser Email: ${userEmail}, Subscription Cancelled: ${req.body.status_account}\n\n`);
-
-  await Atlas.updateUser({
-    userEmail: userEmail,
-    newData: newData,
-    options: { new: true, runValidators: true }
-  })
-    .then((updatedUser) => {
-      if (!updatedUser) {
-        return res.status(404).send({ message: 'Usuario no encontrado' });
-      }
-      //res.status(200).send(updatedUser);
-      res.status(200).send({ message: 'Usuario actualizado correctamente' });
-      console.log("Usuario actualizado")
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
-
-  // Suponiendo que la actualización fue exitosa
-  res.send({ success: true, message: 'Usuario actualizado correctamente' });
-});
-*/
-
-/* A inicio */
-// Ruta para cancelar suscripción basado en correo
 app.post('/cancel-subscription', async (req, res) => {
   try {
     const { email } = req.body;
@@ -478,7 +449,29 @@ app.put('/cancel-subscription2/:email', async (req, res) => {
     res.status(400).send({ success: false, error: err.message });
   }
 });
-/* A fin */
+
+// Ruta para manejar la actualización de usuarios (PUT)
+// Hacerlo re-utilizable y quitar incluso el de arriba "/cancel-subscription2/:email"
+app.put('/update-user-status-acc/:email', async (req, res) => {
+  const userEmail = req.params.email;
+  const newData = req.body;
+
+  try {
+    const updatedUser = await Atlas.updateUser({
+      email: userEmail,
+      newData: newData,
+      options: { new: true, runValidators: true },
+    });
+
+    if (!updatedUser) {
+      return res.status(404).send({ message: 'Usuario no encontrado' });
+    }
+
+    res.status(200).send({ success: true, message: 'Usuario actualizado correctamente' });
+  } catch (err) {
+    res.status(400).send({ success: false, error: err.message });
+  }
+});
 
 // Endpoint para manejar el webhook de Stripe
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (request, response) => {

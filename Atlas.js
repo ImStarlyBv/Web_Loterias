@@ -82,7 +82,7 @@ export class Atlas {
             console.log(`\n\nProceso de creación\n\nYa existe una suscripción con este correo.`)
             console.log(`status_account = ${ifExist.status_account}\n\n`)
             //const userEmail = req.params.email;
-            const newData = {status_account: "active"};
+            const newData = { status_account: "active" };
 
             try {
                 const updatedUser = await this.updateUser({
@@ -132,6 +132,28 @@ export class Atlas {
         //this.Usuario.findOneAndUpdate(options.email, options.status_account = "inactive")
         return this.Usuario.findOneAndUpdate(options.userEmail, options.newData, options.options)
 
+    }
+
+    static async confirmationCode({ code, email }) {
+        const userFoundEmail = await this.Usuario.findOne({ email })
+
+        //if (!userFoundEmail) throw new Error("No exist usuario con ese correo para confirmar el código ingresado")
+
+        if (!userFoundEmail) {
+            console.log("\n\nNo exist usuario con ese correo para confirmar el código ingresado\n\n")
+            return
+        }
+
+        console.log(`userFoundEmail = ${userFoundEmail.confirmation_code}`)
+        console.log(`code to validate = ${code}`)
+
+        if (userFoundEmail.confirmation_code === code) {
+            console.log(`\n\n- Confirmar cuenta correcta\n- Cambiar estado de cuenta a "active" \n- Mandarlo a completar info\n\n`)
+            return true
+        } else {
+            console.log("\n\nCódigo invalido\n\n")
+            return false
+        }
     }
 
     static login({ email, pass }) {

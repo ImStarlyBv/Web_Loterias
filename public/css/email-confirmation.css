@@ -79,9 +79,9 @@ footer {
 }
 
 .notification-container {
-    border: 2px solid var(--green-casino);
+    /*border: 2px solid var(--green-casino);
     background-color: var(--valid-bg);
-    color: var(--valid-color);
+    color: var(--valid-color);*/
     margin-top: var(--distance-m);
     padding: var(--distance-s);
     display: none;
