@@ -105,21 +105,19 @@ btnSendCode.addEventListener("click", async (e) => {
             },
             body: JSON.stringify({ code, em })
         })
-            .then(response => {
-                response.text()
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
                 //console.log(`Status = ${response.status}`)
-                console.log(`Result success = ${response.ok}`)
-                console.log(`Result =`)
-                console.log(response)
-                
-                if (response.ok) {
+                console.log(`Result success = ${data.success}`)
+
+                if (data.success) {
                     showMessageNotification("Código valido.", "is-valid")
                 } else {
-                    showMessageNotification("Código invalido.", "is-invalid")                    
+                    showMessageNotification("Código invalido.", "is-invalid")
                 }
                 hideMessageNotification()
-
-                //return response.json()
             })
             .catch(error => {
                 console.error('Error personalizado\nError al confirmar código', error);

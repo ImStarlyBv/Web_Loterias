@@ -187,39 +187,42 @@ app.post("/confirmation-code", async (req, res) => {
     console.log(`decodedEmail = ${decodedEmail}`)
     console.log('\n\n')
 
-    // Actualizar la base de datos del usuario usando la ruta PUT
-    const response = await axios.put(`http://localhost:3000/update-user-status-acc/${decodedEmail}`, {
-      status_account: "active"
-    });
+    // A partir de aki si
+    const result = await Atlas.confirmationCode({ code: req.body.code, email: decodedEmail })
 
-    console.error(`--- response.status = ${response.status}`)
-    if (response.status === 200) {
-      // Jodiendo, est line no va
-      //res.status(404).send({ success: "na na ni na", message: 'Bien - código correcto' });
-      //res.send({ success: "na na ni na", message: 'Bien - código correcto' });
+    console.log(`result = ${result}`)
 
+    if (result) {
+      //res.status(200).send({ confirmed: true });
+      console.log("EO - 1")
+      res.status(200).send({ success: true, message: 'Bien - código correcto' });
+      //res.send({ success: true });
 
-      // A partir de aki si
-      const result = await Atlas.confirmationCode({ code: req.body.code, email: decodedEmail })
+      //
+      // Actualizar la base de datos del usuario usando la ruta PUT
+      const response = await axios.put(`http://localhost:3000/update-user-status-acc/${decodedEmail}`, {
+        status_account: "active"
+      });
 
-      console.log(`result = ${result}`)
-      
-      if (result) {
-        //res.status(200).send({ confirmed: true });
-        console.log("EO - 1")
+      console.error(`--- response.status = ${response.status}`)
+      if (response.status === 200) {
+        // Jodiendo, est line no va
+        //res.status(404).send({ success: "na na ni na", message: 'Bien - código correcto' });
+        //res.send({ success: "na na ni na", message: 'Bien - código correcto' });
         //res.send({ success: true });
-        res.status(200).send({ success: true, message: 'Bien - código correcto' });
-      } else {
-        //res.status(404).send({ confirmed: false });
-        console.log("EO - 2")
-        //res.send({ success: false });
+        //} else {
         res.status(200).send({ success: false, message: 'Mal - código incorrecto' });
       }
-      console.log(`result = ${result}`)
-      //res.send({ success: true });
+      //
+
     } else {
-      res.status(500).send({ success: false, message: 'Failed to update user' });
+      //res.status(404).send({ confirmed: false });
+      console.log("EO - 2")
+      //res.send({ success: false });
+      //res.status(404).send({ success: false, message: 'Failed to update user' });
+      res.send({ success: false, message: 'Failed to update user' });
     }
+
   }
   catch (error) {
     console.log(`Pasa algo aki - error: ${error}`)
