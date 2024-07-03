@@ -21,17 +21,9 @@ const searchLottery = new SearchLottery(fetch);
 fetch.mainResults();
 socket.onmessage = (e) => {
     fetch.mainResults();
-  //  fetch.feedModalWithAlllotteries();
-  const isSuscribe = document.getElementsByClassName("modal-title")[0].innerText =="Suscribete"? true: false;
-  const isShow= document.getElementsByClassName("show").length>0 ? true : false; 
-
-  if(isShow && !isSuscribe ){ fetch.feedModalWithAlllotteries(); } 
+   
 }
- uiControls.modalToggle.addEventListener('hidden.bs.modal', () => {
-  uiControls.modalBody.innerHTML = '';
- console.log("WE RUNNING BABE");
- socket.send("");
-});
+
 
 // Agregar acciones a la UI
 uiControls.btnShowAllLotteries.addEventListener("click", (e) => {
@@ -83,4 +75,3 @@ uiControls.$(".btn-home").addEventListener("click", (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
-

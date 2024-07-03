@@ -66,6 +66,4 @@ export default class LotteryCard {
 return alert
 
    }
- 
-
 }
