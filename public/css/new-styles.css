@@ -17,6 +17,7 @@ body {
     width: var(--distance-total);
 }
 
+
 .search-container {
     /*border: 1px solid green;*/
     width: 100%;
@@ -146,18 +147,106 @@ header a {
 
 /* Alerta de numeros que no han salido */
 
-.alert {
-    /*border: 1px solid red;*/
-    background-color: var(--light);
+.alert{
+    display: flex;
+    font-size: 24px;
+    font-weight: bolder;
+    align-items:center;
+    padding: 0.55rem 0.65rem 0.55rem 0.75rem;
+    border-radius:1rem;
+    min-width:300px;
     justify-content: space-between;
-}
+    margin-bottom: 2rem;
+    box-shadow:
+    0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+    0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+    0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+    0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+    0px 48px 208.9px rgba(0, 0, 0, 0.05),
+    0px 115px 500px rgba(0, 0, 0, 0.07)
+  }
+  .content{
+    display: flex;
+    align-items:center;
+  }
+  .icon{
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border-radius:39% 61% 42% 58% / 50% 51% 49% 50%;
+    box-shadow:
+    0px 3.2px 13.8px rgba(0, 0, 0, 0.02),
+    0px 7.6px 33.3px rgba(0, 0, 0, 0.028),
+    0px 14.4px 62.6px rgba(0, 0, 0, 0.035),
+    0px 25.7px 111.7px rgba(0, 0, 0, 0.042),
+    0px 48px 208.9px rgba(0, 0, 0, 0.05),
+    0px 115px 500px rgba(0, 0, 0, 0.07)
+  }
+  .close{
+    background-color: transparent;
+    border:none;
+    outline:none;
+    transition:all 0.2s ease-in-out;
+    padding: 0.75rem;
+    border-radius:0.5rem;
+    cursor:pointer;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+  }
+  .close:hover{
+    background-color: #fff;
+  }
+  
+  .success{
+    background-color: rgba(62, 189, 97,0.2);
+    border:2px solid #3ebd61;
+  }
+  .success .icon{
+    background-color:#3ebd61;
+  }
+  .info{
+    background-color: rgba(0, 108, 227,0.2);
+    border:2px solid #006CE3;
+  }
+  .info .icon{
+    background-color: #006CE3;
+  }
+  .warning{
+    background-color: rgba(239, 148, 0, 0.2);
+    border:2px solid #EF9400;
+  }
+  .warning .icon{
+    background-color: #EF9400;
+  }
+  
+  .danger{
+    background-color: rgba(236, 77, 43, 0.2);
+    border:2px solid #EF9400;
+  }
+  .danger .icon{
+    background-color: #EC4D2B;
+  }
+
 
 .alert .icon {
     /*border: 1px solid blue;*/
-    animation: alert-icon 1s ease infinite;
-    -webkit-animation: alert-icon 1s ease infinite alternate;
+     animation: alert-icon 1s ease infinite !important;
+    -webkit-animation: alert-icon 1s ease infinite alternate !important;
     margin-bottom: 0 !important;
 }
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
 
 @keyframes alert-icon {
     from {

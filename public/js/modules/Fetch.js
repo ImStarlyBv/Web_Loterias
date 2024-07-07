@@ -94,6 +94,9 @@ export default class Fetch {
 
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.uiControls.tarde("modal-body"));
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.uiControls.noche("modal-body"));
+        $(".close").click(function(){
+            $(this).parent().fadeOut();
+         });
     }
 
     // Resultados principales (loterias mas populares)
@@ -122,6 +125,10 @@ export default class Fetch {
         // Asignar eventos a los elementos con clase "tarde" y "noche"
         Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = (event) => this.uiControls.tarde("Resultados"));
         Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = (event) => this.uiControls.noche("Resultados"));
+        $(".close").click(function(){
+            $(this).parent().fadeOut();
+         });
+      
     }
     async resultsFilter(results, tipo, loterias) {
         // let alerta = document.getElementsByClassName("alerta")[0];

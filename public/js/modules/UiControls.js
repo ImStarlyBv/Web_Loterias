@@ -66,8 +66,8 @@ export default class UiControls {
         let parser = new DOMParser();
         console.log(event.currentTarget.id); 
         let id = event.currentTarget.id;
-
-
+        let alerta = document.getElementById(`alert${id}`);
+     
         // // Guarda una referencia del evento
        
       
@@ -113,10 +113,16 @@ export default class UiControls {
             $resultados.replaceChild(newChild.body.firstChild, childNodesArray[indice]);
             Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => this.tarde(childContainer));
             Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => this.noche(childContainer));
+            $(".close").click(function(){
+                $(this).parent().fadeOut();
+             });
         })
         .catch(error => {
+            let AlertaCont = document.getElementById(`cont${id}`);
+            console.log(AlertaCont);
             console.error(`Error personalizado:\n${error}`);
-            alert("esta loteria no tiene numeros en la tarde")
+            alerta.innerText= "Esta loteria no tiene resultados en la tarde";
+            $(AlertaCont).fadeIn();
         });
         
        
@@ -128,7 +134,8 @@ export default class UiControls {
         let parser = new DOMParser();
         console.log(event.currentTarget.id); 
         let id = event.currentTarget.id;
-
+        let alerta = document.getElementById(`alert${id}`);
+        
 
         // // Guarda una referencia del evento
        
@@ -174,10 +181,23 @@ export default class UiControls {
             $resultados.replaceChild(newChild.body.firstChild, childNodesArray[indice]);
             Array.from(document.getElementsByClassName("tarde")).forEach(x => x.onclick = () => setTimeout(this.tarde(childContainer)));
             Array.from(document.getElementsByClassName("noche")).forEach(x => x.onclick = () => setTimeout(this.noche(childContainer)));
+            $(".close").click(function(){
+                $(this).parent().fadeOut();
+             });
         })
         .catch(error => {
+            let AlertaCont = document.getElementById(`cont${id}`);
+            console.log(AlertaCont);
             console.error(`Error personalizado:\n${error}`);
-            alert("esta loteria no tiene numeros en la noche")
+            alerta.innerText = "Esta loteria no tiene resultados en la noche";
+            
+            // Ensure AlertaCont is defined
+            if (AlertaCont) {
+                $(AlertaCont).fadeIn();
+                console.log("Removed 'hidden' class from AlertaCont");
+            } else {
+                console.error(`AlertaCont element with id cont${id} not found`);
+            }
         });
     
        

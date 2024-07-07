@@ -22,7 +22,7 @@ async tarde(){
  if (!hidden) alerta.classList.add("hidden");
     
  let id =  document.getElementById(event.target.name)
-//  try {
+ try {
  let results = await carlos.fetchingTest();
  
   results = carlos.resultsFilter(results,"tarde",[id.getAttribute('name').split(" ").slice(0,2).join(" ")]);
@@ -55,13 +55,15 @@ async tarde(){
           id.childNodes[1].innerHTML= `Aun no salen los numeros de ${targetName}, esta viendo los resultados de ayer` 
  
        }
-//  }
-//  catch (e){
-//     alerta.classList.remove("hidden");
-//     alerta.innerHTML= (`Esta loteria no tiene numeros en la ${targetName}` )
+ }
+ catch (e){
+    alerta.classList.remove("hidden");
+  
+    alerta.innerHTML=   prompt("guayyy")(`Esta loteria no tiene numeros en la ${targetName}` )
+    prompt("guayyy")
     
     
-//     }
+    }
  
  }
 
@@ -99,6 +101,7 @@ async tarde(){
        }
      }
      catch (e){
+     
        alerta.classList.remove("hidden");
        alerta.innerHTML= (`Esta loteria no tiene numeros en la ${targetName}` )
        
